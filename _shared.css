@@ -307,6 +307,17 @@ details[open] summary::after { transform: rotate(45deg); }
 .warning-box strong { color: var(--danger); }
 .info-box { background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 0.9rem 1.1rem; font-size: 0.83rem; color: var(--muted); margin-bottom: 1.4rem; }
 .info-box strong { color: var(--accent); }
+.info-box a { color: var(--accent); }
+.source-status { display: inline; }
+.section-copy { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.2rem; }
+.section-copy.compact { margin: 0.65rem 0 0.2rem; }
+.action-links { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 0 0 1.5rem; }
+.action-link { display: inline-flex; align-items: center; border-radius: 6px; padding: 0.6rem 0.9rem; background: var(--accent); color: var(--bg); text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+.action-link:hover { background: var(--accent2); }
+.action-link.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent2); }
+.home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
+.feature-list { margin: 0.8rem 0 0 1.1rem; color: var(--muted); font-size: 0.82rem; line-height: 1.65; }
+.feature-list li + li { margin-top: 0.25rem; }
 
 /* CONNECTORS */
 .connectors { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.8rem; }
@@ -345,7 +356,7 @@ details[open] summary::after { transform: rotate(45deg); }
   .mob-nav-toggle { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1.2rem; cursor: pointer; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
   .main { margin-left: 0; }
   .page { padding: 2rem 1.2rem 3rem; }
-  .specs-grid, .charger-grid, .connectors, .score-cards, .nav-cards { grid-template-columns: 1fr; }
+  .specs-grid, .charger-grid, .connectors, .score-cards, .nav-cards, .home-grid { grid-template-columns: 1fr; }
   .calc-inputs, .calc-verdict { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
