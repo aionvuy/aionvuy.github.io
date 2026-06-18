@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAC AION V · Uruguay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0b0e13;
+      --surface:  #131720;
+      --surface2: #1a2030;
+      --border:   #1e2535;
+      --accent:   #00d4ff;
+      --accent2:  #0099bb;
+      --text:     #e2e8f0;
+      --muted:    #7a8aaa;
+      --ok:       #22c55e;
+      --warn:     #f59e0b;
+      --danger:   #ff4d6d;
+      --aion:     #00d4ff;
+      --b10:      #a78bfa;
+      --ex5:      #34d399;
+      --mono:     'Space Mono', monospace;
+      --sans:     'Space Grotesk', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(11,14,19,0.93); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
+    .nav-brand { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.03em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero { padding: 5rem 2rem 4rem; max-width: 960px; margin: 0 auto; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin-bottom: 2.5rem; }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-val { font-family: var(--mono); font-size: 1.7rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.06em; margin-top: 0.3rem; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); }
+    section { max-width: 960px; margin: 0 auto; padding: 4rem 2rem; }
+    .section-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.8rem; }
+    .section-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2rem; }
+
+    /* SPECS */
+    .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .spec-group { background: var(--surface); padding: 1.5rem; }
+    .spec-group-title { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+    .spec-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.45rem 0; border-bottom: 1px solid var(--border); gap: 1rem; }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-key { font-size: 0.82rem; color: var(--muted); flex-shrink: 0; }
+    .spec-val { font-family: var(--mono); font-size: 0.82rem; color: var(--text); text-align: right; }
+    .spec-val.hl { color: var(--accent); }
+
+    /* COMPARATIVA TABLE */
+    .comp-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+    .comp-table { width: 100%; border-collapse: collapse; min-width: 620px; }
+    .comp-table thead tr { background: var(--surface2); }
+    .comp-table th { padding: 0.9rem 1rem; text-align: left; font-size: 0.82rem; font-weight: 700; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .comp-table th:first-child { color: var(--muted); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; min-width: 180px; }
+    .comp-table th.th-aion { color: var(--aion); }
+    .comp-table th.th-b10  { color: var(--b10); }
+    .comp-table th.th-ex5  { color: var(--ex5); }
+    .comp-table .group-row td { background: var(--surface2); color: var(--muted); font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1rem; border-top: 2px solid var(--border); font-weight: 700; }
+    .comp-table tbody tr:not(.group-row) { border-bottom: 1px solid var(--border); }
+    .comp-table tbody tr:not(.group-row):hover { background: rgba(255,255,255,0.02); }
+    .comp-table td { padding: 0.6rem 1rem; font-size: 0.85rem; vertical-align: middle; }
+    .comp-table td:first-child { color: var(--muted); font-size: 0.82rem; }
+    .comp-table td.win-aion { color: var(--aion); font-weight: 600; }
+    .comp-table td.win-b10  { color: var(--b10); font-weight: 600; }
+    .comp-table td.win-ex5  { color: var(--ex5); font-weight: 600; }
+    .comp-table td.win-all  { color: var(--ok); font-weight: 600; }
+    .comp-table td.neutral  { color: var(--text); }
+    .comp-table td.dim      { color: var(--muted); }
+    .winner-badge { display: inline-block; font-family: var(--mono); font-size: 0.6rem; padding: 0.1em 0.4em; border-radius: 3px; margin-left: 0.35rem; vertical-align: middle; }
+    .wb-aion { background: rgba(0,212,255,0.1); color: var(--aion); border: 1px solid rgba(0,212,255,0.25); }
+    .wb-b10  { background: rgba(167,139,250,0.1); color: var(--b10); border: 1px solid rgba(167,139,250,0.25); }
+    .wb-ex5  { background: rgba(52,211,153,0.1); color: var(--ex5); border: 1px solid rgba(52,211,153,0.25); }
+    .wb-all  { background: rgba(34,197,94,0.1); color: var(--ok); border: 1px solid rgba(34,197,94,0.25); }
+
+    /* SCORE CARDS */
+    .score-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .score-card { background: var(--surface); border-radius: 10px; padding: 1.5rem; }
+    .score-card.aion { border-top: 3px solid var(--aion); }
+    .score-card.b10  { border-top: 3px solid var(--b10); }
+    .score-card.ex5  { border-top: 3px solid var(--ex5); }
+    .score-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .score-price { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .score-row { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+    .score-row:last-child { border-bottom: none; }
+    .score-row .slabel { color: var(--muted); }
+    .score-row .sval { font-family: var(--mono); color: var(--text); }
+    .score-row .sval.good { color: var(--ok); }
+    .score-row .sval.warn { color: var(--warn); }
+
+    /* CONNECTORS */
+    .connectors { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .connector-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem; }
+    .connector-type { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .connector-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .connector-detail { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .connector-detail strong { color: var(--text); }
+
+    /* CHARGER SECTION */
+    .charger-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .charger-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.4rem; }
+    .charger-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.8rem; gap: 0.5rem; }
+    .charger-name { font-weight: 700; font-size: 0.95rem; line-height: 1.3; }
+    .badge { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; padding: 0.2em 0.5em; border-radius: 4px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+    .badge-dc { background: rgba(0,212,255,0.12); color: var(--accent); border: 1px solid rgba(0,212,255,0.25); }
+    .badge-ac { background: rgba(34,197,94,0.1); color: var(--ok); border: 1px solid rgba(34,197,94,0.25); }
+    .charger-meta { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
+    .charger-meta span { display: block; }
+    .charger-meta strong { color: var(--text); }
+
+    /* TARIFF TABLE */
+    .tariff-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin-top: 1rem; }
+    .tariff-table th { text-align: left; padding: 0.5rem 0.7rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .tariff-table td { padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border); color: var(--muted); }
+    .tariff-table tr:last-child td { border-bottom: none; }
+    .tariff-table td.val { font-family: var(--mono); color: var(--text); text-align: right; }
+    .tariff-table td.val-accent { font-family: var(--mono); color: var(--accent); font-weight: 700; text-align: right; }
+    .tariff-table td.val-warn   { font-family: var(--mono); color: var(--warn); text-align: right; }
+
+    /* CALCULATOR */
+    .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; }
+    .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.5rem; }
+    .field label { display: block; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .field input, .field select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.65rem 0.9rem; color: var(--text); font-family: var(--mono); font-size: 0.95rem; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
+    .field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
+    .calc-btn { background: var(--accent); color: var(--bg); border: none; border-radius: 6px; padding: 0.75rem 2rem; font-family: var(--sans); font-weight: 700; font-size: 0.9rem; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s; }
+    .calc-btn:hover { background: var(--accent2); }
+    .error-msg { color: var(--danger); font-size: 0.83rem; margin-top: 0.6rem; display: none; }
+    .error-msg.visible { display: block; }
+    .calc-result { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .calc-result.visible { display: block; }
+    .result-summary { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
+    .result-summary strong { color: var(--text); }
+    .result-table-wrap { overflow-x: auto; }
+    .result-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .result-table th { text-align: left; padding: 0.55rem 0.8rem; font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    .result-table th.right { text-align: right; }
+    .result-table td { padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .result-table tr:last-child td { border-bottom: none; }
+    .result-table td.mono { font-family: var(--mono); }
+    .result-table td.right { text-align: right; }
+    .result-table td.cost      { font-family: var(--mono); font-weight: 700; text-align: right; color: var(--text); }
+    .result-table td.cost-best { font-family: var(--mono); font-weight: 700; text-align: right; color: var(--ok); }
+    .result-table td.cost-worst{ font-family: var(--mono); font-weight: 700; text-align: right; color: var(--warn); }
+    .result-table tr.row-best td { background: rgba(34,197,94,0.04); }
+    .tag { display: inline-block; font-size: 0.65rem; font-family: var(--mono); padding: 0.15em 0.4em; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+    .tag-best { background: rgba(34,197,94,0.12); color: var(--ok); border: 1px solid rgba(34,197,94,0.3); }
+    .tag-fast { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.25); }
+    .tag-bal  { background: rgba(245,158,11,0.1); color: var(--warn); border: 1px solid rgba(245,158,11,0.3); }
+    .calc-verdict { margin-top: 1.2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+    .verdict-item { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.9rem 1rem; }
+    .verdict-label { font-size: 0.7rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .verdict-label.v-cheap { color: var(--ok); }
+    .verdict-label.v-fast  { color: var(--accent); }
+    .verdict-label.v-bal   { color: var(--warn); }
+    .verdict-val { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .verdict-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+    details[open] { border-color: var(--accent2); }
+    summary { padding: 1.1rem 1.4rem; cursor: pointer; font-weight: 600; font-size: 0.95rem; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-family: var(--mono); font-size: 1.2rem; color: var(--accent); flex-shrink: 0; transition: transform 0.2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    .faq-body { padding: 1rem 1.4rem 1.2rem; color: var(--muted); font-size: 0.92rem; line-height: 1.7; border-top: 1px solid var(--border); }
+    .faq-body p + p { margin-top: 0.7rem; }
+    .faq-body strong { color: var(--text); }
+    .faq-body code { font-family: var(--mono); background: var(--bg); padding: 0.1em 0.4em; border-radius: 3px; font-size: 0.85em; color: var(--accent); }
+
+    /* BOXES */
+    .warning-box { background: rgba(255,77,109,0.08); border: 1px solid rgba(255,77,109,0.3); border-radius: 8px; padding: 1rem 1.2rem; font-size: 0.85rem; color: #ffb3c1; margin-top: 1.2rem; }
+    .warning-box strong { color: var(--danger); }
+    .info-box { background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 1rem 1.2rem; font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .info-box strong { color: var(--accent); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.8rem; }
+    footer a { color: var(--muted); }
+
+    /* WA BANNER */
+    .wa-banner {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 10px;
+      padding: 0.85rem 1.3rem;
+      color: var(--ok);
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: background 0.2s, border-color 0.2s;
+      max-width: 100%;
+    }
+    .wa-banner:hover { background: rgba(34,197,94,0.14); border-color: rgba(34,197,94,0.5); }
+    .wa-arrow { margin-left: auto; font-family: var(--mono); opacity: 0.7; }
+
+    /* KNOWN ISSUES */
+    .issues-list { display: flex; flex-direction: column; gap: 1rem; }
+    .issue-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem 1.5rem; border-left: 3px solid var(--warn); }
+    .issue-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+    .issue-tag { font-family: var(--mono); font-size: 0.65rem; padding: 0.15em 0.5em; border-radius: 3px; background: rgba(245,158,11,0.12); color: var(--warn); border: 1px solid rgba(245,158,11,0.3); }
+    .issue-body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .issue-body strong { color: var(--text); }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .specs-grid, .charger-grid, .connectors, .score-cards { grid-template-columns: 1fr; }
+      .calc-inputs, .calc-verdict { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">AION V · UY</a>
+  <ul class="nav-links">
+    <li><a href="#specs">Especificaciones</a></li>
+    <li><a href="#comparativa">Comparativa</a></li>
+    <li><a href="#cargadores">Cargadores</a></li>
+    <li><a href="#calculadora">Calculadora</a></li>
+    <li><a href="#problemas">Problemas conocidos</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" style="color:var(--ok); font-weight:700;">Comunidad WA</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Recurso comunitario · Uruguay</p>
+  <h1>GAC <span>AION V</span></h1>
+  <p class="hero-sub">Ficha técnica, comparativa con B10 y EX5 Max, cargadores públicos en Montevideo y calculadora de costo de carga.</p>
+
+  <a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" class="wa-banner">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Comunidad GAC AION V Uruguay · Sumate al grupo de WhatsApp
+    <span class="wa-arrow">→</span>
+  </a>
+
+  <div class="hero-stats">
+    <div class="stat-item"><span class="stat-val">75,26</span><span class="stat-label">kWh · batería</span></div>
+    <div class="stat-item"><span class="stat-val">6,6</span><span class="stat-label">kW · carga AC máx.</span></div>
+    <div class="stat-item"><span class="stat-val">180</span><span class="stat-label">kW · carga DC máx.</span></div>
+    <div class="stat-item"><span class="stat-val">518</span><span class="stat-label">km · autonomía real mixta</span></div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+<!-- ESPECIFICACIONES -->
+<section id="specs">
+  <p class="section-label">Datos técnicos</p>
+  <h2 class="section-title">GAC AION V Max — Especificaciones</h2>
+  <div class="specs-grid">
+    <div class="spec-group">
+      <p class="spec-group-title">Vehículo</p>
+      <div class="spec-row"><span class="spec-key">Largo</span><span class="spec-val">4605 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Ancho</span><span class="spec-val">1854 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Alto</span><span class="spec-val">1686 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Distancia entre ejes</span><span class="spec-val">2775 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Peso orden de marcha</span><span class="spec-val">1970 kg</span></div>
+      <div class="spec-row"><span class="spec-key">Distancia al suelo</span><span class="spec-val">171 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Plazas</span><span class="spec-val">5</span></div>
+      <div class="spec-row"><span class="spec-key">Velocidad máxima</span><span class="spec-val">160 km/h</span></div>
+      <div class="spec-row"><span class="spec-key">Radio de giro</span><span class="spec-val">5,6 m</span></div>
+      <div class="spec-row"><span class="spec-key">Baúl mínimo</span><span class="spec-val">427 L</span></div>
+      <div class="spec-row"><span class="spec-key">Baúl máx. abatido</span><span class="spec-val">978 L</span></div>
+    </div>
+    <div class="spec-group">
+      <p class="spec-group-title">Motor</p>
+      <div class="spec-row"><span class="spec-key">Tipo</span><span class="spec-val">PMSM · imanes perm.</span></div>
+      <div class="spec-row"><span class="spec-key">Tracción</span><span class="spec-val">Delantera (FWD)</span></div>
+      <div class="spec-row"><span class="spec-key">Potencia máxima</span><span class="spec-val hl">150 kW / 200 CV</span></div>
+      <div class="spec-row"><span class="spec-key">Torque máximo</span><span class="spec-val">240 N·m</span></div>
+      <div class="spec-row"><span class="spec-key">0–100 km/h declarado</span><span class="spec-val">7,9 s</span></div>
+      <div class="spec-row"><span class="spec-key">0–100 km/h real (AB.UY)</span><span class="spec-val">8,36 s</span></div>
+      <div class="spec-row"><span class="spec-key">80–110 km/h real</span><span class="spec-val">3,48 s</span></div>
+      <div class="spec-row"><span class="spec-key">Insonorización a 100 km/h</span><span class="spec-val">65 dB</span></div>
+      <div class="spec-row"><span class="spec-key">Suspensión delantera</span><span class="spec-val">McPherson</span></div>
+      <div class="spec-row"><span class="spec-key">Suspensión trasera</span><span class="spec-val">Semi-indep. (brazo torsión)</span></div>
+    </div>
+    <div class="spec-group">
+      <p class="spec-group-title">Batería y carga</p>
+      <div class="spec-row"><span class="spec-key">Tipo</span><span class="spec-val">LFP · CATL</span></div>
+      <div class="spec-row"><span class="spec-key">Capacidad</span><span class="spec-val hl">75,26 kWh</span></div>
+      <div class="spec-row"><span class="spec-key">Autonomía WLTP</span><span class="spec-val">~510 km</span></div>
+      <div class="spec-row"><span class="spec-key">Autonomía EPA/URSEA</span><span class="spec-val">438 km</span></div>
+      <div class="spec-row"><span class="spec-key">Autonomía real mixta (AB.UY)</span><span class="spec-val hl">518 km</span></div>
+      <div class="spec-row"><span class="spec-key">Consumo real ciudad</span><span class="spec-val">13,6 kWh/100 km</span></div>
+      <div class="spec-row"><span class="spec-key">Consumo real ruta</span><span class="spec-val">15,8 kWh/100 km</span></div>
+      <div class="spec-row"><span class="spec-key">Consumo real mixto</span><span class="spec-val">14,7 kWh/100 km</span></div>
+      <div class="spec-row"><span class="spec-key">Carga AC (OBC)</span><span class="spec-val">6,6 kW · Tipo 2</span></div>
+      <div class="spec-row"><span class="spec-key">Carga DC máx.</span><span class="spec-val">180 kW · CCS2</span></div>
+      <div class="spec-row"><span class="spec-key">DC 10–80%</span><span class="spec-val">~24 min</span></div>
+    </div>
+    <div class="spec-group">
+      <p class="spec-group-title">Precio y garantía · Uruguay</p>
+      <div class="spec-row"><span class="spec-key">Precio (USD c/IVA)</span><span class="spec-val hl">$35.490</span></div>
+      <div class="spec-row"><span class="spec-key">Importador</span><span class="spec-val">Lestido</span></div>
+      <div class="spec-row"><span class="spec-key">Garantía vehículo</span><span class="spec-val hl">8 años / 160.000 km</span></div>
+      <div class="spec-row"><span class="spec-key">Garantía batería</span><span class="spec-val hl">8 años / 200.000 km</span></div>
+      <div class="spec-row"><span class="spec-key">Patente año 1 (sin dto)</span><span class="spec-val">$36.498 UYU</span></div>
+      <div class="spec-row"><span class="spec-key">Patente año 1 (contado −20%)</span><span class="spec-val">$29.198 UYU</span></div>
+      <div class="spec-row"><span class="spec-key">Service</span><span class="spec-val">$8.700 / 10.000 km</span></div>
+      <div class="spec-row"><span class="spec-key">Neumáticos</span><span class="spec-val">225/45 R19 Maxxis</span></div>
+      <div class="spec-row"><span class="spec-key">Auxilio</span><span class="spec-val">T125/80 R17 Chao Yang</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- COMPARATIVA -->
+<section id="comparativa">
+  <p class="section-label">Mercado uruguayo · 2025–2026</p>
+  <h2 class="section-title">Comparativa</h2>
+
+  <div class="info-box">
+    Datos de fichas técnicas oficiales Uruguay (Lestido / Santa Rosa / Fiancar), pruebas Autoblog Uruguay y etiquetas URSEA. Actualizado: mayo 2026.
+  </div>
+
+  <!-- SCORE CARDS -->
+  <div class="score-cards">
+    <div class="score-card aion">
+      <div class="score-name">GAC AION V Max</div>
+      <div class="score-price">USD 35.490 · Lestido</div>
+      <div class="score-row"><span class="slabel">Batería</span><span class="sval good">75,26 kWh</span></div>
+      <div class="score-row"><span class="slabel">Carga DC máx.</span><span class="sval good">180 kW</span></div>
+      <div class="score-row"><span class="slabel">Autonomía real mixta</span><span class="sval good">518 km</span></div>
+      <div class="score-row"><span class="slabel">Garantía vehículo</span><span class="sval good">8 a / 160.000 km</span></div>
+      <div class="score-row"><span class="slabel">Potencia</span><span class="sval warn">150 kW</span></div>
+      <div class="score-row"><span class="slabel">Carga AC (OBC)</span><span class="sval warn">6,6 kW</span></div>
+    </div>
+    <div class="score-card b10">
+      <div class="score-name">Leapmotor B10 Design</div>
+      <div class="score-price">USD 33.990 · Santa Rosa</div>
+      <div class="score-row"><span class="slabel">Batería</span><span class="sval warn">67,1 kWh</span></div>
+      <div class="score-row"><span class="slabel">Carga DC máx.</span><span class="sval warn">168 kW</span></div>
+      <div class="score-row"><span class="slabel">Autonomía real mixta</span><span class="sval warn">427 km</span></div>
+      <div class="score-row"><span class="slabel">Garantía vehículo</span><span class="sval warn">3 a / 100.000 km</span></div>
+      <div class="score-row"><span class="slabel">Potencia</span><span class="sval good">160 kW · RWD</span></div>
+      <div class="score-row"><span class="slabel">Carga AC (OBC)</span><span class="sval good">11 kW</span></div>
+    </div>
+    <div class="score-card ex5">
+      <div class="score-name">Geely EX5 Max</div>
+      <div class="score-price">USD 35.990 · Fiancar</div>
+      <div class="score-row"><span class="slabel">Batería</span><span class="sval warn">60,22 kWh</span></div>
+      <div class="score-row"><span class="slabel">Carga DC máx.</span><span class="sval warn">110 kW</span></div>
+      <div class="score-row"><span class="slabel">Autonomía real mixta</span><span class="sval warn">404 km</span></div>
+      <div class="score-row"><span class="slabel">Garantía vehículo</span><span class="sval warn">5 a / 150.000 km</span></div>
+      <div class="score-row"><span class="slabel">Potencia</span><span class="sval good">160 kW · 320 Nm</span></div>
+      <div class="score-row"><span class="slabel">Carga AC (OBC)</span><span class="sval good">11 kW</span></div>
+    </div>
+  </div>
+
+  <!-- FULL TABLE -->
+  <div class="comp-wrap" style="margin-top: 2.5rem;">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Especificación</th>
+          <th class="th-aion">GAC AION V Max</th>
+          <th class="th-b10">Leapmotor B10 Design</th>
+          <th class="th-ex5">Geely EX5 Max</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="group-row"><td colspan="4">Precio y garantía</td></tr>
+        <tr>
+          <td>Precio (USD c/IVA)</td>
+          <td class="neutral">$35.490</td>
+          <td class="win-b10">$33.990 <span class="winner-badge wb-b10">más barato</span></td>
+          <td class="neutral">$35.990</td>
+        </tr>
+        <tr>
+          <td>Importador Uruguay</td>
+          <td class="dim">Lestido</td>
+          <td class="dim">Santa Rosa</td>
+          <td class="dim">Fiancar</td>
+        </tr>
+        <tr>
+          <td>Garantía vehículo</td>
+          <td class="win-aion">8 a / 160.000 km <span class="winner-badge wb-aion">mejor</span></td>
+          <td class="neutral">3 a / 100.000 km</td>
+          <td class="neutral">5 a / 150.000 km</td>
+        </tr>
+        <tr>
+          <td>Garantía batería</td>
+          <td class="win-aion">8 a / 200.000 km <span class="winner-badge wb-aion">mejor</span></td>
+          <td class="neutral">5 a / 100.000 km</td>
+          <td class="neutral">8 a / 150.000 km</td>
+        </tr>
+        <tr>
+          <td>Patente año 1 sin dto. (UYU)</td>
+          <td class="neutral">$36.498</td>
+          <td class="win-b10">$34.279 <span class="winner-badge wb-b10">mejor</span></td>
+          <td class="neutral">$36.295</td>
+        </tr>
+
+        <tr class="group-row"><td colspan="4">Dimensiones</td></tr>
+        <tr>
+          <td>Largo (mm)</td>
+          <td class="neutral">4605</td>
+          <td class="neutral">4515</td>
+          <td class="win-ex5">4615 <span class="winner-badge wb-ex5">mayor</span></td>
+        </tr>
+        <tr>
+          <td>Distancia entre ejes (mm)</td>
+          <td class="win-aion">2775 <span class="winner-badge wb-aion">mayor</span></td>
+          <td class="neutral">2735</td>
+          <td class="neutral">2750</td>
+        </tr>
+        <tr>
+          <td>Peso vacío (kg)</td>
+          <td class="neutral">1970</td>
+          <td class="neutral">1845</td>
+          <td class="win-ex5">1765 <span class="winner-badge wb-ex5">más liviano</span></td>
+        </tr>
+        <tr>
+          <td>Baúl mínimo (L)</td>
+          <td class="neutral">427</td>
+          <td class="neutral">430</td>
+          <td class="win-ex5">461 <span class="winner-badge wb-ex5">mayor</span></td>
+        </tr>
+        <tr>
+          <td>Baúl abatido (L)</td>
+          <td class="neutral">978</td>
+          <td class="neutral">1415</td>
+          <td class="win-ex5">1877 <span class="winner-badge wb-ex5">mayor</span></td>
+        </tr>
+        <tr>
+          <td>Frunk (L)</td>
+          <td class="dim">—</td>
+          <td class="win-b10">25 L <span class="winner-badge wb-b10">solo B10</span></td>
+          <td class="dim">—</td>
+        </tr>
+
+        <tr class="group-row"><td colspan="4">Motor y dinámica</td></tr>
+        <tr>
+          <td>Potencia máxima (kW)</td>
+          <td class="neutral">150 kW</td>
+          <td class="win-b10">160 kW <span class="winner-badge wb-b10">mayor</span></td>
+          <td class="win-ex5">160 kW <span class="winner-badge wb-ex5">mayor</span></td>
+        </tr>
+        <tr>
+          <td>Torque máximo (Nm)</td>
+          <td class="neutral">240</td>
+          <td class="neutral">240</td>
+          <td class="win-ex5">320 <span class="winner-badge wb-ex5">mayor</span></td>
+        </tr>
+        <tr>
+          <td>Tracción</td>
+          <td class="neutral">FWD (delantera)</td>
+          <td class="win-b10">RWD (trasera) <span class="winner-badge wb-b10">mejor dinámica</span></td>
+          <td class="neutral">FWD (delantera)</td>
+        </tr>
+        <tr>
+          <td>0–100 km/h real (AB.UY)</td>
+          <td class="neutral">8,36 s</td>
+          <td class="win-b10">7,60 s <span class="winner-badge wb-b10">más rápido</span></td>
+          <td class="neutral">7,70 s</td>
+        </tr>
+        <tr>
+          <td>Velocidad máxima (km/h)</td>
+          <td class="neutral">160</td>
+          <td class="neutral">170</td>
+          <td class="win-ex5">175 <span class="winner-badge wb-ex5">mayor</span></td>
+        </tr>
+        <tr>
+          <td>Suspensión trasera</td>
+          <td class="neutral">Semi-indep.</td>
+          <td class="win-b10">Paralelogramo def. <span class="winner-badge wb-b10">mejor</span></td>
+          <td class="neutral">Multilink</td>
+        </tr>
+        <tr>
+          <td>Insonorización a 100 km/h</td>
+          <td class="neutral">65 dB</td>
+          <td class="win-b10">63 dB <span class="winner-badge wb-b10">más silencioso</span></td>
+          <td class="win-ex5">63 dB <span class="winner-badge wb-ex5">más silencioso</span></td>
+        </tr>
+
+        <tr class="group-row"><td colspan="4">Batería y carga</td></tr>
+        <tr>
+          <td>Capacidad batería (kWh)</td>
+          <td class="win-aion">75,26 <span class="winner-badge wb-aion">mayor</span></td>
+          <td class="neutral">67,1</td>
+          <td class="neutral">60,22</td>
+        </tr>
+        <tr>
+          <td>Autonomía real mixta (AB.UY)</td>
+          <td class="win-aion">518 km <span class="winner-badge wb-aion">mayor</span></td>
+          <td class="neutral">427 km</td>
+          <td class="neutral">404 km</td>
+        </tr>
+        <tr>
+          <td>Autonomía real ciudad</td>
+          <td class="neutral">560 km</td>
+          <td class="neutral">450 km</td>
+          <td class="win-ex5">459 km · 13,1 kWh/100 <span class="winner-badge wb-ex5">más eficiente</span></td>
+        </tr>
+        <tr>
+          <td>Consumo real ruta</td>
+          <td class="win-aion">15,8 kWh/100 km <span class="winner-badge wb-aion">más eficiente</span></td>
+          <td class="neutral">16,5 kWh/100 km</td>
+          <td class="neutral">16,8 kWh/100 km</td>
+        </tr>
+        <tr>
+          <td>Carga AC — OBC (kW)</td>
+          <td class="neutral">6,6 kW</td>
+          <td class="win-b10">11 kW <span class="winner-badge wb-b10">más rápido AC</span></td>
+          <td class="win-ex5">11 kW <span class="winner-badge wb-ex5">más rápido AC</span></td>
+        </tr>
+        <tr>
+          <td>Carga DC máxima (kW)</td>
+          <td class="win-aion">180 kW <span class="winner-badge wb-aion">mayor</span></td>
+          <td class="neutral">168 kW</td>
+          <td class="neutral">110 kW</td>
+        </tr>
+        <tr>
+          <td>DC 10–80% (min)</td>
+          <td class="win-aion">24 min <span class="winner-badge wb-aion">más rápido</span></td>
+          <td class="neutral">20 min</td>
+          <td class="neutral">28 min</td>
+        </tr>
+
+        <tr class="group-row"><td colspan="4">Seguridad</td></tr>
+        <tr>
+          <td>Crash test Euro NCAP</td>
+          <td class="win-all">5★ <span class="winner-badge wb-all">todos</span></td>
+          <td class="win-all">5★</td>
+          <td class="win-all">5★</td>
+        </tr>
+        <tr>
+          <td>Airbags totales</td>
+          <td class="win-aion">7 <span class="winner-badge wb-aion">igual que B10</span></td>
+          <td class="win-b10">7 <span class="winner-badge wb-b10">igual que AION</span></td>
+          <td class="neutral">6</td>
+        </tr>
+        <tr>
+          <td>Airbag central (entre asientos)</td>
+          <td class="neutral">No</td>
+          <td class="win-b10">Sí <span class="winner-badge wb-b10">solo B10</span></td>
+          <td class="neutral">No</td>
+        </tr>
+
+        <tr class="group-row"><td colspan="4">Equipamiento destacado</td></tr>
+        <tr>
+          <td>V2L (alimentar dispositivos)</td>
+          <td class="neutral">No</td>
+          <td class="win-b10">Sí <span class="winner-badge wb-b10">✓</span></td>
+          <td class="win-ex5">Sí <span class="winner-badge wb-ex5">✓</span></td>
+        </tr>
+        <tr>
+          <td>HUD parabrisas</td>
+          <td class="neutral">No</td>
+          <td class="neutral">No</td>
+          <td class="win-ex5">Sí <span class="winner-badge wb-ex5">solo EX5</span></td>
+        </tr>
+        <tr>
+          <td>Masaje asientos delanteros</td>
+          <td class="win-aion">Sí (8 puntos) <span class="winner-badge wb-aion">✓</span></td>
+          <td class="neutral">No</td>
+          <td class="win-ex5">Sí <span class="winner-badge wb-ex5">✓</span></td>
+        </tr>
+        <tr>
+          <td>Carga inalámbrica smartphone</td>
+          <td class="win-aion">50W <span class="winner-badge wb-aion">más rápido</span></td>
+          <td class="neutral">15W</td>
+          <td class="neutral">Sí (potencia s/d)</td>
+        </tr>
+        <tr>
+          <td>Techo panorámico</td>
+          <td class="win-aion">Apertura eléctrica <span class="winner-badge wb-aion">✓</span></td>
+          <td class="neutral">Fijo (sin apertura)</td>
+          <td class="win-ex5">Apertura eléctrica <span class="winner-badge wb-ex5">✓</span></td>
+        </tr>
+        <tr>
+          <td>Tiradores de puerta</td>
+          <td class="win-aion">Oculto eléctrico <span class="winner-badge wb-aion">✓</span></td>
+          <td class="neutral">Retráctil manual</td>
+          <td class="neutral">Retráctil eléctrico</td>
+        </tr>
+        <tr>
+          <td>Bomba de calor</td>
+          <td class="win-all">Sí <span class="winner-badge wb-all">todos</span></td>
+          <td class="win-all">Sí</td>
+          <td class="win-all">Sí</td>
+        </tr>
+        <tr>
+          <td>Refrigerador en consola</td>
+          <td class="win-aion">Sí <span class="winner-badge wb-aion">solo AION</span></td>
+          <td class="neutral">No</td>
+          <td class="neutral">No</td>
+        </tr>
+        <tr>
+          <td>Conducción un pedal (one-pedal)</td>
+          <td class="neutral">No</td>
+          <td class="win-b10">Sí <span class="winner-badge wb-b10">solo B10</span></td>
+          <td class="neutral">No</td>
+        </tr>
+        <tr>
+          <td>Android Auto</td>
+          <td class="win-aion">Sí (OTA) <span class="winner-badge wb-aion">✓</span></td>
+          <td class="win-b10">Sí (inalámbrico) <span class="winner-badge wb-b10">inalámbrico</span></td>
+          <td class="neutral">Pendiente OTA</td>
+        </tr>
+        <tr>
+          <td>Calefacción volante</td>
+          <td class="neutral">No</td>
+          <td class="win-b10">Sí <span class="winner-badge wb-b10">solo B10</span></td>
+          <td class="neutral">No</td>
+        </tr>
+        <tr>
+          <td>Asientos traseros reclinables</td>
+          <td class="win-aion">Sí (hasta 137°) <span class="winner-badge wb-aion">solo AION</span></td>
+          <td class="neutral">No</td>
+          <td class="neutral">No</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:0.78rem; color:var(--muted); margin-top:1rem;">
+    Fuentes: fichas técnicas oficiales UY (Lestido / Santa Rosa / Fiancar) · pruebas Autoblog Uruguay · etiquetas URSEA/UNIT 1130 · grupos WhatsApp y Telegram EVs Uruguay. Datos sujetos a actualización.
+  </p>
+</section>
+
+<hr class="section-divider" />
+
+<!-- CARGA -->
+<section id="carga">
+  <p class="section-label">Conectores AION V Max</p>
+  <h2 class="section-title">Carga</h2>
+  <div class="connectors">
+    <div class="connector-card">
+      <p class="connector-type">Corriente alterna · AC</p>
+      <p class="connector-name">Tipo 2 · 6,6 kW</p>
+      <p class="connector-detail">
+        Carga domiciliaria y pública lenta/semi-rápida.<br><br>
+        <strong>Potencia máxima del vehículo: 6,6 kW</strong><br>
+        Monofásico · 230 V · hasta 32 A<br><br>
+        Aunque el cargador entregue 7,4 kW, 11 kW o 22 kW, el onboard charger del AION V Max limita la toma a 6,6 kW. Tiempo de carga completa desde wallbox 7,4 kW: ~13 horas.
+      </p>
+    </div>
+    <div class="connector-card">
+      <p class="connector-type">Corriente continua · DC</p>
+      <p class="connector-name">CCS2 · hasta 180 kW</p>
+      <p class="connector-detail">
+        Carga rápida en estaciones públicas.<br><br>
+        <strong>10% → 80% en ~24 minutos</strong><br><br>
+        La potencia real varía por curva de carga, SOC, temperatura y BMS. El tramo de 80% a 100% es considerablemente más lento.
+      </p>
+    </div>
+  </div>
+  <div class="warning-box">
+    <strong>Instalación domiciliaria:</strong> Para cargar a 32 A se requiere circuito dedicado, cable dimensionado por distancia, protección termomagnética, diferencial compatible con VE (Tipo B o Tipo A/F + RDC-DD según normativa UTE Capítulo XXX), puesta a tierra verificada y toma industrial o wallbox. No usar enchufes domésticos comunes para carga continua a alta corriente.
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- CARGADORES PÚBLICOS -->
+<section id="cargadores">
+  <p class="section-label">Montevideo · zona Pocitos / Kibón</p>
+  <h2 class="section-title">Cargadores públicos</h2>
+
+  <div class="info-box">
+    <strong>Nota:</strong> Las tarifas son iguales para todos los cargadores del mismo operador, independientemente de la ubicación. Precios con IVA incluido (22%).
+  </div>
+
+  <p class="spec-group-title" style="margin-bottom:1rem;">eOne · DC 180 kW · CCS2</p>
+  <div class="charger-grid">
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Disco Fresh Market Scosería</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 180 kW</span><span><strong>Distancia:</strong> 1,7 km</span><span><strong>Conector:</strong> CCS2</span></div>
+    </div>
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Disco Av. Italia 1</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 180 kW</span><span><strong>Distancia:</strong> 2,4 km</span><span><strong>Conector:</strong> CCS2</span></div>
+    </div>
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Disco 8 de Octubre y Garibaldi</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 180 kW</span><span><strong>Distancia:</strong> 2,8 km</span><span><strong>Conector:</strong> CCS2</span></div>
+    </div>
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Disco Fresh Market Legrand</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 180 kW</span><span><strong>Distancia:</strong> 4,3 km</span><span><strong>Conector:</strong> CCS2</span></div>
+    </div>
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Axion Carrasco</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 180 kW</span><span><strong>Distancia:</strong> 7,6 km</span><span><strong>Conector:</strong> CCS2</span></div>
+    </div>
+  </div>
+
+  <table class="tariff-table" style="margin-bottom:2.5rem;">
+    <thead><tr><th>Franja horaria</th><th style="text-align:right">Precio/kWh (c/IVA)</th></tr></thead>
+    <tbody>
+      <tr><td>00:00 – 18:00</td><td class="val-accent">$18,30</td></tr>
+      <tr><td>18:00 – 22:00</td><td class="val-warn">$23,85 · horario pico</td></tr>
+      <tr><td>22:00 – 24:00</td><td class="val-accent">$18,30</td></tr>
+    </tbody>
+  </table>
+
+  <p class="spec-group-title" style="margin-bottom:1rem;">UTE · cargadores públicos</p>
+  <div class="charger-grid">
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Electrolinera Leguizamón</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 60 kW y 120 kW</span><span><strong>Conector:</strong> CCS2</span><span><strong>Horario:</strong> 24 h</span></div>
+      <table class="tariff-table" style="margin-top:0.8rem;">
+        <thead><tr><th>Concepto</th><th style="text-align:right">Precio (c/IVA)</th></tr></thead>
+        <tbody>
+          <tr><td>Cargo base</td><td class="val">$132,9 / sesión</td></tr>
+          <tr><td>Energía</td><td class="val-accent">$11,8 / kWh</td></tr>
+          <tr><td>Penalización (tras 20 min)</td><td class="val-warn">$12,3 / min</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Montevideo Shopping</span><span class="badge badge-dc">DC</span></div>
+      <div class="charger-meta"><span><strong>Potencia:</strong> 30 kW</span><span><strong>Conector:</strong> CCS2</span><span><strong>Horario:</strong> 24 h</span></div>
+      <table class="tariff-table" style="margin-top:0.8rem;">
+        <thead><tr><th>Concepto</th><th style="text-align:right">Precio (c/IVA)</th></tr></thead>
+        <tbody>
+          <tr><td>Cargo base</td><td class="val">$132,9 / sesión</td></tr>
+          <tr><td>Espacio privado</td><td class="val">$66,5 / sesión</td></tr>
+          <tr><td>Total fijo</td><td class="val">$199,4 / sesión</td></tr>
+          <tr><td>Energía</td><td class="val-accent">$11,8 / kWh</td></tr>
+          <tr><td>Penalización (tras 20 min)</td><td class="val-warn">$12,3 / min</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charger-card">
+      <div class="charger-header"><span class="charger-name">Parque de la Amistad</span><span class="badge badge-ac">AC</span></div>
+      <div class="charger-meta"><span><strong>Potencia cargador:</strong> 43 kW</span><span><strong>Potencia real AION V Max:</strong> 6,6 kW</span><span><strong>Conector:</strong> Tipo 2</span><span><strong>Horario:</strong> 24 h</span></div>
+      <table class="tariff-table" style="margin-top:0.8rem;">
+        <thead><tr><th>Concepto</th><th style="text-align:right">Precio (c/IVA)</th></tr></thead>
+        <tbody>
+          <tr><td>Cargo base</td><td class="val">$54,8 / sesión</td></tr>
+          <tr><td>Energía</td><td class="val-accent">$10,4 / kWh</td></tr>
+          <tr><td>Penalización (tras 20 min)</td><td class="val-warn">$9,6 / min</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- CALCULADORA -->
+<section id="calculadora">
+  <p class="section-label">Herramienta · AION V Max</p>
+  <h2 class="section-title">Calculadora de carga pública</h2>
+  <div class="calc-card">
+    <div class="calc-inputs">
+      <div class="field"><label>% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20" /></div>
+      <div class="field"><label>% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80" /></div>
+    </div>
+    <button class="calc-btn" onclick="calcular()">Calcular</button>
+    <p class="error-msg" id="error-msg"></p>
+    <div class="calc-result" id="calc-result">
+      <p class="result-summary" id="result-summary"></p>
+      <div class="result-table-wrap">
+        <table class="result-table" id="result-table">
+          <thead>
+            <tr>
+              <th>Cargador</th>
+              <th>Op.</th>
+              <th>Tipo</th>
+              <th>Potencia</th>
+              <th class="right">Franja</th>
+              <th class="right">Costo total</th>
+              <th class="right">Tiempo aprox.</th>
+            </tr>
+          </thead>
+          <tbody id="result-tbody"></tbody>
+        </table>
+      </div>
+      <div class="calc-verdict" id="calc-verdict"></div>
+      <p style="font-size:0.75rem; color:var(--muted); margin-top:1rem;">
+        * Tiempos aproximados. La potencia real en DC varía por SOC, temperatura y curva de carga. El tramo 80%→100% suele ser considerablemente más lento.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<hr class="section-divider" />
+
+<!-- PROBLEMAS CONOCIDOS -->
+<section id="problemas">
+  <p class="section-label">Reportado por la comunidad</p>
+  <h2 class="section-title">Problemas conocidos</h2>
+
+  <div class="info-box">
+    Estos problemas fueron reportados por dueños del AION V Max en Uruguay. No todos los vehículos los presentan. Si experimentás alguno, compartilos en el grupo de WhatsApp de la comunidad para confirmar si es generalizado y si hay solución conocida.
+  </div>
+
+  <div class="issues-list">
+
+    <div class="issue-card">
+      <div class="issue-title">
+        Entrada de tierra por las puertas traseras en calles de balastro
+        <span class="issue-tag">interior</span>
+      </div>
+      <div class="issue-body">
+        Al circular por calles de balastro o ripio, ingresa polvo o tierra por las puertas traseras hacia el interior del vehículo. El sellado de las puertas traseras no parece ser suficiente para este tipo de superficie. <strong>Reportado por varios dueños.</strong> No hay solución oficial confirmada al momento. Algunos usuarios prueban con burletes adicionales.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-title">
+        Ruidos en el tablero, posiblemente contra el parabrisas
+        <span class="issue-tag">interior</span>
+      </div>
+      <div class="issue-body">
+        Se reportan ruidos o traqueteos en la zona del tablero, que parecen originarse en el contacto o rozamiento entre el tablero y el parabrisas. Suelen aparecer con ciertos tipos de superficie o temperatura. <strong>Reportado por varios dueños.</strong> Sin solución definitiva confirmada. Algunos casos se resuelven con espumas o materiales de amortiguación en los puntos de contacto.
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-title">
+        Suspensión trasera hace tope en desniveles pronunciados
+        <span class="issue-tag">suspensión</span>
+      </div>
+      <div class="issue-body">
+        Al pasar por algunos desniveles, la suspensión trasera llega a tope produciendo un golpe seco. Se da principalmente en desniveles abruptos o entradas de cocheras con pendiente pronunciada. La suspensión trasera semi-independiente del AION V Max tiene un recorrido más limitado que una multilink. <strong>Reportado por varios dueños.</strong> Sin solución oficial confirmada. Algunos usuarios reportan que circular a menor velocidad en esos tramos reduce el problema.
+      </div>
+    </div>
+
+  </div>
+
+  <p style="font-size:0.8rem; color:var(--muted); margin-top:1.2rem;">
+    ¿Tenés otro problema para reportar o una solución confirmada? Compartilo en el
+    <a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" style="color:var(--ok);">grupo de WhatsApp</a>.
+  </p>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <p class="section-label">Preguntas frecuentes</p>
+  <h2 class="section-title">FAQ</h2>
+  <div class="faq-list">
+
+    <details>
+      <summary>¿Qué diferencia hay entre el AION V Max y el AION V Plus?</summary>
+      <div class="faq-body">
+        <p>El <strong>AION V Max</strong> es la versión fully equipped que se comercializa en Uruguay desde agosto 2025. Incluye masaje en asientos, techo panorámico con apertura eléctrica, tiradores eléctricos ocultos, carga inalámbrica 50W, refrigerador en consola, asientos traseros reclinables hasta 137°, entre otros.</p>
+        <p>El <strong>AION V Plus</strong> es una versión de menor equipamiento que Lestido planea traer a partir de fines de julio 2026. Se espera que tenga un precio menor. Los detalles exactos de qué equipamiento incluye y cuál es su precio aún no están confirmados públicamente.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿Cuánto tarda en cargar de 20% a 80% en casa?</summary>
+      <div class="faq-body">
+        <p>De 20% a 80% hay que recuperar <strong>60% de la batería</strong>, unos <strong>45,16 kWh</strong>.</p>
+        <p>A la potencia máxima del AION V Max en AC (<strong>6,6 kW</strong>): <code>45,16 / 6,6 ≈ 6,84 h</code>, unas <strong>6 horas 50 minutos</strong>. Con pérdidas típicas del 10%, puede acercarse a 7,5 horas. Para carga completa desde un wallbox de 7,4 kW: aproximadamente <strong>13 horas</strong>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿El cargador público de 22 kW AC carga más rápido al AION V?</summary>
+      <div class="faq-body">
+        <p>No. El AION V Max tiene un onboard charger monofásico limitado a <strong>6,6 kW en AC</strong>. Sin importar la potencia del cargador AC, el auto toma hasta 6,6 kW. El B10 y el EX5 Max, con OBC de 11 kW, sí aprovechan mejor los cargadores AC más potentes.</p>
+        <p>Para aprovechar más potencia en el AION V Max, la opción es un cargador DC (CCS2).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿Cuándo conviene eOne y cuándo conviene UTE?</summary>
+      <div class="faq-body">
+        <p>eOne conviene principalmente cuando el tiempo importa: 180 kW permite cargar 45 kWh en 25–40 minutos vs. 1:30 h en Leguizamón y ~7 h en Parque de la Amistad.</p>
+        <p>En cargas chicas (menos de 10% de batería), eOne fuera de pico puede quedar en precio similar a Parque de la Amistad, porque el cargo fijo de UTE pesa mucho en sesiones cortas. Usá la calculadora para comparar.</p>
+        <p>Evitá eOne de 18:00 a 22:00 salvo que sea urgente: el costo sube un 30% respecto a la franja normal.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿Qué diferencial necesito en la instalación domiciliaria?</summary>
+      <div class="faq-body">
+        <p>Según normativa UTE Capítulo XXX (febrero 2022):</p>
+        <p><strong>Tipo B</strong> (detecta falta AC y DC): válido directamente.</p>
+        <p><strong>Tipo A o Tipo F + RDC-DD (IEC 62955)</strong>: módulo de detección de 6 mA DC, en serie con el diferencial convencional.</p>
+        <p>Los diferenciales estándar Tipo AC no son válidos para este uso. Confirmá siempre con un electricista habilitado y el manual del cargador que vayas a instalar.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿Cuál es el consumo real y la autonomía esperable?</summary>
+      <div class="faq-body">
+        <p>Según la prueba de Autoblog Uruguay (septiembre 2025):</p>
+        <p>Ciudad: <strong>13,6 kWh/100 km → 560 km</strong><br>
+        Ruta: <strong>15,8 kWh/100 km → 482 km</strong><br>
+        Mixto: <strong>14,7 kWh/100 km → 518 km</strong></p>
+        <p>El ciclo oficial WLTP es ~510 km y el NEDC es 602 km. En uso cotidiano con climatización, esperar valores cercanos al mixto real de 14,7 kWh/100 km.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿El AION V Max carga en trifásico?</summary>
+      <div class="faq-body">
+        <p>No. El onboard charger es <strong>monofásico</strong>. Aunque lo conectes a un cargador trifásico, el vehículo usa solo una fase y toma hasta 6,6 kW. No hay ventaja de velocidad en AC con equipos trifásicos.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>¿Cuánto cuesta 1% de batería en carga pública?</summary>
+      <div class="faq-body">
+        <p>1% equivale a <strong>0,7526 kWh</strong>. A las tarifas actuales:</p>
+        <p>eOne fuera de pico: <code>0,7526 × $18,30 ≈ $13,77</code><br>
+        Parque de la Amistad: <code>0,7526 × $10,40 + cargo fijo prorrateado</code><br>
+        UTE Leguizamón: cargo fijo de $132,9 + <code>0,7526 × $11,80 ≈ $8,88</code></p>
+        <p>Para cargas chicas, el cargo fijo de UTE domina. Usá la calculadora para el número exacto.</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<footer>
+  <p>Recurso comunitario no oficial · GAC AION V Uruguay · <a href="https://github.com/aionvuy" target="_blank">github.com/aionvuy</a> · <a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" style="color:var(--ok);">Comunidad WhatsApp</a></p>
+  <p style="margin-top:0.4rem;">Datos: fichas técnicas oficiales UY · Autoblog Uruguay · URSEA · grupos EVs Uruguay. Verificá siempre con fuentes oficiales antes de tomar decisiones eléctricas o de compra.</p>
+</footer>
+
+<script>
+const BATTERY = 75.26;
+const CHARGERS = [
+  { name: 'Parque de la Amistad', op: 'UTE', type: 'AC', powerLabel: '43 kW (auto: 6,6 kW)', franja: '24 h', fixed: 54.8, rate: 10.4, timeKw: 6.6, id: 'parque' },
+  { name: 'Electrolinera Leguizamón', op: 'UTE', type: 'DC', powerLabel: '60 / 120 kW', franja: '24 h', fixed: 132.9, rate: 11.8, timeKw: 90, id: 'legui' },
+  { name: 'Montevideo Shopping', op: 'UTE', type: 'DC', powerLabel: '30 kW', franja: '24 h', fixed: 199.4, rate: 11.8, timeKw: 30, id: 'mvd' },
+  { name: 'eOne (todas las ubicaciones)', op: 'eOne', type: 'DC', powerLabel: '180 kW', franja: '00:00–18:00 y 22:00–24:00', fixed: 0, rate: 18.3, timeKw: 180, id: 'eone-off' },
+  { name: 'eOne (todas las ubicaciones)', op: 'eOne', type: 'DC', powerLabel: '180 kW', franja: '18:00–22:00 · PICO', fixed: 0, rate: 23.85, timeKw: 180, isPeak: true, id: 'eone-peak' }
+];
+
+function formatTime(hours) {
+  const totalMin = Math.round(hours * 60);
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  if (h === 0) return m + ' min';
+  if (m === 0) return h + ' h';
+  return h + ' h ' + m + ' min';
+}
+
+function timeEstimate(kwh, c) {
+  if (c.id === 'eone-off' || c.id === 'eone-peak') {
+    return '~' + formatTime(kwh / 180) + ' – ' + formatTime(kwh / 80);
+  }
+  if (c.id === 'legui') {
+    return '~' + formatTime(kwh / 120) + ' – ' + formatTime(kwh / 60);
+  }
+  return '~' + formatTime(kwh / c.timeKw);
+}
+
+function fmtPesos(n) {
+  return '$' + n.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function calcular() {
+  const errEl = document.getElementById('error-msg');
+  const resultEl = document.getElementById('calc-result');
+  errEl.classList.remove('visible');
+  resultEl.classList.remove('visible');
+
+  const pctStart = parseFloat(document.getElementById('pct-start').value);
+  const pctEnd   = parseFloat(document.getElementById('pct-end').value);
+
+  if (isNaN(pctStart) || isNaN(pctEnd)) { errEl.textContent = 'Ingresá los porcentajes inicial y final.'; errEl.classList.add('visible'); return; }
+  if (pctStart < 0 || pctStart > 99 || pctEnd < 1 || pctEnd > 100) { errEl.textContent = 'Los porcentajes deben estar entre 0% y 100%.'; errEl.classList.add('visible'); return; }
+  if (pctEnd <= pctStart) { errEl.textContent = 'El porcentaje final debe ser mayor que el inicial.'; errEl.classList.add('visible'); return; }
+
+  const kwh = BATTERY * (pctEnd - pctStart) / 100;
+  const rows = CHARGERS.map(c => ({ ...c, cost: c.fixed + c.rate * kwh, kwh }));
+  rows.sort((a, b) => a.cost - b.cost);
+
+  const tbody = document.getElementById('result-tbody');
+  tbody.innerHTML = '';
+  rows.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    if (i === 0) tr.classList.add('row-best');
+    let costClass = i === 0 ? 'cost-best' : (i === rows.length - 1 ? 'cost-worst' : 'cost');
+    let nameExtra = i === 0 ? '<span class="tag tag-best">más barato</span>' : '';
+    let timeNote = (r.type === 'DC' && pctEnd > 80) ? ' *' : '';
+    tr.innerHTML = `
+      <td>${r.name}${nameExtra}</td>
+      <td>${r.op}</td>
+      <td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td>
+      <td class="mono" style="font-size:0.78rem">${r.powerLabel}</td>
+      <td class="right mono" style="font-size:0.78rem">${r.franja}</td>
+      <td class="${costClass}">${fmtPesos(r.cost)}</td>
+      <td class="right mono" style="font-size:0.78rem">${timeEstimate(kwh, r)}${timeNote}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('result-summary').innerHTML =
+    `De <strong>${pctStart}%</strong> a <strong>${pctEnd}%</strong> = <strong>${(pctEnd-pctStart).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong>`;
+
+  const cheapest = rows[0];
+  const fastest = [...rows].sort((a,b) => (a.id==='legui'?kwh/120:kwh/a.timeKw) - (b.id==='legui'?kwh/120:kwh/b.timeKw))[0];
+  const balanced = rows.filter(r => r.type === 'DC' && !r.isPeak)[0] || rows[0];
+
+  document.getElementById('calc-verdict').innerHTML = `
+    <div class="verdict-item"><div class="verdict-label v-cheap">Más barato</div><div class="verdict-val">${cheapest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtPesos(cheapest.cost)} · ${cheapest.franja}</div></div>
+    <div class="verdict-item"><div class="verdict-label v-bal">Mejor equilibrio</div><div class="verdict-val">${balanced.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtPesos(balanced.cost)} · DC</div></div>
+    <div class="verdict-item"><div class="verdict-label v-fast">Más rápido</div><div class="verdict-val">${fastest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtPesos(fastest.cost)} · ${fastest.powerLabel}</div></div>`;
+
+  resultEl.classList.add('visible');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') calcular(); });
+</script>
+</body>
+</html>
