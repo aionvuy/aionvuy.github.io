@@ -1,0 +1,15 @@
+{
+  "year": 2026,
+  "updated_at": "2026-06-18",
+  "source": "https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5",
+  "ac": {
+    "base": 54.8,
+    "energy": 10.4,
+    "idle": 9.6
+  },
+  "dc": {
+    "base": 132.9,
+    "energy": 11.8,
+    "idle": 12.3
+  }
+}

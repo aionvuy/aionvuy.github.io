@@ -31,7 +31,8 @@
 
 <p class="page-eyebrow">Herramienta · AION V Max</p>
 <h1 class="page-title">Calculadora de carga</h1>
-<p class="page-desc">Ingresá el porcentaje inicial y final de batería para ver el costo estimado en cada cargador público, ordenado de menor a mayor.</p>
+<p class="page-desc">Ingresá el porcentaje inicial y final de batería para comparar el costo estimado por tipo de carga. Las tarifas públicas de UTE se actualizan automáticamente desde su sitio oficial.</p>
+<div class="info-box tariff-sync"><strong>UTE:</strong> tarifas <span data-ute-year>2026</span> · <span data-ute-status>cargando datos…</span> · <a href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener">fuente oficial ↗</a></div>
 <div class="calc-card">
   <div class="calc-inputs">
     <div class="field"><label>% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
@@ -44,7 +45,7 @@
     <div class="result-table-wrap">
       <table class="result-table">
         <thead><tr>
-          <th>Cargador</th><th>Op.</th><th>Tipo</th><th>Potencia</th>
+          <th>Modalidad</th><th>Op.</th><th>Tipo</th><th>Potencia</th>
           <th class="right">Franja</th><th class="right">Costo total</th><th class="right">Tiempo aprox.</th>
         </tr></thead>
         <tbody id="result-tbody"></tbody>
@@ -58,15 +59,14 @@
 </div></div>
 <script>
 const BATTERY = 75.26;
-const CHARGERS = [
-  {name:'Parque de la Amistad',op:'UTE',type:'AC',powerLabel:'43 kW (auto: 6,6 kW)',franja:'24 h',fixed:54.8,rate:10.4,timeKw:6.6,id:'parque'},
-  {name:'Electrolinera Leguizamón',op:'UTE',type:'DC',powerLabel:'60 / 120 kW',franja:'24 h',fixed:132.9,rate:11.8,timeKw:90,id:'legui'},
-  {name:'Montevideo Shopping',op:'UTE',type:'DC',powerLabel:'30 kW',franja:'24 h',fixed:199.4,rate:11.8,timeKw:30,id:'mvd'},
+let CHARGERS = [
+  {name:'Red pública UTE · AC',op:'UTE',type:'AC',powerLabel:'auto: máx. 6,6 kW',franja:'tarifa AC',fixed:54.8,rate:10.4,timeKw:6.6,id:'ute-ac'},
+  {name:'Red pública UTE · DC',op:'UTE',type:'DC',powerLabel:'según estación',franja:'tarifa DC',fixed:132.9,rate:11.8,timeKw:null,id:'ute-dc'},
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'00:00–18:00 y 22:00–24:00',fixed:0,rate:18.3,timeKw:180,id:'eone-off'},
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:23.85,timeKw:180,isPeak:true,id:'eone-peak'}
 ];
 function formatTime(h){const m=Math.round(h*60),hh=Math.floor(m/60),mm=m%60;if(hh===0)return mm+' min';if(mm===0)return hh+' h';return hh+' h '+mm+' min';}
-function timeEst(kwh,c){if(c.id==='eone-off'||c.id==='eone-peak')return '~'+formatTime(kwh/180)+' – '+formatTime(kwh/80);if(c.id==='legui')return '~'+formatTime(kwh/120)+' – '+formatTime(kwh/60);return '~'+formatTime(kwh/c.timeKw);}
+function timeEst(kwh,c){if(c.id==='eone-off'||c.id==='eone-peak')return '~'+formatTime(kwh/180)+' – '+formatTime(kwh/80);if(!c.timeKw)return 'según estación';return '~'+formatTime(kwh/c.timeKw);}
 function fmtP(n){return '$'+n.toLocaleString('es-UY',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function calcular(){
   const err=document.getElementById('error-msg'),res=document.getElementById('calc-result');
@@ -89,7 +89,7 @@ function calcular(){
   });
   document.getElementById('result-summary').innerHTML=`De <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong>`;
   const cheapest=rows[0];
-  const fastest=[...rows].sort((a,b)=>(kwh/(a.id==='legui'?120:a.timeKw))-(kwh/(b.id==='legui'?120:b.timeKw)))[0];
+  const fastest=[...rows].filter(r=>r.timeKw).sort((a,b)=>(kwh/a.timeKw)-(kwh/b.timeKw))[0];
   const bal=rows.filter(r=>r.type==='DC'&&!r.isPeak)[0]||rows[0];
   document.getElementById('calc-verdict').innerHTML=`
     <div class="verdict-item"><div class="verdict-label v-cheap">Más barato</div><div class="verdict-val">${cheapest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(cheapest.cost)}</div></div>
@@ -98,5 +98,15 @@ function calcular(){
   res.classList.add('visible');
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter')calcular();});
+function applyTariffs(data){
+  CHARGERS=CHARGERS.map(c=>{
+    if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy};
+    if(c.id==='ute-dc')return {...c,fixed:data.dc.base,rate:data.dc.energy};
+    return c;
+  });
+  renderUteTariffs(data);
+}
 </script>
+<script src="ute-tarifas.js"></script>
+<script>loadUteTariffs(applyTariffs);</script>
 </body></html>

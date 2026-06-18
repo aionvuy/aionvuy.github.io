@@ -29,9 +29,9 @@
 </aside>
 <div class="main"><div class="page">
 
-<p class="page-eyebrow">Montevideo · zona Pocitos / Kibón</p>
+<p class="page-eyebrow">Uruguay · carga pública y en casa</p>
 <h1 class="page-title">Cargadores públicos</h1>
-<p class="page-desc">Cargadores CCS2 y Tipo 2 en Montevideo con tarifas actualizadas. Precios con IVA incluido (22%). Las tarifas son iguales para todos los cargadores del mismo operador.</p>
+<p class="page-desc">Información de carga para el AION V. Consultá la red de UTE para ver ubicaciones, disponibilidad y potencia de cada punto.</p>
 
 <p class="section-label">eOne · DC 180 kW · CCS2</p>
 <h2 class="section-title">eOne</h2>
@@ -53,48 +53,80 @@
 
 <p class="section-label">UTE · cargadores públicos</p>
 <h2 class="section-title">UTE</h2>
+<div class="action-links">
+  <a class="action-link" href="https://www.ute.com.uy/clientes/movilidad-sostenible-principal" target="_blank" rel="noopener">Ver red de carga de UTE ↗</a>
+  <a class="action-link secondary" href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener">Ver precios oficiales ↗</a>
+</div>
 <div class="charger-grid">
   <div class="charger-card">
-    <div class="charger-header"><span class="charger-name">Electrolinera Leguizamón</span><span class="badge badge-dc">DC</span></div>
-    <div class="charger-meta"><span><strong>Potencia:</strong> 60 kW y 120 kW</span><span><strong>Conector:</strong> CCS2</span><span><strong>Horario:</strong> 24 h</span></div>
+    <div class="charger-header"><span class="charger-name">Corriente alterna</span><span class="badge badge-ac">AC</span></div>
+    <div class="charger-meta"><span><strong>Conector habitual:</strong> Tipo 2</span><span><strong>Potencia máxima del AION V:</strong> 6,6 kW</span></div>
     <table class="tariff-table">
       <thead><tr><th>Concepto</th><th style="text-align:right">Precio (c/IVA)</th></tr></thead>
       <tbody>
-        <tr><td>Cargo base</td><td class="val">$132,9 / sesión</td></tr>
-        <tr><td>Energía</td><td class="val-accent">$11,8 / kWh</td></tr>
-        <tr><td>Penalización (tras 20 min)</td><td class="val-warn">$12,3 / min</td></tr>
+        <tr><td>Cargo base</td><td class="val"><span data-ute="ac.base">$54,8</span> / sesión</td></tr>
+        <tr><td>Energía</td><td class="val-accent"><span data-ute="ac.energy">$10,4</span> / kWh</td></tr>
+        <tr><td>Tiempo sin carga (tolerancia 20 min)</td><td class="val-warn"><span data-ute="ac.idle">$9,6</span> / min</td></tr>
       </tbody>
     </table>
   </div>
   <div class="charger-card">
-    <div class="charger-header"><span class="charger-name">Montevideo Shopping</span><span class="badge badge-dc">DC</span></div>
-    <div class="charger-meta"><span><strong>Potencia:</strong> 30 kW</span><span><strong>Conector:</strong> CCS2</span><span><strong>Horario:</strong> 24 h</span></div>
+    <div class="charger-header"><span class="charger-name">Corriente continua</span><span class="badge badge-dc">DC</span></div>
+    <div class="charger-meta"><span><strong>Conector habitual:</strong> CCS2</span><span><strong>Potencia:</strong> depende del punto de carga</span></div>
     <table class="tariff-table">
       <thead><tr><th>Concepto</th><th style="text-align:right">Precio (c/IVA)</th></tr></thead>
       <tbody>
-        <tr><td>Cargo base</td><td class="val">$132,9 / sesión</td></tr>
-        <tr><td>Espacio privado</td><td class="val">$66,5 / sesión</td></tr>
-        <tr><td>Total fijo</td><td class="val">$199,4 / sesión</td></tr>
-        <tr><td>Energía</td><td class="val-accent">$11,8 / kWh</td></tr>
-        <tr><td>Penalización (tras 20 min)</td><td class="val-warn">$12,3 / min</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="charger-card">
-    <div class="charger-header"><span class="charger-name">Parque de la Amistad</span><span class="badge badge-ac">AC</span></div>
-    <div class="charger-meta"><span><strong>Potencia cargador:</strong> 43 kW</span><span><strong>Potencia real AION V:</strong> 6,6 kW</span><span><strong>Conector:</strong> Tipo 2</span><span><strong>Horario:</strong> 24 h</span></div>
-    <table class="tariff-table">
-      <thead><tr><th>Concepto</th><th style="text-align:right">Precio (c/IVA)</th></tr></thead>
-      <tbody>
-        <tr><td>Cargo base</td><td class="val">$54,8 / sesión</td></tr>
-        <tr><td>Energía</td><td class="val-accent">$10,4 / kWh</td></tr>
-        <tr><td>Penalización (tras 20 min)</td><td class="val-warn">$9,6 / min</td></tr>
+        <tr><td>Cargo base</td><td class="val"><span data-ute="dc.base">$132,9</span> / sesión</td></tr>
+        <tr><td>Energía</td><td class="val-accent"><span data-ute="dc.energy">$11,8</span> / kWh</td></tr>
+        <tr><td>Tiempo sin carga (tolerancia 20 min)</td><td class="val-warn"><span data-ute="dc.idle">$12,3</span> / min</td></tr>
       </tbody>
     </table>
   </div>
 </div>
-<p style="font-size:0.75rem;color:var(--muted);">Para calcular el costo de una carga específica, usá la <a href="calculadora.html" style="color:var(--accent);">calculadora</a>.</p>
+<div class="info-box"><strong>Tarifas UTE:</strong> precios con IVA incluido para <span data-ute-year>2026</span>. Se actualizan automáticamente desde UTE. En predios privados pueden existir cargos adicionales. <span class="source-status" data-ute-status></span></div>
+
+<p class="section-label">App oficial</p>
+<h2 class="section-title">UTE Mueve</h2>
+<p class="section-copy">Usá UTE Mueve para localizar puntos, consultar su estado y gestionar la carga.</p>
+<div class="action-links">
+  <a class="action-link" href="https://play.google.com/store/apps/details?id=movilidad.ute.com.ute_movilidad_app&amp;hl=es_UY" target="_blank" rel="noopener">Descargar para Android ↗</a>
+  <a class="action-link secondary" href="https://apps.apple.com/uy/app/ute-mueve/id1463591379" target="_blank" rel="noopener">Descargar para iPhone ↗</a>
+</div>
+
+<hr class="section-divider">
+<p class="section-label">Carga domiciliaria · guía UTE</p>
+<h2 class="section-title">Cargar el auto en casa</h2>
+<p class="section-copy">UTE recomienda consultar a un Técnico Instalador para adaptar la instalación. Su guía para una carga domiciliaria de hasta 16 A indica circuito protegido, puesta a tierra y componentes adecuados.</p>
+<div class="home-grid">
+  <div class="charger-card">
+    <div class="charger-name">Instalación recomendada por UTE</div>
+    <ul class="feature-list">
+      <li>Interruptor auto-termomagnético de más de 16 A.</li>
+      <li>Interruptor auto-diferencial Tipo A, residual menor a 30 mA.</li>
+      <li>Interruptor bipolar de 16 A.</li>
+      <li>Tomacorriente Schuko de hasta 250 V y 16 A en AC.</li>
+      <li>Conductores de al menos 2 mm² en cobre o 4 mm² en aluminio.</li>
+    </ul>
+  </div>
+  <div class="charger-card">
+    <div class="charger-name">Tarifa Residencial Triple Horario</div>
+    <p class="section-copy compact">UTE recomienda cargar en horario Valle, la franja más económica.</p>
+    <table class="tariff-table">
+      <tbody>
+        <tr><td>Valle · 00:00–07:00</td><td class="val-accent">$2,98 / kWh</td></tr>
+        <tr><td>Llano · resto del día</td><td class="val">$6,31 / kWh</td></tr>
+        <tr><td>Punta · 4 h entre 17:00–23:00</td><td class="val-warn">$14,68 / kWh</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="action-links">
+  <a class="action-link" href="https://portal.ute.com.uy/movilidad-sostenible-clientes#tab-3009-1" target="_blank" rel="noopener">Ver guía completa de UTE ↗</a>
+  <a class="action-link secondary" href="calculadora.html">Calcular una carga</a>
+</div>
 
 </div></div>
 
+<script src="ute-tarifas.js"></script>
+<script>loadUteTariffs(renderUteTariffs);</script>
 </body></html>
