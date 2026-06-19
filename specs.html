@@ -1,115 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="_shared.css"/>
-  <title>Especificaciones · AION V UY</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link rel="stylesheet" href="_shared.css"/>
+<title>Especificaciones · AION V UY</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
 <aside class="sidebar">
 <div class="sidebar-brand"><a href="index.html">AION V · UY</a><div class="brand-sub">Recurso comunitario · Uruguay</div></div>
-<nav class="sidebar-nav" id="sidebar-nav">
+<nav class="sidebar-nav" id="sidebar-nav" aria-label="Navegación principal">
 <div class="nav-group-label">Vehículo</div>
-<a href="index.html" class=""><span class="nav-icon">⌂</span> Inicio</a>
-<a href="specs.html" class="active"><span class="nav-icon">◈</span> Especificaciones</a>
-<a href="comparativa.html" class=""><span class="nav-icon">⇄</span> Comparativa</a>
+<a href="index.html"><span class="nav-icon">🏠</span> Inicio</a>
+<a href="specs.html" class="active" aria-current="page"><span class="nav-icon">🚙</span> Especificaciones</a>
+<a href="comparativa.html"><span class="nav-icon">⚖️</span> Comparativa</a>
 <div class="nav-group-label">Carga</div>
-<a href="cargadores.html" class=""><span class="nav-icon">⚡</span> Cargadores</a>
-<a href="calculadora.html" class=""><span class="nav-icon">⊞</span> Calculadora</a>
+<a href="cargadores.html"><span class="nav-icon">⚡</span> Cargadores</a>
+<a href="calculadora.html"><span class="nav-icon">🧮</span> Calculadora</a>
+<div class="nav-group-label">Propiedad</div>
+<a href="red.html"><span class="nav-icon">📍</span> Red GAC</a>
+<a href="servicios.html"><span class="nav-icon">🔧</span> Services</a>
+<a href="costos.html"><span class="nav-icon">💳</span> Costos</a>
 <div class="nav-group-label">Comunidad</div>
-<a href="problemas.html" class=""><span class="nav-icon">△</span> Problemas conocidos</a>
-<a href="faq.html" class=""><span class="nav-icon">?</span> FAQ</a>
+<a href="problemas.html"><span class="nav-icon">⚠️</span> Problemas conocidos</a>
+<a href="faq.html"><span class="nav-icon">❓</span> FAQ</a>
 </nav>
-<div class="mob-nav-toggle" onclick="document.getElementById('sidebar-nav').classList.toggle('open')">Menú ☰</div>
-<div class="sidebar-wa"><a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Comunidad WhatsApp</a></div>
+<button type="button" class="mob-nav-toggle" aria-controls="sidebar-nav" aria-expanded="false" onclick="const n=document.getElementById('sidebar-nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menú ☰</button>
+<div class="sidebar-wa"><a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" rel="noopener">💬 Sugerí cambios por WhatsApp</a></div>
 </aside>
-<div class="main"><div class="page">
+<main class="main" id="main-content"><div class="page">
+<p class="page-eyebrow">🚙 Ficha oficial Uruguay</p>
+<h1 class="page-title">AION V Plus y Max</h1>
+<p class="page-desc">Datos publicados en la ficha técnica oficial de GAC Uruguay. Cuando una fuente secundaria contradice la ficha, se prioriza la ficha oficial.</p>
+<div class="action-links"><a class="action-link" href="https://www.gacmotor.uy/admin/imagenes/vehiculos/10/dca9c6040eccaead8161fdc255e0b042.pdf" target="_blank" rel="noopener">Abrir ficha técnica oficial ↗</a></div>
 
-<p class="page-eyebrow">Datos técnicos</p>
-<h1 class="page-title">Especificaciones</h1>
-<p class="page-desc">Ficha técnica del GAC AION V Max. Datos de fichas oficiales Uruguay (Lestido) y prueba Autoblog Uruguay (septiembre 2025).</p>
-
-<div class="specs-grid">
-  <div class="spec-group">
-    <p class="spec-group-title">Vehículo</p>
-    <div class="spec-row"><span class="spec-key">Largo</span><span class="spec-val">4605 mm</span></div>
-    <div class="spec-row"><span class="spec-key">Ancho</span><span class="spec-val">1854 mm</span></div>
-    <div class="spec-row"><span class="spec-key">Alto</span><span class="spec-val">1686 mm</span></div>
-    <div class="spec-row"><span class="spec-key">Distancia entre ejes</span><span class="spec-val">2775 mm</span></div>
-    <div class="spec-row"><span class="spec-key">Peso orden de marcha</span><span class="spec-val">1970 kg</span></div>
-    <div class="spec-row"><span class="spec-key">Distancia al suelo</span><span class="spec-val">171 mm</span></div>
-    <div class="spec-row"><span class="spec-key">Plazas</span><span class="spec-val">5</span></div>
-    <div class="spec-row"><span class="spec-key">Velocidad máxima</span><span class="spec-val">160 km/h</span></div>
-    <div class="spec-row"><span class="spec-key">Radio de giro</span><span class="spec-val">5,6 m</span></div>
-    <div class="spec-row"><span class="spec-key">Baúl mínimo</span><span class="spec-val">427 L</span></div>
-    <div class="spec-row"><span class="spec-key">Baúl máx. abatido</span><span class="spec-val">978 L</span></div>
-    <div class="spec-row"><span class="spec-key">Neumáticos</span><span class="spec-val">225/45 R19 Maxxis</span></div>
-    <div class="spec-row"><span class="spec-key">Auxilio</span><span class="spec-val">T125/80 R17 Chao Yang</span></div>
-  </div>
-  <div class="spec-group">
-    <p class="spec-group-title">Motor</p>
-    <div class="spec-row"><span class="spec-key">Tipo</span><span class="spec-val">PMSM · imanes perm.</span></div>
-    <div class="spec-row"><span class="spec-key">Tracción</span><span class="spec-val">Delantera (FWD)</span></div>
-    <div class="spec-row"><span class="spec-key">Potencia máxima</span><span class="spec-val hl">150 kW / 200 CV</span></div>
-    <div class="spec-row"><span class="spec-key">Torque máximo</span><span class="spec-val">240 N·m</span></div>
-    <div class="spec-row"><span class="spec-key">0–100 declarado</span><span class="spec-val">7,9 s</span></div>
-    <div class="spec-row"><span class="spec-key">0–100 real (AB.UY)</span><span class="spec-val">8,36 s</span></div>
-    <div class="spec-row"><span class="spec-key">80–110 real</span><span class="spec-val">3,48 s</span></div>
-    <div class="spec-row"><span class="spec-key">Insonorización 100 km/h</span><span class="spec-val">65 dB</span></div>
-    <div class="spec-row"><span class="spec-key">Suspensión delantera</span><span class="spec-val">McPherson</span></div>
-    <div class="spec-row"><span class="spec-key">Suspensión trasera</span><span class="spec-val">Semi-indep.</span></div>
-  </div>
-  <div class="spec-group">
-    <p class="spec-group-title">Batería y carga</p>
-    <div class="spec-row"><span class="spec-key">Tipo</span><span class="spec-val">LFP · CATL</span></div>
-    <div class="spec-row"><span class="spec-key">Capacidad</span><span class="spec-val hl">75,26 kWh</span></div>
-    <div class="spec-row"><span class="spec-key">Autonomía WLTP</span><span class="spec-val">~510 km</span></div>
-    <div class="spec-row"><span class="spec-key">Autonomía EPA/URSEA</span><span class="spec-val">438 km</span></div>
-    <div class="spec-row"><span class="spec-key">Autonomía real ciudad</span><span class="spec-val">560 km · 13,6 kWh/100</span></div>
-    <div class="spec-row"><span class="spec-key">Autonomía real ruta</span><span class="spec-val">482 km · 15,8 kWh/100</span></div>
-    <div class="spec-row"><span class="spec-key">Autonomía real mixta</span><span class="spec-val hl">518 km · 14,7 kWh/100</span></div>
-    <div class="spec-row"><span class="spec-key">Carga AC (OBC)</span><span class="spec-val">6,6 kW · Tipo 2</span></div>
-    <div class="spec-row"><span class="spec-key">Carga DC máx.</span><span class="spec-val hl">180 kW · CCS2</span></div>
-    <div class="spec-row"><span class="spec-key">DC 10–80%</span><span class="spec-val">~24 min</span></div>
-    <div class="spec-row"><span class="spec-key">Wallbox completo (~13h)</span><span class="spec-val">7,4 kW</span></div>
-  </div>
-  <div class="spec-group">
-    <p class="spec-group-title">Precio y garantía · Uruguay</p>
-    <div class="spec-row"><span class="spec-key">Precio (USD c/IVA)</span><span class="spec-val hl">$35.490</span></div>
-    <div class="spec-row"><span class="spec-key">Importador</span><span class="spec-val">Lestido</span></div>
-    <div class="spec-row"><span class="spec-key">Garantía vehículo</span><span class="spec-val hl">8 años / 160.000 km</span></div>
-    <div class="spec-row"><span class="spec-key">Garantía batería</span><span class="spec-val hl">8 años / 200.000 km</span></div>
-    <div class="spec-row"><span class="spec-key">Patente año 1 sin dto.</span><span class="spec-val">$36.498 UYU</span></div>
-    <div class="spec-row"><span class="spec-key">Patente año 1 contado −20%</span><span class="spec-val">$29.198 UYU</span></div>
-    <div class="spec-row"><span class="spec-key">Service</span><span class="spec-val">$8.700 / 10.000 km o 1 año</span></div>
-  </div>
+<div class="version-grid">
+<article class="version-card">
+<h2>AION V Plus</h2>
+<p class="version-price">USD 27.990 preventa · luego USD 28.990</p>
+<ul class="key-list">
+<li><span>Potencia</span><strong>135 kW · 181 cv</strong></li>
+<li><span>Torque</span><strong>240 Nm</strong></li>
+<li><span>Batería</span><strong>64,5 kWh · LFP</strong></li>
+<li><span>Autonomía</span><strong>505 km NEDC</strong></li>
+<li><span>Carga AC</span><strong>6,6 kW · Tipo 2</strong></li>
+<li><span>Carga DC</span><strong>hasta 150 kW · CCS2</strong></li>
+<li><span>DC 10–80%</span><strong>24 min</strong></li>
+</ul>
+</article>
+<article class="version-card">
+<h2>AION V Max</h2>
+<p class="version-price">USD 35.490</p>
+<ul class="key-list">
+<li><span>Potencia</span><strong>150 kW · 201 cv</strong></li>
+<li><span>Torque</span><strong>240 Nm</strong></li>
+<li><span>Batería</span><strong>75,26 kWh · LFP</strong></li>
+<li><span>Autonomía</span><strong>602 km NEDC</strong></li>
+<li><span>Carga AC</span><strong>6,6 kW · Tipo 2</strong></li>
+<li><span>Carga DC</span><strong>hasta 180 kW · CCS2</strong></li>
+<li><span>DC 10–80%</span><strong>24 min</strong></li>
+</ul>
+</article>
 </div>
 
 <hr class="section-divider"/>
-<p class="section-label">Carga domiciliaria</p>
-<h2 class="section-title">Conectores</h2>
-<div class="connectors">
-  <div class="connector-card">
-    <p class="connector-type">Corriente alterna · AC</p>
-    <p class="connector-name">Tipo 2 · 6,6 kW</p>
-    <p class="connector-detail">Carga domiciliaria y pública lenta/semi-rápida.<br><br>
-    <strong>Potencia máxima del vehículo: 6,6 kW</strong><br>Monofásico · 230 V · hasta 32 A<br><br>
-    Aunque el cargador entregue 7,4 kW, 11 kW o 22 kW, el onboard charger limita la toma a 6,6 kW. Carga completa desde wallbox 7,4 kW: ~13 horas.</p>
-  </div>
-  <div class="connector-card">
-    <p class="connector-type">Corriente continua · DC</p>
-    <p class="connector-name">CCS2 · hasta 180 kW</p>
-    <p class="connector-detail">Carga rápida en estaciones públicas.<br><br>
-    <strong>10% → 80% en ~24 minutos</strong><br><br>
-    La potencia real varía por curva de carga, SOC, temperatura y BMS. El tramo de 80% a 100% es considerablemente más lento.</p>
-  </div>
+<p class="section-label">📐 Dimensiones compartidas</p>
+<h2 class="section-title">Carrocería y capacidad</h2>
+<div class="specs-grid">
+<div class="spec-group">
+<p class="spec-group-title">Dimensiones</p>
+<div class="spec-row"><span class="spec-key">Largo × ancho × alto</span><span class="spec-val">4605 × 1854 × 1686 mm</span></div>
+<div class="spec-row"><span class="spec-key">Distancia entre ejes</span><span class="spec-val">2775 mm</span></div>
+<div class="spec-row"><span class="spec-key">Despeje</span><span class="spec-val">171 mm</span></div>
+<div class="spec-row"><span class="spec-key">Pasajeros</span><span class="spec-val">5</span></div>
 </div>
-<div class="warning-box"><strong>Instalación domiciliaria:</strong> UTE recomienda consultar a un Técnico Instalador. Para su esquema de carga de hasta 16 A indica protección auto-termomagnética, diferencial Tipo A menor a 30 mA, interruptor bipolar, tomacorriente Schuko y conductores de al menos 2 mm² en cobre o 4 mm² en aluminio. <a href="https://portal.ute.com.uy/movilidad-sostenible-clientes#tab-3009-1" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Ver guía oficial ↗</a></div>
+<div class="spec-group">
+<p class="spec-group-title">Capacidad</p>
+<div class="spec-row"><span class="spec-key">Baúl</span><span class="spec-val">427 L</span></div>
+<div class="spec-row"><span class="spec-key">Baúl con asientos abatidos</span><span class="spec-val">978 L</span></div>
+<div class="spec-row"><span class="spec-key">Respaldos traseros</span><span class="spec-val">60:40 · hasta 137°</span></div>
+<div class="spec-row"><span class="spec-key">Llantas</span><span class="spec-val">19″ · 225/45 R19</span></div>
+</div>
+</div>
 
-</div></div>
+<hr class="section-divider"/>
+<p class="section-label">✨ Equipamiento</p>
+<h2 class="section-title">Diferencias principales</h2>
+<div class="responsive-table">
+<table class="simple-table">
+<thead><tr><th>Elemento</th><th>Plus</th><th>Max</th></tr></thead>
+<tbody>
+<tr><td>Tapizado</td><td>Eco-cuero</td><td>Cuero genuino y eco-cuero</td></tr>
+<tr><td>Masaje en asientos delanteros</td><td>—</td><td>Incluido</td></tr>
+<tr><td>Refrigerador del vehículo</td><td>—</td><td>Incluido</td></tr>
+<tr><td>Confort compartido</td><td colspan="2">9 parlantes, climatizador bi-zona, Apple CarPlay/Android Auto/Bluetooth, calefacción y ventilación delanteras, cargador inalámbrico, iluminación ambiental y techo panorámico.</td></tr>
+<tr><td>Seguridad compartida</td><td colspan="2">7 airbags, cámara 360°, ABS/EBD/HBA, ESP, AutoHold, sensores delanteros y traseros, TPMS y asistencias ADAS publicadas en la ficha.</td></tr>
+</tbody>
+</table>
+</div>
 
+<hr class="section-divider"/>
+<p class="section-label">🔋 Detalle de la versión Plus</p>
+<h2 class="section-title">Mecánica y eficiencia</h2>
+<div class="cost-grid">
+<article class="cost-card"><h3>Prestaciones</h3><ul class="bullet-list"><li>Motor síncrono de imanes permanentes y tracción delantera.</li><li>135 kW (181 cv) y 240 Nm.</li><li>0–100 km/h en 7,9 s y velocidad máxima de 160 km/h.</li><li>Consumo declarado: 12,8 kWh/100 km NEDC.</li><li>Peso en vacío: 1.840 kg.</li></ul></article>
+<article class="cost-card"><h3>Chasis y carga</h3><ul class="bullet-list"><li>McPherson delantero y brazo de torsión semi-independiente trasero.</li><li>Discos ventilados delanteros y sólidos traseros.</li><li>Batería CATL LFP de 64,5 kWh.</li><li>AC hasta 6,6 kW; DC hasta 150 kW.</li><li>Conectores Tipo 2 y CCS2.</li></ul></article>
+</div>
+
+<h2 class="section-title" style="margin-top:2rem;">Seguridad y asistencias publicadas</h2>
+<p class="section-copy">Siete airbags, ABS/EBD/HBA, ASR, ESC, HDC, HHC, TPMS, cámara 360° 3D y sensores delanteros/traseros. Las asistencias incluyen ACC, ICA, AEB, FCW, DOW, RCW, RCTA, TSR, BSD, IHBC, ELKA, LDP y LDW.</p>
+
+<h2 class="section-title">Confort destacado de la Plus</h2>
+<p class="section-copy">Pantallas de 8,8″ y 14,6″, Apple CarPlay, audio ADiGO de 9 parlantes, climatizador bi-zona, asientos delanteros eléctricos con memorias, calefacción y ventilación, techo panorámico, cargador inalámbrico de 50 W, portón eléctrico, bomba de calor, iluminación ambiental y V2L de 3,3 kW.</p>
+
+<div class="info-box" style="margin-top:1.4rem;"><strong>Garantía oficial:</strong> 8 años o 160.000 km, lo que ocurra primero.</div>
+</div></main>
 </body></html>

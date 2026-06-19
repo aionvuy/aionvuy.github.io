@@ -1,0 +1,76 @@
+{
+  "updated_at": "2026-06-18",
+  "source": "https://eone.eco/puntos-de-carga/",
+  "points": [
+    {
+      "name": "CarOne Center",
+      "address": "Acceso por Adela Reta.",
+      "map": "https://maps.app.goo.gl/DtAi5ek8GLKjRApf7"
+    },
+    {
+      "name": "Axion Carrasco",
+      "address": "Rambla y Puntas de Santiago.",
+      "map": "https://maps.app.goo.gl/rnZdixWYsgkuibM16"
+    },
+    {
+      "name": "Géant",
+      "address": "Giannattasio y Av. a la Playa.",
+      "map": "https://maps.app.goo.gl/MXAT4yqCmjoNmxap8"
+    },
+    {
+      "name": "Disco",
+      "address": "Av Italia y Magariños Cervantes.",
+      "map": "https://maps.app.goo.gl/XfiXMsJht2i4i4Xm6"
+    },
+    {
+      "name": "Disco",
+      "address": "8 de Octubre y Garibaldi.",
+      "map": "https://maps.app.goo.gl/cKCKaT9fU7ia2tS59"
+    },
+    {
+      "name": "Parador Fito",
+      "address": "Ruta 8 km 61,5",
+      "map": "https://maps.app.goo.gl/iZx24iyaW35XHcqZ7"
+    },
+    {
+      "name": "Axion PDE",
+      "address": "Calle 20 y Calle 30",
+      "map": "https://maps.app.goo.gl/SQi4DDiHZYjdoRrb6"
+    },
+    {
+      "name": "Axion Valdense",
+      "address": "Ruta 1 Vieja y Av. Gral. Artigas",
+      "map": "https://maps.app.goo.gl/7SPkH4y9nMA1NQLE6"
+    },
+    {
+      "name": "Axion Perimetral",
+      "address": "Ruta Cesar Mayo Gutierrez y Ruta 102",
+      "map": "https://maps.app.goo.gl/bkfu5iBm2WQLAHxP7"
+    },
+    {
+      "name": "Axion Prado",
+      "address": "Suárez y Luis Alberto de Herrera.",
+      "map": "https://maps.app.goo.gl/gPs6CXaeC8ZSGYa18"
+    },
+    {
+      "name": "Disco Scosería",
+      "address": "Scoseria y Luis de la Torre",
+      "map": "https://maps.app.goo.gl/GwuQuv68Fy3LwxaE9"
+    },
+    {
+      "name": "Fresh market Legrand",
+      "address": "Legrand y Michigan",
+      "map": "https://maps.app.goo.gl/UbE1h5ybtkT9kZk28"
+    },
+    {
+      "name": "LIV Disctrict Carrasco 1",
+      "address": "Av. Acosta y Lara y Tajes",
+      "map": "https://maps.app.goo.gl/RT3ueRCwdZvBPqsRA"
+    },
+    {
+      "name": "Fresh market Parada 5 PdE",
+      "address": "Pedragosa Sierra y Reissig",
+      "map": "https://maps.app.goo.gl/cmNqknz8M1YPogie6"
+    }
+  ]
+}
