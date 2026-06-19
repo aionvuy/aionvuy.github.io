@@ -1,4 +1,4 @@
-name: Actualizar tarifas UTE
+name: Actualizar datos oficiales
 
 on:
   schedule:
@@ -16,16 +16,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Consultar tarifas oficiales
-        run: python scripts/update_ute_tariffs.py
-      - name: Publicar cambios si UTE actualizó los precios
+      - name: Consultar fuentes oficiales
         run: |
-          if git diff --quiet -- data/ute-tarifas.json; then
-            echo "Sin cambios en las tarifas"
+          python scripts/update_ute_tariffs.py
+          python scripts/update_public_data.py
+      - name: Publicar cambios si las fuentes se actualizaron
+        run: |
+          if git diff --quiet -- data/; then
+            echo "Sin cambios en los datos"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ute-tarifas.json
-          git commit -m "Actualizar tarifas UTE"
+          git add data/
+          git commit -m "Actualizar datos oficiales"
           git push

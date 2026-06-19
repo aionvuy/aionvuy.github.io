@@ -10,37 +10,43 @@
   <title>Calculadora · AION V UY</title>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
 <aside class="sidebar">
 <div class="sidebar-brand"><a href="index.html">AION V · UY</a><div class="brand-sub">Recurso comunitario · Uruguay</div></div>
-<nav class="sidebar-nav" id="sidebar-nav">
+<nav class="sidebar-nav" id="sidebar-nav" aria-label="Navegación principal">
 <div class="nav-group-label">Vehículo</div>
 <a href="index.html" class=""><span class="nav-icon">⌂</span> Inicio</a>
 <a href="specs.html" class=""><span class="nav-icon">◈</span> Especificaciones</a>
 <a href="comparativa.html" class=""><span class="nav-icon">⇄</span> Comparativa</a>
 <div class="nav-group-label">Carga</div>
 <a href="cargadores.html" class=""><span class="nav-icon">⚡</span> Cargadores</a>
-<a href="calculadora.html" class="active"><span class="nav-icon">⊞</span> Calculadora</a>
+<a href="calculadora.html" class="active" aria-current="page"><span class="nav-icon">🧮</span> Calculadora</a>
+<div class="nav-group-label">Propiedad</div>
+<a href="red.html"><span class="nav-icon">📍</span> Red GAC</a>
+<a href="servicios.html"><span class="nav-icon">🔧</span> Services</a>
+<a href="costos.html"><span class="nav-icon">💳</span> Costos</a>
 <div class="nav-group-label">Comunidad</div>
 <a href="problemas.html" class=""><span class="nav-icon">△</span> Problemas conocidos</a>
 <a href="faq.html" class=""><span class="nav-icon">?</span> FAQ</a>
 </nav>
-<div class="mob-nav-toggle" onclick="document.getElementById('sidebar-nav').classList.toggle('open')">Menú ☰</div>
+<button type="button" class="mob-nav-toggle" aria-controls="sidebar-nav" aria-expanded="false" onclick="const n=document.getElementById('sidebar-nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menú ☰</button>
 <div class="sidebar-wa"><a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Comunidad WhatsApp</a></div>
 </aside>
-<div class="main"><div class="page">
+<main class="main" id="main-content"><div class="page">
 
-<p class="page-eyebrow">Herramienta · AION V Max</p>
+<p class="page-eyebrow">🧮 Herramienta · Plus y Max</p>
 <h1 class="page-title">Calculadora de carga</h1>
 <p class="page-desc">Ingresá el porcentaje inicial y final de batería para comparar el costo estimado por tipo de carga. Las tarifas públicas de UTE se actualizan automáticamente desde su sitio oficial.</p>
 <div class="info-box tariff-sync"><strong>UTE:</strong> tarifas <span data-ute-year>2026</span> · <span data-ute-status>cargando datos…</span> · <a href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener">fuente oficial ↗</a></div>
 <div class="calc-card">
   <div class="calc-inputs">
-    <div class="field"><label>% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
-    <div class="field"><label>% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
+    <div class="field"><label for="version">Versión</label><select id="version"><option value="max">AION V Max · 75,26 kWh</option><option value="plus">AION V Plus · 64,5 kWh</option></select></div>
+    <div class="field"><label for="pct-start">% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
+    <div class="field"><label for="pct-end">% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
   </div>
   <button class="calc-btn" onclick="calcular()">Calcular</button>
-  <p class="error-msg" id="error-msg"></p>
-  <div class="calc-result" id="calc-result">
+  <p class="error-msg" id="error-msg" role="alert"></p>
+  <div class="calc-result" id="calc-result" aria-live="polite">
     <p class="result-summary" id="result-summary"></p>
     <div class="result-table-wrap">
       <table class="result-table">
@@ -56,9 +62,9 @@
   </div>
 </div>
 
-</div></div>
+</div></main>
 <script>
-const BATTERY = 75.26;
+const BATTERIES = {max:75.26,plus:64.5};
 let CHARGERS = [
   {name:'Red pública UTE · AC',op:'UTE',type:'AC',powerLabel:'auto: máx. 6,6 kW',franja:'tarifa AC',fixed:54.8,rate:10.4,timeKw:6.6,id:'ute-ac'},
   {name:'Red pública UTE · DC',op:'UTE',type:'DC',powerLabel:'según estación',franja:'tarifa DC',fixed:132.9,rate:11.8,timeKw:null,id:'ute-dc'},
@@ -66,7 +72,7 @@ let CHARGERS = [
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:23.85,timeKw:180,isPeak:true,id:'eone-peak'}
 ];
 function formatTime(h){const m=Math.round(h*60),hh=Math.floor(m/60),mm=m%60;if(hh===0)return mm+' min';if(mm===0)return hh+' h';return hh+' h '+mm+' min';}
-function timeEst(kwh,c){if(c.id==='eone-off'||c.id==='eone-peak')return '~'+formatTime(kwh/180)+' – '+formatTime(kwh/80);if(!c.timeKw)return 'según estación';return '~'+formatTime(kwh/c.timeKw);}
+function timeEst(kwh,c){if(c.id==='eone-off'||c.id==='eone-peak')return '~'+formatTime(kwh/c.timeKw)+' – '+formatTime(kwh/80);if(!c.timeKw)return 'según estación';return '~'+formatTime(kwh/c.timeKw);}
 function fmtP(n){return '$'+n.toLocaleString('es-UY',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function calcular(){
   const err=document.getElementById('error-msg'),res=document.getElementById('calc-result');
@@ -75,8 +81,15 @@ function calcular(){
   if(isNaN(s)||isNaN(e)){err.textContent='Ingresá los porcentajes inicial y final.';err.classList.add('visible');return;}
   if(s<0||s>99||e<1||e>100){err.textContent='Los porcentajes deben estar entre 0% y 100%.';err.classList.add('visible');return;}
   if(e<=s){err.textContent='El porcentaje final debe ser mayor que el inicial.';err.classList.add('visible');return;}
-  const kwh=BATTERY*(e-s)/100;
-  const rows=CHARGERS.map(c=>({...c,cost:c.fixed+c.rate*kwh})).sort((a,b)=>a.cost-b.cost);
+  const version=document.getElementById('version').value;
+  const battery=BATTERIES[version];
+  const vehicleDc=version==='max'?180:150;
+  const kwh=battery*(e-s)/100;
+  const rows=CHARGERS.map(c=>({...c,
+    timeKw:c.op==='eOne'?vehicleDc:c.timeKw,
+    powerLabel:c.op==='eOne'?`cargador 180 kW · auto máx. ${vehicleDc} kW`:c.powerLabel,
+    cost:c.fixed+c.rate*kwh
+  })).sort((a,b)=>a.cost-b.cost);
   const tbody=document.getElementById('result-tbody');tbody.innerHTML='';
   rows.forEach((r,i)=>{
     const tr=document.createElement('tr');
@@ -87,7 +100,7 @@ function calcular(){
     tr.innerHTML=`<td>${r.name}${ne}</td><td>${r.op}</td><td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td><td class="mono" style="font-size:.76rem">${r.powerLabel}</td><td class="right mono" style="font-size:.76rem">${r.franja}</td><td class="${cc}">${fmtP(r.cost)}</td><td class="right mono" style="font-size:.76rem">${timeEst(kwh,r)}${tn}</td>`;
     tbody.appendChild(tr);
   });
-  document.getElementById('result-summary').innerHTML=`De <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong>`;
+  document.getElementById('result-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · de <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong>`;
   const cheapest=rows[0];
   const fastest=[...rows].filter(r=>r.timeKw).sort((a,b)=>(kwh/a.timeKw)-(kwh/b.timeKw))[0];
   const bal=rows.filter(r=>r.type==='DC'&&!r.isPeak)[0]||rows[0];

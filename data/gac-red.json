@@ -1,0 +1,153 @@
+{
+  "updated_at": "2026-06-18",
+  "sales_source": "https://www.gacmotor.uy/ventas",
+  "post_sales_source": "https://www.gacmotor.uy/postventas",
+  "sales": [
+    {
+      "name": "Concorde Automóviles",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Acevedo Díaz 1615, Montevideo Tel.: 24096415 Cel.: 099732633 Correo: ventas@automovilesconcorde.com.uy"
+      ]
+    },
+    {
+      "name": "Eficiencia Automóviles",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Bulevar Artigas 2405, Montevideo Cel.: 094625678 Correo: eficiencianegocios@hotmail.com"
+      ]
+    },
+    {
+      "name": "GAC Motor",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Cerro Largo 1701, Montevideo Tel.: 24005101 Correo: hola@gacmotor.uy Horarios: 9:00 a 13:00 y 14:00 a 18:00 h."
+      ]
+    },
+    {
+      "name": "Vladimir",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Av. Italia 5127, Montevideo Tel.: 2613 4041 Celular: 094 154 848 Correo: vasa@vladimir.com.uy Horarios: Lunes a Viernes: 9 a 18 h. Sábados: 10 a 13 h."
+      ]
+    },
+    {
+      "name": "Werner Bernheim",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Av. 8 de Octubre 2769, Montevideo Tel: 092366979 Mail: ventas0km1@wernerbernheim.com.uy"
+      ]
+    },
+    {
+      "name": "Aerocar",
+      "department": "Canelones",
+      "area": "interior",
+      "details": [
+        "Av. Giannattasio 7780, Ciudad de la Costa, Canelones Tel.: 26052078 Cel.: 095967305 Correo: aerocarautomotora@gmail.com"
+      ]
+    },
+    {
+      "name": "Barriola Automóviles",
+      "department": "Canelones",
+      "area": "interior",
+      "details": [
+        "15900 Las Piedras, Canelones Tel.: 23656000 Correo: contacto@autosbarriola.com"
+      ]
+    },
+    {
+      "name": "Claudio´s Motors",
+      "department": "Canelones",
+      "area": "interior",
+      "details": [
+        "Av. artigas (ruta 7 y 11), San Jacinto, Canelones Tel.: 43994819 Cel.: 098112865 Correo: Claudios@claudiosmotors.com"
+      ]
+    },
+    {
+      "name": "Delgado Automóviles",
+      "department": "Flores",
+      "area": "interior",
+      "details": [
+        "Pancho Lopez (Ruta 3) esq. Florencio Sanchez, Trinidad, Flores Cel.: 099001740 Correo: info@delgadoautomoviles.com"
+      ]
+    },
+    {
+      "name": "Punta Motors",
+      "department": "Maldonado",
+      "area": "interior",
+      "details": [
+        "Av. José Batlle y Ordoñez &, 20000 Maldonado. Tel.: 42223845 Correo: puntamotors@puntamotors.com"
+      ]
+    },
+    {
+      "name": "Peirén Automóviles",
+      "department": "Paysandú",
+      "area": "interior",
+      "details": [
+        "Av. República Argentina 1936 , Paysandú, Paysandú Tel.: 47242081"
+      ]
+    },
+    {
+      "name": "Dolz Automóviles",
+      "department": "Rivera",
+      "area": "interior",
+      "details": [
+        "Av. Brasil 1059, Rivera, Uruguay Tel.:46221920 Cel.: 099825525 Correo: dolzautomoviles@gmail.com"
+      ]
+    },
+    {
+      "name": "Punta Motors",
+      "department": "Rocha",
+      "area": "interior",
+      "details": [
+        "Treinta y Tres 2079, Rocha Tel.: 44736864 Correo: puntamotors@puntamotors.com"
+      ]
+    },
+    {
+      "name": "Delgado Automóviles",
+      "department": "Soriano",
+      "area": "interior",
+      "details": [
+        "Ruta 2 km 182, Cardona, Soriano Tel.: 45369293 / 45369907 Correo: mario@delgadoautomoviles.com"
+      ]
+    },
+    {
+      "name": "Andrés Leites",
+      "department": "Tacuarembó",
+      "area": "interior",
+      "details": [
+        "Manuel Blanes y Obdulio Varela, Tacuarembó Tel.: 46331042 Cel.: 092959604 Correo: s.rios@andresleites.com"
+      ]
+    }
+  ],
+  "post_sales": [
+    {
+      "name": "El Parque",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Magallanes 919 – Montevideo Tel. 2411 4455 – 2418 2864 Cel. 096 469 992 - 096 247 847 Correo: info@elparque.com.uy Horario: 8:30 a 18hs Lunes a Viernes"
+      ]
+    },
+    {
+      "name": "Vladimir Automóviles",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Av. Italia 5127, Montevideo Tel.: 2613 4041 Celular: 095 059 675 Correo: vasa@vladimir.com.uy Horarios: -Lunes a Martes: 8:30 a 12:30 h. 14 a 18:30 h. -Miércoles a Viernes: 8:30 a 12:30 h. 13:30 a 18:30 h."
+      ]
+    },
+    {
+      "name": "Punta Motors",
+      "department": "Maldonado",
+      "area": "interior",
+      "details": [
+        "Jose Batlle y Ordoñez 1285 – Maldonado Tel. 4222 3845 Cel. 092888878 Correo: puntamotors@puntamotors.com Horario: 9 a 13 y 14 a 18:30 Lunes a Viernes 9 a 13hs Sabados"
+      ]
+    }
+  ]
+}
