@@ -130,6 +130,10 @@ a { text-underline-offset: 0.18em; }
 }
 .sidebar-wa a:hover { background: #d8f0e1; }
 .sidebar-wa svg { flex-shrink: 0; }
+.sidebar-form { padding-bottom: 0; }
+.sidebar-form + .sidebar-wa { border-top: 0; padding-top: 0.6rem; }
+.sidebar-form a { background: #eef2ff; color: #3730a3; }
+.sidebar-form a:hover { background: #e0e7ff; }
 
 /* MAIN CONTENT */
 .main {
