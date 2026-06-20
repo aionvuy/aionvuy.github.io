@@ -11,6 +11,7 @@ function formatUtePrice(value) {
 }
 
 function renderUteTariffs(data, isFallback = false) {
+  const updatedLabel = new Date(data.updated_at + 'T12:00:00').toLocaleDateString('es-UY');
   document.querySelectorAll('[data-ute]').forEach(element => {
     const [group, field] = element.dataset.ute.split('.');
     if (data[group] && Number.isFinite(Number(data[group][field]))) {
@@ -23,7 +24,13 @@ function renderUteTariffs(data, isFallback = false) {
   document.querySelectorAll('[data-ute-status]').forEach(element => {
     element.textContent = isFallback
       ? 'Se muestran los últimos valores disponibles.'
-      : `Datos oficiales actualizados el ${new Date(data.updated_at + 'T12:00:00').toLocaleDateString('es-UY')}.`;
+      : `Datos oficiales actualizados el ${updatedLabel}.`;
+  });
+  document.querySelectorAll('[data-ute-updated]').forEach(element => {
+    element.textContent = isFallback ? `${updatedLabel} (últimos valores disponibles)` : updatedLabel;
+  });
+  document.querySelectorAll('[data-ute-verified]').forEach(element => {
+    element.textContent = updatedLabel;
   });
 }
 

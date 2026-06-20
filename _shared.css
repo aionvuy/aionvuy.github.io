@@ -177,6 +177,48 @@ a { text-underline-offset: 0.18em; }
 }
 .community-action.whatsapp:hover { background: #d8f0e1; }
 
+/* SOURCE FOOTERS */
+.source-footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.source-footer p { margin-bottom: 0.35rem; font-size: var(--type-sm); color: var(--text-muted); }
+.source-footer .action-links { margin-top: 0.75rem; }
+.source-link { background: var(--surface2); }
+
+/* APP STORE LINKS */
+.action-links .action-link[href*="play.google.com"],
+.action-links .action-link[href*="apps.apple.com"] {
+  background: var(--surface2);
+  border-color: var(--border);
+  color: var(--text-primary);
+  gap: 0.5rem;
+}
+.action-links .action-link[href*="play.google.com"]:hover,
+.action-links .action-link[href*="apps.apple.com"]:hover {
+  background: #e7eef5;
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+.action-links .action-link[href*="play.google.com"]::before,
+.action-links .action-link[href*="apps.apple.com"]::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.action-links .action-link[href*="play.google.com"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300c9a7' d='M3 2v20l10.8-10z'/%3E%3Cpath fill='%233da5ff' d='M3 2l14 7.1-3.2 2.9z'/%3E%3Cpath fill='%23ff4f64' d='M3 22l14-7.1-3.2-2.9z'/%3E%3Cpath fill='%23ffc928' d='M13.8 12L17 9.1 21 12 17 14.9z'/%3E%3C/svg%3E");
+}
+.action-links .action-link[href*="apps.apple.com"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23111827' d='M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.79 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.1M12.03 7.25C11.88 5.02 13.69 3.18 15.77 3c.29 2.58-2.34 4.5-3.74 4.25'/%3E%3C/svg%3E");
+}
+
 /* MAIN CONTENT */
 .main {
   margin-left: var(--sidebar-w);
