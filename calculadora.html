@@ -39,13 +39,12 @@
 <h1 class="page-title">Calculadora de carga</h1>
 <div class="page-desc copy-stack"><p>Ingresá el porcentaje inicial y final de batería para comparar el costo estimado por tipo de carga.</p><p>Las tarifas públicas de UTE se actualizan automáticamente desde su sitio oficial.</p></div>
 <div class="info-box tariff-sync"><strong>UTE:</strong> tarifas <span data-ute-year>2026</span> · <span data-ute-status>cargando datos…</span> · <a href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener">fuente oficial ↗</a></div>
-<div class="info-box copy-stack"><p><strong>Espacio privado:</strong> algunos puntos de carga UTE cobran además un costo fijo variable con ese nombre.</p><p>No está incluido en el cálculo.</p><p>Verificá el importe en <a href="cargadores.html#aplicaciones-carga">UTE Mueve</a> antes de cargar.</p></div>
+<div class="info-box"><strong>Espacio privado:</strong><ul class="bullet-list"><li>Algunos puntos de carga UTE cobran además un costo fijo variable con ese nombre.</li><li>No está incluido en el cálculo.</li><li>Verificá el importe en <a href="cargadores.html#aplicaciones-carga">UTE Mueve</a> antes de cargar.</li></ul></div>
 <div class="calc-card">
   <p class="section-label">⚡ Carga pública AC y DC</p>
   <h2 class="calc-section-title">Carga pública de hasta 180 kW</h2>
-  <div class="section-copy copy-stack"><p>La versión Max admite hasta 180 kW en DC y la Plus hasta 150 kW en DC.</p><p>En carga pública AC, ambas versiones admiten hasta 6,6 kW.</p></div>
   <div class="calc-inputs charge-inputs">
-    <div class="field field-version"><label for="version">Elegí la versión/modelo</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh</option><option value="plus">AION V Plus · 64,5 kWh</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
+    <div class="field field-version"><label for="version">Elegí la versión/modelo</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh · AC 6,6 kW · DC 180 kW</option><option value="plus">AION V Plus · 64,5 kWh · AC 6,6 kW · DC 150 kW</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
     <div class="field"><label for="pct-start">% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
     <div class="field"><label for="pct-end">% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
   </div>
