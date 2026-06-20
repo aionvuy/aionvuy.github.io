@@ -103,6 +103,12 @@ function makeLocationCard(item, mapLabel = '') {
   title.textContent = item.name;
   article.append(title);
   const contacts = parseLocationContacts(item);
+  if (item.area === 'montevideo') {
+    contacts.address = contacts.address
+      .replace(/[\s,·–—-]*Montevideo\s*$/i, '')
+      .replace(/[\s,·–—-]+$/, '')
+      .trim();
+  }
   const list = document.createElement('ul');
   list.className = 'location-details-list';
   const address = contactListItem('Dirección', contacts.address ? [contacts.address] : []);
@@ -153,7 +159,7 @@ function renderGroupedLocations(container, items) {
     const section = document.createElement('section');
     section.className = 'location-section';
     const heading = document.createElement('h3');
-    heading.className = 'section-title';
+    heading.className = 'location-group-title';
     heading.textContent = label;
     const grid = document.createElement('div');
     grid.className = 'location-grid';
