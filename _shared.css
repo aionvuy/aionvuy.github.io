@@ -191,16 +191,16 @@ a { text-underline-offset: 0.18em; }
 /* APP STORE LINKS */
 .action-links .action-link[href*="play.google.com"],
 .action-links .action-link[href*="apps.apple.com"] {
-  background: var(--surface2);
-  border-color: var(--border);
-  color: var(--text-primary);
+  background: #f2f7fa;
+  border-color: #9ebdca;
+  color: #064d63;
   gap: 0.5rem;
 }
 .action-links .action-link[href*="play.google.com"]:hover,
 .action-links .action-link[href*="apps.apple.com"]:hover {
-  background: #e7eef5;
-  border-color: var(--accent);
-  color: var(--text-primary);
+  background: #dceff5;
+  border-color: #4b96ad;
+  color: #043e50;
 }
 .action-links .action-link[href*="play.google.com"]::before,
 .action-links .action-link[href*="apps.apple.com"]::before {
@@ -427,9 +427,10 @@ details[open] summary::after { transform: rotate(45deg); }
 .section-copy { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.2rem; }
 .section-copy.compact { margin: 0.65rem 0 0.2rem; }
 .action-links { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 0 0 1.5rem; }
-.action-link { display: inline-flex; align-items: center; min-height: 44px; border-radius: 6px; padding: 0.6rem 0.9rem; background: var(--accent); color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 600; }
-.action-link:hover { background: var(--accent2); }
-.action-link.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent2); }
+.action-link { display: inline-flex; align-items: center; min-height: 44px; border: 1px solid #8fb8c7; border-radius: 6px; padding: 0.6rem 0.9rem; background: #eaf6fa; color: #064d63; text-decoration: none; font-size: 0.8rem; font-weight: 600; }
+.action-link:hover { background: #d7edf4; border-color: #4b96ad; color: #043e50; }
+.action-link.secondary { background: #f5f8fa; color: #064d63; border: 1px solid #a8c2cc; }
+.action-link.secondary:hover { background: #e3f0f4; border-color: #5f9daf; color: #043e50; }
 .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
 .feature-list { margin: 0.8rem 0 0 1.1rem; color: var(--muted); font-size: 0.82rem; line-height: 1.65; }
 .feature-list li + li { margin-top: 0.25rem; }
