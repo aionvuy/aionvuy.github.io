@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">AION V Uruguay</title>
+  <desc id="desc">Guía comunitaria sobre el GAC AION V en Uruguay</desc>
+  <defs>
+    <linearGradient id="bg" x1="80" y1="30" x2="1110" y2="610" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#e5f4f8"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="76" y1="70" x2="264" y2="258" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#007da5"/>
+      <stop offset="1" stop-color="#00516d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="36" fill="url(#bg)"/>
+  <rect x="64" y="64" width="176" height="176" rx="38" fill="url(#mark)"/>
+  <path d="M98 184 131 112h19l-33 72H98Zm50-72h22l33 72h-22l-22-52-22 52h-22l33-72Z" fill="#fff"/>
+  <circle cx="203" cy="102" r="11" fill="#7dd3fc"/>
+  <text x="286" y="122" fill="#006b8f" font-family="Inter,Arial,sans-serif" font-size="32" font-weight="600">AION V · UY</text>
+  <text x="286" y="188" fill="#0f172a" font-family="Inter,Arial,sans-serif" font-size="54" font-weight="600">Guía comunitaria</text>
+  <text x="286" y="248" fill="#0f172a" font-family="Inter,Arial,sans-serif" font-size="54" font-weight="600">del GAC AION V</text>
+  <text x="70" y="374" fill="#334155" font-family="Inter,Arial,sans-serif" font-size="30">Especificaciones · carga · costos · red GAC</text>
+  <text x="70" y="424" fill="#334155" font-family="Inter,Arial,sans-serif" font-size="30">seguridad · experiencias de la comunidad</text>
+  <rect x="70" y="500" width="1060" height="2" fill="#b7c9d6"/>
+  <text x="70" y="556" fill="#006b8f" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="600">aionvuy.github.io</text>
+  <text x="1130" y="556" fill="#64748b" text-anchor="end" font-family="Inter,Arial,sans-serif" font-size="24">Uruguay</text>
+</svg>
