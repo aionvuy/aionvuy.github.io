@@ -2,18 +2,108 @@ function formatSourceDate(value) {
   return new Date(value + 'T12:00:00').toLocaleDateString('es-UY');
 }
 
+function cleanContactText(value) {
+  return String(value || '').replace(/^[\s·–—-]+|[\s·–—-]+$/g, '').trim();
+}
+
+function phoneNumbers(value) {
+  return (String(value || '').match(/0?\d[\d\s]{6,}\d/g) || []).map(number => number.trim());
+}
+
+function internationalPhone(value) {
+  const digits = String(value).replace(/\D/g, '').replace(/^0/, '');
+  return digits.startsWith('598') ? digits : `598${digits}`;
+}
+
+function parseLocationContacts(item) {
+  if (item.address || item.phones || item.mobiles || item.emails) {
+    return {
+      address: item.address || '',
+      phones: item.phones || [],
+      mobiles: item.mobiles || [],
+      emails: (item.emails || []).map(email => email.toLowerCase()),
+      hours: item.hours || ''
+    };
+  }
+  const raw = (item.details || []).join(' ').replace(/\s+/g, ' ').trim();
+  const pattern = /\b(Tel(?:éfono)?\.?|Cel(?:ular)?\.?|Correo|Mail|Horarios?|Horario)\s*:?\s*/gi;
+  const matches = [...raw.matchAll(pattern)];
+  const contacts = {address: '', phones: [], mobiles: [], emails: [], hours: ''};
+  contacts.address = cleanContactText(matches.length ? raw.slice(0, matches[0].index) : raw);
+  matches.forEach((match, index) => {
+    const label = match[1].toLowerCase();
+    const start = match.index + match[0].length;
+    const end = index + 1 < matches.length ? matches[index + 1].index : raw.length;
+    const value = cleanContactText(raw.slice(start, end));
+    if (label.startsWith('cel')) {
+      contacts.mobiles.push(...phoneNumbers(value));
+    } else if (label.startsWith('tel')) {
+      phoneNumbers(value).forEach(number => {
+        const digits = number.replace(/\D/g, '');
+        (digits.startsWith('09') ? contacts.mobiles : contacts.phones).push(number);
+      });
+    } else if (label === 'correo' || label === 'mail') {
+      contacts.emails.push(...(value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || []).map(email => email.toLowerCase()));
+    } else if (label.startsWith('horario')) {
+      contacts.hours = value;
+    }
+  });
+  return contacts;
+}
+
+function contactListItem(label, values, linkBuilder) {
+  if (!values || !values.length) return null;
+  const item = document.createElement('li');
+  const strong = document.createElement('strong');
+  strong.textContent = `${label}: `;
+  item.append(strong);
+  values.forEach((value, index) => {
+    if (index) item.append(document.createTextNode(' · '));
+    item.append(linkBuilder ? linkBuilder(value) : document.createTextNode(value));
+  });
+  return item;
+}
+
 function makeLocationCard(item, mapLabel = '') {
   const article = document.createElement('article');
   article.className = 'location-card';
-  const department = document.createElement('span');
-  department.className = 'location-department';
-  department.textContent = item.department || 'Punto de carga';
+  if (item.area !== 'montevideo') {
+    const department = document.createElement('span');
+    department.className = 'location-department';
+    department.textContent = item.department || 'Punto de carga';
+    article.append(department);
+  }
   const title = document.createElement('h4');
   title.textContent = item.name;
-  const details = document.createElement('p');
-  details.className = 'location-details';
-  details.textContent = item.address || (item.details || []).join(' · ');
-  article.append(department, title, details);
+  article.append(title);
+  const contacts = parseLocationContacts(item);
+  const list = document.createElement('ul');
+  list.className = 'location-details-list';
+  const address = contactListItem('Dirección', contacts.address ? [contacts.address] : []);
+  const mobiles = contactListItem('Celular', contacts.mobiles, value => {
+    const link = document.createElement('a');
+    link.href = `https://wa.me/${internationalPhone(value)}`;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = value;
+    link.setAttribute('aria-label', `Abrir WhatsApp para ${value}`);
+    return link;
+  });
+  const phones = contactListItem('Teléfono fijo', contacts.phones, value => {
+    const link = document.createElement('a');
+    link.href = `tel:+${internationalPhone(value)}`;
+    link.textContent = value;
+    return link;
+  });
+  const emails = contactListItem('Correo', contacts.emails, value => {
+    const link = document.createElement('a');
+    link.href = `mailto:${value}`;
+    link.textContent = value.toLowerCase();
+    return link;
+  });
+  const hours = contactListItem('Horario', contacts.hours ? [contacts.hours] : []);
+  [address, mobiles, phones, emails, hours].filter(Boolean).forEach(node => list.append(node));
+  if (list.children.length) article.append(list);
   if (item.map) {
     const link = document.createElement('a');
     link.className = 'map-link';

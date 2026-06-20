@@ -71,13 +71,13 @@
 <table class="simple-table">
 <thead><tr><th>Versión / precio usado</th><th>Sin descuento</th><th>6 cuotas en fecha · −10%</th><th>Pago anual contado · −20%</th></tr></thead>
 <tbody>
-<tr><td>Plus preventa · USD 27.990</td><td>≈ USD 688</td><td>≈ USD 619</td><td>≈ USD 551</td></tr>
-<tr><td>Plus lista · USD 28.990</td><td>≈ USD 713</td><td>≈ USD 642</td><td>≈ USD 570</td></tr>
-<tr><td>Max · USD 35.490</td><td>≈ USD 873</td><td>≈ USD 785</td><td>≈ USD 698</td></tr>
+<tr data-vehicle-usd="28990"><td>Plus · USD 28.990<span class="uyu-value" data-vehicle-uyu>calculando UYU…</span></td><td data-discount="1">Calculando…</td><td data-discount="0.9">Calculando…</td><td data-discount="0.8">Calculando…</td></tr>
+<tr data-vehicle-usd="35490"><td>Max · USD 35.490<span class="uyu-value" data-vehicle-uyu>calculando UYU…</span></td><td data-discount="1">Calculando…</td><td data-discount="0.9">Calculando…</td><td data-discount="0.8">Calculando…</td></tr>
 </tbody>
 </table>
 </div>
-<p class="data-note">Cálculo: precio con IVA ÷ 1,22 × 3%. Equivalente en USD solo para comparar; el cobro real es en UYU.</p>
+<div class="info-box exchange-rate-box"><strong>Conversión automática USD/UYU:</strong> <span data-fx-status>consultando cotización…</span> <a href="https://dolarapi.com/docs/uruguay/" target="_blank" rel="noopener">Fuente y documentación ↗</a></div>
+<p class="data-note">Cálculo: precio con IVA ÷ 1,22 × 3%. La conversión usa la cotización de venta como referencia; SUCIVE determina y cobra el importe real en pesos uruguayos.</p>
 <div class="action-links">
 <a class="action-link" href="https://www.gub.uy/congreso-intendentes/comunicacion/publicaciones/texto-ordenado-del-sucive-2026" target="_blank" rel="noopener">Normativa SUCIVE 2026 ↗</a>
 <a class="action-link secondary" href="https://www.sucive.gub.uy/consulta_patente" target="_blank" rel="noopener">Consultar patente real ↗</a>
@@ -95,4 +95,53 @@
 <div class="action-links"><a class="action-link" href="http://tramites.montevideo.gub.uy/tramites-y-tributos/solicitud/empadronamiento-de-vehiculos-importados" target="_blank" rel="noopener">Fuente: Intendencia de Montevideo ↗</a></div>
 </section>
 </div></main>
+<script>
+const FALLBACK_USD_UYU = 41.4;
+
+function formatUsd(value) {
+  return `≈ USD ${Math.round(value).toLocaleString('es-UY')}`;
+}
+
+function formatUyu(value) {
+  return `≈ $${Math.round(value).toLocaleString('es-UY')} UYU`;
+}
+
+function renderOwnershipCosts(rate, updatedAt, isFallback = false) {
+  document.querySelectorAll('[data-vehicle-usd]').forEach(row => {
+    const vehicleUsd = Number(row.dataset.vehicleUsd);
+    const basePatentUsd = vehicleUsd / 1.22 * 0.03;
+    const vehicleUyu = row.querySelector('[data-vehicle-uyu]');
+    vehicleUyu.textContent = formatUyu(vehicleUsd * rate);
+    row.querySelectorAll('[data-discount]').forEach(cell => {
+      const patentUsd = basePatentUsd * Number(cell.dataset.discount);
+      cell.replaceChildren();
+      const usd = document.createElement('strong');
+      usd.textContent = formatUsd(patentUsd);
+      const uyu = document.createElement('span');
+      uyu.className = 'uyu-value';
+      uyu.textContent = formatUyu(patentUsd * rate);
+      cell.append(usd, uyu);
+    });
+  });
+  const date = new Date(updatedAt);
+  const dateLabel = Number.isNaN(date.getTime()) ? '' : ` · ${date.toLocaleDateString('es-UY')}`;
+  document.querySelector('[data-fx-status]').textContent = isFallback
+    ? `Se usa temporalmente la referencia de respaldo: $${rate.toLocaleString('es-UY')} por USD.`
+    : `Dólar venta: $${rate.toLocaleString('es-UY')} por USD${dateLabel}.`;
+}
+
+async function loadExchangeRate() {
+  try {
+    const response = await fetch('https://uy.dolarapi.com/v1/cotizaciones/usd', {cache: 'no-store'});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!Number.isFinite(Number(data.venta))) throw new Error('Cotización inválida');
+    renderOwnershipCosts(Number(data.venta), data.fechaActualizacion, false);
+  } catch (error) {
+    renderOwnershipCosts(FALLBACK_USD_UYU, '2026-06-20T15:01:19.153Z', true);
+  }
+}
+
+loadExchangeRate();
+</script>
 </body></html>
