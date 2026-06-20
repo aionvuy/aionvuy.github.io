@@ -45,6 +45,7 @@
   <h2 class="calc-section-title">Carga pública de hasta 180 kW</h2>
   <div class="calc-inputs charge-inputs">
     <div class="field field-version"><label for="version">Elegí la versión/modelo</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh · AC 6,6 kW · DC 180 kW</option><option value="plus">AION V Plus · 64,5 kWh · AC 6,6 kW · DC 150 kW</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
+    <div class="field"><label for="charger-power">Potencia del cargador DC</label><input type="number" id="charger-power" min="1" max="500" step="1" value="180" aria-describedby="charger-power-help"/><p class="form-help" id="charger-power-help">Podés modificar los 180 kW para calcular el tiempo según el cargador que vas a usar.</p></div>
     <div class="field"><label for="pct-start">% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
     <div class="field"><label for="pct-end">% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
   </div>
@@ -105,22 +106,26 @@ let CHARGERS = [
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:23.85,timeKw:180,isPeak:true,id:'eone-peak'}
 ];
 function formatTime(h){const m=Math.round(h*60),hh=Math.floor(m/60),mm=m%60;if(hh===0)return mm+' min';if(mm===0)return hh+' h';return hh+' h '+mm+' min';}
-function timeEst(kwh,c){if(c.id==='eone-off'||c.id==='eone-peak')return '~'+formatTime(kwh/c.timeKw)+' – '+formatTime(kwh/80);if(!c.timeKw)return 'según estación';return '~'+formatTime(kwh/c.timeKw);}
+function timeEst(kwh,c){if(!c.timeKw)return 'según estación';if(c.type==='DC')return '~'+formatTime(kwh/c.timeKw)+' – '+formatTime(kwh/(c.timeKw*0.55));return '~'+formatTime(kwh/c.timeKw);}
 function fmtP(n){return '$'+n.toLocaleString('es-UY',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtKw(n){return n.toLocaleString('es-UY',{maximumFractionDigits:1});}
 function calcular(){
   const err=document.getElementById('error-msg'),res=document.getElementById('calc-result');
   err.classList.remove('visible');res.classList.remove('visible');
   const s=parseFloat(document.getElementById('pct-start').value),e=parseFloat(document.getElementById('pct-end').value);
+  const chargerPower=parseFloat(document.getElementById('charger-power').value);
   if(isNaN(s)||isNaN(e)){err.textContent='Ingresá los porcentajes inicial y final.';err.classList.add('visible');return;}
+  if(isNaN(chargerPower)||chargerPower<1||chargerPower>500){err.textContent='Ingresá una potencia de cargador DC entre 1 y 500 kW.';err.classList.add('visible');return;}
   if(s<0||s>99||e<1||e>100){err.textContent='Los porcentajes deben estar entre 0% y 100%.';err.classList.add('visible');return;}
   if(e<=s){err.textContent='El porcentaje final debe ser mayor que el inicial.';err.classList.add('visible');return;}
   const version=document.getElementById('version').value;
   const battery=BATTERIES[version];
   const vehicleDc=version==='max'?180:150;
+  const effectiveDc=Math.min(chargerPower,vehicleDc);
   const kwh=battery*(e-s)/100;
   const rows=CHARGERS.map(c=>({...c,
-    timeKw:c.op==='eOne'?vehicleDc:c.timeKw,
-    powerLabel:c.op==='eOne'?`cargador 180 kW · auto máx. ${vehicleDc} kW`:c.powerLabel,
+    timeKw:c.type==='DC'?effectiveDc:c.timeKw,
+    powerLabel:c.type==='DC'?`indicado ${fmtKw(chargerPower)} kW · efectivo ${fmtKw(effectiveDc)} kW`:c.powerLabel,
     cost:c.fixed+c.rate*kwh
   })).sort((a,b)=>a.cost-b.cost);
   const cheapest=rows[0];
@@ -141,7 +146,7 @@ function calcular(){
     tr.innerHTML=`<td>${r.name}${tags.join('')}</td><td>${r.op}</td><td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td><td class="mono">${r.powerLabel}</td><td class="right mono">${r.franja}</td><td class="${cc}">${fmtP(r.cost)}</td><td class="right mono">${timeEst(kwh,r)}${tn}</td>`;
     tbody.appendChild(tr);
   });
-  document.getElementById('result-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · de <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong>`;
+  document.getElementById('result-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · de <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong> · cargador DC indicado: <strong>${fmtKw(chargerPower)} kW</strong>`;
   document.getElementById('calc-verdict').innerHTML=`
     <div class="verdict-item"><div class="verdict-label v-cheap">Más barato</div><div class="verdict-val">${cheapest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(cheapest.cost)}</div></div>
     <div class="verdict-item"><div class="verdict-label v-bal">Mejor equilibrio</div><div class="verdict-val">${bal.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(bal.cost)} · DC</div></div>

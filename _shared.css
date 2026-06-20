@@ -287,7 +287,6 @@ a { text-underline-offset: 0.18em; }
 /* CALCULATOR */
 .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; }
 .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.3rem; }
-.charge-inputs .field-version { grid-column: 1 / -1; }
 .field label { display: block; font-size: 0.72rem; color: var(--muted); letter-spacing: 0; text-transform: none; margin-bottom: 0.4rem; }
 .field input, .field select { width: 100%; background: var(--surface); border: 1px solid #94a3b8; border-radius: 6px; padding: 0.7rem 0.85rem; color: var(--text); font-family: var(--mono); font-size: 0.92rem; transition: border-color 0.2s, box-shadow 0.2s; }
 .field select { appearance: auto; -webkit-appearance: menulist; cursor: pointer; padding-right: 2.4rem; }
