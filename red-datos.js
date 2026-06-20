@@ -142,7 +142,7 @@ function makeLocationCard(item, mapLabel = '') {
     link.href = item.map;
     link.target = '_blank';
     link.rel = 'noopener';
-    link.textContent = mapLabel || 'Abrir en el mapa ↗';
+    link.textContent = mapLabel || '🗺️ Abrir en el mapa ↗';
     article.append(link);
   }
   return article;
