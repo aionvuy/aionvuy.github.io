@@ -64,6 +64,32 @@ function contactListItem(label, values, linkBuilder) {
   return item;
 }
 
+function standardHours(item, value) {
+  const schedules = {
+    'GAC Motor|Montevideo': '09:00–13:00 y 14:00–18:00.',
+    'Vladimir|Montevideo': 'Lunes a viernes: 09:00–18:00. Sábados: 10:00–13:00.',
+    'El Parque|Montevideo': 'Lunes a viernes: 08:30–18:00.',
+    'Vladimir Automóviles|Montevideo': 'Lunes y martes: 08:30–12:30 y 14:00–18:30. Miércoles a viernes: 08:30–12:30 y 13:30–18:30.',
+    'Punta Motors|Maldonado': 'Lunes a viernes: 09:00–13:00 y 14:00–18:30. Sábados: 09:00–13:00.'
+  };
+  return schedules[`${item.name}|${item.department}`] || cleanContactText(value)
+    .replace(/\bhs\b/gi, 'h')
+    .replace(/\bSabados\b/gi, 'Sábados');
+}
+
+function scheduleListItem(item, value) {
+  if (!value) return null;
+  const listItem = document.createElement('li');
+  const strong = document.createElement('strong');
+  strong.textContent = 'Horario: ';
+  listItem.append(strong);
+  String(standardHours(item, value)).split(/\.\s+/).filter(Boolean).forEach((line, index) => {
+    if (index) listItem.append(document.createElement('br'));
+    listItem.append(document.createTextNode(line.endsWith('.') ? line : `${line}.`));
+  });
+  return listItem;
+}
+
 function makeLocationCard(item, mapLabel = '') {
   const article = document.createElement('article');
   article.className = 'location-card';
@@ -101,7 +127,7 @@ function makeLocationCard(item, mapLabel = '') {
     link.textContent = value.toLowerCase();
     return link;
   });
-  const hours = contactListItem('Horario', contacts.hours ? [contacts.hours] : []);
+  const hours = scheduleListItem(item, contacts.hours);
   [address, mobiles, phones, emails, hours].filter(Boolean).forEach(node => list.append(node));
   if (list.children.length) article.append(list);
   if (item.map) {
