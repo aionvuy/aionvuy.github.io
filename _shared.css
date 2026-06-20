@@ -167,7 +167,7 @@ a { text-underline-offset: 0.18em; }
 .community-action { display: inline-flex; align-items: center; min-height: 44px; border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.9rem; font-size: 0.82rem; font-weight: 500; text-decoration: none; }
 .community-action.feedback { background: #eef2ff; border-color: #a5b4fc; color: #3730a3; }
 .community-action.feedback:hover { background: #e0e7ff; }
-.community-action.whatsapp { background: #e9f7ee; border-color: #82c99e; color: var(--ok); }
+.community-action.whatsapp { background: #e9f7ee; border-color: #82c99e; color: var(--ok); gap: 0.5rem; }
 .community-action.whatsapp::before {
   content: "";
   width: 1rem;
