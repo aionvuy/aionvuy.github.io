@@ -463,6 +463,7 @@ h4 { font-size: var(--type-md); font-weight: 500; line-height: 1.45; margin: 1re
 .page-title { font-family: var(--font-main); font-size: var(--type-2xl); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 0.625rem; }
 .section-title, .home-calc-section h2, .calc-section-title { font-family: var(--font-main); font-size: var(--type-xl); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
 .section-title { margin: 2rem 0 0.625rem; }
+h3.section-title, .location-group-title { font-family: var(--font-main); font-size: var(--type-lg); font-weight: 600; line-height: 1.4; letter-spacing: -0.005em; margin: 1.75rem 0 0.625rem; }
 .home-calc-section h2, .calc-section-title { margin: 0 0 0.5rem; }
 .version-card h2, .version-card h3, .cost-card h2, .cost-card h3, .charger-card h2, .charger-card h3,
 .nav-card-title, .score-name, .charger-name, .location-card h4, summary {
@@ -522,8 +523,8 @@ input, select, textarea, .field input, .field select { font-family: var(--font-m
 }
 @media (max-width: 640px) {
   h1, .page-title { font-size: 1.625rem; line-height: 1.2; }
-  h2, .section-title, .home-calc-section h2, .calc-section-title { font-size: var(--type-xl); line-height: 1.3; }
-  h3 { font-size: var(--type-lg); }
+  h2, h2.section-title, .home-calc-section h2, .calc-section-title { font-size: var(--type-xl); line-height: 1.3; }
+  h3, h3.section-title, .location-group-title { font-size: var(--type-lg); line-height: 1.4; }
   h4 { font-size: var(--type-md); }
   p, li, .page-desc, .lead { font-size: var(--type-md); }
   input, select, textarea, .field input, .field select { font-size: 1rem; }
