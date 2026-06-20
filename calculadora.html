@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="_shared.css"/>
   <title>Calculadora · AION V UY</title>
 </head>
@@ -42,13 +39,14 @@
 <h1 class="page-title">Calculadora de carga</h1>
 <p class="page-desc">Ingresá el porcentaje inicial y final de batería para comparar el costo estimado por tipo de carga. Las tarifas públicas de UTE se actualizan automáticamente desde su sitio oficial.</p>
 <div class="info-box tariff-sync"><strong>UTE:</strong> tarifas <span data-ute-year>2026</span> · <span data-ute-status>cargando datos…</span> · <a href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener">fuente oficial ↗</a></div>
+<div class="info-box"><strong>Espacio privado:</strong> algunos puntos de carga UTE cobran además un costo fijo variable con ese nombre. No está incluido en el cálculo. Verificá el importe en <a href="cargadores.html#aplicaciones-carga">UTE Mueve</a> antes de cargar.</div>
 <div class="calc-card">
-  <div class="calc-inputs">
-    <div class="field"><label for="version">Versión</label><select id="version"><option value="max">AION V Max · 75,26 kWh</option><option value="plus">AION V Plus · 64,5 kWh</option></select></div>
+  <div class="calc-inputs charge-inputs">
+    <div class="field field-version"><label for="version">Elegí la versión/modelo</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh</option><option value="plus">AION V Plus · 64,5 kWh</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
     <div class="field"><label for="pct-start">% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
     <div class="field"><label for="pct-end">% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
   </div>
-  <button class="calc-btn" onclick="calcular()">Calcular</button>
+  <button type="button" class="calc-btn" onclick="calcular()">Calcular carga pública</button>
   <p class="error-msg" id="error-msg" role="alert"></p>
   <div class="calc-result" id="calc-result" aria-live="polite">
     <p class="result-summary" id="result-summary"></p>
@@ -62,13 +60,42 @@
       </table>
     </div>
     <div class="calc-verdict" id="calc-verdict"></div>
-    <p style="font-size:0.73rem;color:var(--muted);margin-top:1rem;">* Tiempos aproximados. La potencia real en DC varía por SOC, temperatura y curva de carga. El tramo 80%→100% suele ser considerablemente más lento.</p>
+    <p style="font-size:0.8125rem;color:var(--muted);margin-top:1rem;">* Tiempos aproximados. La potencia real en DC varía por SOC, temperatura y curva de carga. El tramo 80%→100% suele ser considerablemente más lento.</p>
   </div>
+
+  <section class="home-calc-section" aria-labelledby="home-calc-title">
+    <p class="section-label">🏠 Tarifa Residencial Triple Horario</p>
+    <h2 id="home-calc-title">Carga domiciliaria a 6,6 kW</h2>
+    <p class="section-copy compact">Usa la misma versión y porcentajes indicados arriba. Elegí la hora de inicio y el comienzo de las cuatro horas Punta que figuran en tu contrato.</p>
+    <div class="calc-inputs" style="margin-top:1rem;">
+      <div class="field"><label for="home-start-time">Hora de inicio de la carga</label><input type="time" id="home-start-time" value="22:00"/></div>
+      <div class="field"><label for="peak-start">Inicio de horario Punta</label><select id="peak-start"><option value="17">17:00</option><option value="18" selected>18:00</option><option value="19">19:00</option></select></div>
+    </div>
+    <button type="button" class="calc-btn" onclick="calcularCasa()">Calcular carga en casa</button>
+    <p class="error-msg" id="home-error-msg" role="alert"></p>
+    <div class="home-result" id="home-result" aria-live="polite">
+      <p class="result-summary" id="home-summary"></p>
+      <div class="result-table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Franja</th><th>Horario</th><th class="right">Tiempo</th><th class="right">Energía</th><th class="right">Precio/kWh</th><th class="right">Subtotal</th></tr></thead>
+          <tbody id="home-result-tbody"></tbody>
+        </table>
+      </div>
+      <div class="home-total" id="home-total"></div>
+      <p style="font-size:0.8125rem;color:var(--muted);margin-top:0.8rem;">Estimación a la potencia máxima AC del vehículo. No incluye pérdidas de carga ni cambios de potencia de la instalación; el consumo facturado real puede ser mayor.</p>
+    </div>
+  </section>
 </div>
 
 </div></main>
 <script>
 const BATTERIES = {max:75.26,plus:64.5};
+const HOME_POWER_KW = 6.6;
+const HOME_RATES = {
+  valle:{name:'Valle',rate:2.98},
+  llano:{name:'Llano',rate:6.31},
+  punta:{name:'Punta',rate:14.68}
+};
 let CHARGERS = [
   {name:'Red pública UTE · AC',op:'UTE',type:'AC',powerLabel:'auto: máx. 6,6 kW',franja:'tarifa AC',fixed:54.8,rate:10.4,timeKw:6.6,id:'ute-ac'},
   {name:'Red pública UTE · DC',op:'UTE',type:'DC',powerLabel:'según estación',franja:'tarifa DC',fixed:132.9,rate:11.8,timeKw:null,id:'ute-dc'},
@@ -94,27 +121,96 @@ function calcular(){
     powerLabel:c.op==='eOne'?`cargador 180 kW · auto máx. ${vehicleDc} kW`:c.powerLabel,
     cost:c.fixed+c.rate*kwh
   })).sort((a,b)=>a.cost-b.cost);
+  const cheapest=rows[0];
+  const fastest=[...rows].filter(r=>r.timeKw).sort((a,b)=>b.timeKw-a.timeKw||a.cost-b.cost)[0];
+  const bal=rows.find(r=>r.id==='ute-dc')||rows.find(r=>r.type==='DC'&&!r.isPeak)||rows[0];
   const tbody=document.getElementById('result-tbody');tbody.innerHTML='';
-  rows.forEach((r,i)=>{
+  rows.forEach(r=>{
     const tr=document.createElement('tr');
-    if(i===0)tr.classList.add('row-best');
-    const cc=i===0?'cost-best':i===rows.length-1?'cost-worst':'cost';
-    const ne=i===0?'<span class="tag tag-best">más barato</span>':'';
+    if(r.id===cheapest.id)tr.classList.add('row-best');
+    if(r.id===fastest.id)tr.classList.add('row-fast');
+    if(r.id===bal.id)tr.classList.add('row-balanced');
+    const cc=r.id===cheapest.id?'cost-best':r.id===rows[rows.length-1].id?'cost-worst':'cost';
+    const tags=[];
+    if(r.id===cheapest.id)tags.push('<span class="tag tag-best">más barato</span>');
+    if(r.id===bal.id)tags.push('<span class="tag tag-balanced">más equilibrado</span>');
+    if(r.id===fastest.id)tags.push('<span class="tag tag-fast">más rápido</span>');
     const tn=(r.type==='DC'&&e>80)?' *':'';
-    tr.innerHTML=`<td>${r.name}${ne}</td><td>${r.op}</td><td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td><td class="mono" style="font-size:.76rem">${r.powerLabel}</td><td class="right mono" style="font-size:.76rem">${r.franja}</td><td class="${cc}">${fmtP(r.cost)}</td><td class="right mono" style="font-size:.76rem">${timeEst(kwh,r)}${tn}</td>`;
+    tr.innerHTML=`<td>${r.name}${tags.join('')}</td><td>${r.op}</td><td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td><td class="mono">${r.powerLabel}</td><td class="right mono">${r.franja}</td><td class="${cc}">${fmtP(r.cost)}</td><td class="right mono">${timeEst(kwh,r)}${tn}</td>`;
     tbody.appendChild(tr);
   });
   document.getElementById('result-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · de <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong>`;
-  const cheapest=rows[0];
-  const fastest=[...rows].filter(r=>r.timeKw).sort((a,b)=>(kwh/a.timeKw)-(kwh/b.timeKw))[0];
-  const bal=rows.filter(r=>r.type==='DC'&&!r.isPeak)[0]||rows[0];
   document.getElementById('calc-verdict').innerHTML=`
     <div class="verdict-item"><div class="verdict-label v-cheap">Más barato</div><div class="verdict-val">${cheapest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(cheapest.cost)}</div></div>
     <div class="verdict-item"><div class="verdict-label v-bal">Mejor equilibrio</div><div class="verdict-val">${bal.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(bal.cost)} · DC</div></div>
     <div class="verdict-item"><div class="verdict-label v-fast">Más rápido</div><div class="verdict-val">${fastest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(fastest.cost)}</div></div>`;
   res.classList.add('visible');
 }
-document.addEventListener('keydown',e=>{if(e.key==='Enter')calcular();});
+function parseClock(value){
+  const parts=value.split(':').map(Number);
+  return parts.length===2&&parts.every(Number.isFinite)?parts[0]*60+parts[1]:null;
+}
+function pad2(n){return String(n).padStart(2,'0');}
+function clockLabel(totalMinutes){
+  const rounded=Math.round(totalMinutes);
+  const day=Math.floor(rounded/1440);
+  const minute=((rounded%1440)+1440)%1440;
+  return `${pad2(Math.floor(minute/60))}:${pad2(minute%60)}${day>0?` (+${day} día${day>1?'s':''})`:''}`;
+}
+function homeBand(minute,peakStart){
+  if(minute<420)return 'valle';
+  if(minute>=peakStart&&minute<peakStart+240)return 'punta';
+  return 'llano';
+}
+function nextHomeBoundary(minute,peakStart){
+  return [420,peakStart,peakStart+240,1440].find(boundary=>boundary>minute+0.0001)||1440;
+}
+function calcularCasa(){
+  const err=document.getElementById('home-error-msg'),result=document.getElementById('home-result');
+  err.classList.remove('visible');result.classList.remove('visible');
+  const s=parseFloat(document.getElementById('pct-start').value),e=parseFloat(document.getElementById('pct-end').value);
+  const startMinutes=parseClock(document.getElementById('home-start-time').value);
+  if(isNaN(s)||isNaN(e)){err.textContent='Ingresá arriba los porcentajes inicial y final.';err.classList.add('visible');return;}
+  if(s<0||s>99||e<1||e>100||e<=s){err.textContent='Revisá los porcentajes: el final debe ser mayor que el inicial.';err.classList.add('visible');return;}
+  if(startMinutes===null){err.textContent='Ingresá una hora de inicio válida.';err.classList.add('visible');return;}
+  const version=document.getElementById('version').value;
+  const battery=BATTERIES[version];
+  const kwh=battery*(e-s)/100;
+  const peakStart=parseInt(document.getElementById('peak-start').value,10)*60;
+  const totals={};const order=[];
+  let remaining=kwh,elapsedHours=0;
+  while(remaining>0.000001){
+    const absoluteMinute=startMinutes+elapsedHours*60;
+    const minute=((absoluteMinute%1440)+1440)%1440;
+    const band=homeBand(minute,peakStart);
+    const availableHours=(nextHomeBoundary(minute,peakStart)-minute)/60;
+    const energy=Math.min(remaining,availableHours*HOME_POWER_KW);
+    const hours=energy/HOME_POWER_KW;
+    if(!totals[band]){totals[band]={hours:0,energy:0,cost:0};order.push(band);}
+    totals[band].hours+=hours;totals[band].energy+=energy;totals[band].cost+=energy*HOME_RATES[band].rate;
+    remaining-=energy;elapsedHours+=hours;
+  }
+  const schedule={
+    valle:'00:00–07:00',
+    llano:'resto del día',
+    punta:`${pad2(peakStart/60)}:00–${pad2(peakStart/60+4)}:00`
+  };
+  const tbody=document.getElementById('home-result-tbody');tbody.innerHTML='';
+  order.forEach(band=>{
+    const item=totals[band],tr=document.createElement('tr');
+    tr.innerHTML=`<td><strong>${HOME_RATES[band].name}</strong></td><td class="mono">${schedule[band]}</td><td class="right mono">${formatTime(item.hours)}</td><td class="right mono">${item.energy.toFixed(2)} kWh</td><td class="right mono">${fmtP(HOME_RATES[band].rate)}</td><td class="cost">${fmtP(item.cost)}</td>`;
+    tbody.appendChild(tr);
+  });
+  const totalCost=order.reduce((sum,band)=>sum+totals[band].cost,0);
+  document.getElementById('home-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · <strong>${kwh.toFixed(2)} kWh</strong> · inicio <strong>${document.getElementById('home-start-time').value}</strong> · fin estimado <strong>${clockLabel(startMinutes+elapsedHours*60)}</strong>`;
+  document.getElementById('home-total').innerHTML=`Tiempo total: <strong>${formatTime(elapsedHours)}</strong> · Costo total estimado: <strong>${fmtP(totalCost)}</strong>`;
+  result.classList.add('visible');
+}
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  if(e.target.id==='home-start-time'||e.target.id==='peak-start')calcularCasa();
+  else calcular();
+});
 function applyTariffs(data){
   CHARGERS=CHARGERS.map(c=>{
     if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy};
