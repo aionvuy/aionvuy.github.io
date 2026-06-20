@@ -327,10 +327,16 @@ a { text-underline-offset: 0.18em; }
 .verdict-val { font-size: 0.84rem; font-weight: 600; color: var(--text); }
 .verdict-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
 .home-calc-section { margin-top: 2rem; padding-top: 1.6rem; border-top: 1px solid var(--border); }
-.home-calc-section h2 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); margin-bottom: 0.4rem; }
+.home-calc-section .section-label { margin-bottom: 0.25rem; }
+.home-calc-section h2, .calc-section-title { font-size: clamp(1.5rem, 2.5vw, 2.25rem); margin: 0 0 0.6rem; }
 .home-result { display: none; margin-top: 1.4rem; }
 .home-result.visible { display: block; }
 .home-total { margin-top: 1rem; padding: 0.9rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; font-size: 0.88rem; }
+.copy-stack { display: grid; gap: 0.65rem; }
+.copy-stack p { margin: 0; }
+.page-desc p, .section-copy p { font: inherit; color: inherit; line-height: inherit; }
+.info-box.copy-stack p, .calc-note p { color: inherit; font-size: inherit; line-height: 1.55; }
+.calc-note { margin-top: 1rem; font-size: 0.8125rem; color: var(--text-muted); }
 
 /* FAQ */
 .faq-list { display: flex; flex-direction: column; gap: 0.45rem; }
