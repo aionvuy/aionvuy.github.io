@@ -34,6 +34,7 @@
 <a href="red.html"><span class="nav-icon">📍</span> Red GAC</a>
 <a href="servicios.html"><span class="nav-icon">🔧</span> Services</a>
 <a href="costos.html"><span class="nav-icon">💳</span> Costos</a>
+<a href="comandos.html"><span class="nav-icon">🎙️</span> Comandos de voz</a>
 <div class="nav-group-label">Comunidad</div>
 <a href="videos.html"><span class="nav-icon">🎥</span> Videos, reseñas y experiencias</a>
 <a href="problemas.html" class=""><span class="nav-icon">⚠️</span> Problemas conocidos</a>
@@ -44,19 +45,25 @@
 <div class="sidebar-wa"><a href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Comunidad WhatsApp</a></div>
 </aside>
 <main class="main" id="main-content"><div class="page">
-<div class="community-actions" aria-label="Comunidad y aportes"><a class="community-action feedback" href="https://forms.gle/Seinxuvdz7aNwfMGA" target="_blank" rel="noopener">📝 Correcciones y aportes</a><a class="community-action whatsapp" href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" rel="noopener">Sumate al grupo de WhatsApp</a></div>
-
 <h1 class="page-title">Calculadora de carga</h1>
 <div class="page-desc copy-stack"><p>Ingresá el porcentaje inicial y final de batería para comparar el costo estimado por tipo de carga.</p></div>
 <div class="info-box tariff-sync"><strong>ℹ️ UTE:</strong><ul class="bullet-list"><li>Tarifas <span data-ute-year>2026</span>.</li><li>Las tarifas públicas se actualizan automáticamente desde el sitio oficial de UTE.</li></ul></div>
 <div class="info-box"><strong>⚠️ Espacio privado:</strong><ul class="bullet-list"><li>Algunos puntos de carga UTE cobran además un costo fijo variable con ese nombre.</li><li>No está incluido en el cálculo.</li><li>Verificá el importe en <a href="cargadores.html#aplicaciones-carga">UTE Mueve</a> antes de cargar.</li></ul></div>
 <div class="calc-card">
-  <h2 class="calc-section-title">⚡ Carga pública de hasta 180 kW</h2>
+  <section class="calc-subsection" aria-labelledby="battery-input-title">
+  <h2 class="calc-section-title" id="battery-input-title">🚙 Versión y batería</h2>
   <div class="calc-inputs charge-inputs">
     <div class="field field-version"><label for="version">Elegí la versión/modelo</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh · AC 6,6 kW · DC 180 kW</option><option value="plus">AION V Plus · 64,5 kWh · AC 6,6 kW · DC 150 kW</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
-    <div class="field"><label for="charger-power">Potencia del cargador DC</label><input type="number" id="charger-power" min="1" max="500" step="1" value="180" aria-describedby="charger-power-help"/><p class="form-help" id="charger-power-help">Podés modificar los 180 kW para calcular el tiempo según el cargador que vas a usar.</p></div>
     <div class="field"><label for="pct-start">% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
     <div class="field"><label for="pct-end">% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
+  </div>
+  </section>
+
+  <section class="calc-subsection" aria-labelledby="dc-calc-title">
+  <h2 class="calc-section-title" id="dc-calc-title">⚡ Carga pública DC de hasta 180 kW</h2>
+  <div class="section-copy compact copy-stack"><p>Usa la versión y porcentajes indicados arriba.</p><p>Indicá la potencia del cargador DC para estimar el tiempo según el punto que vas a usar.</p></div>
+  <div class="calc-inputs">
+    <div class="field"><label for="charger-power">Potencia del cargador DC</label><input type="number" id="charger-power" min="1" max="500" step="1" value="180" aria-describedby="charger-power-help"/><p class="form-help" id="charger-power-help">El cálculo limita la potencia efectiva según el máximo DC de la versión seleccionada.</p></div>
   </div>
   <button type="button" class="calc-btn" onclick="calcular()">⚡ Calcular carga pública</button>
   <p class="error-msg" id="error-msg" role="alert"></p>
@@ -74,11 +81,13 @@
     <div class="calc-verdict" id="calc-verdict"></div>
     <div class="calc-note copy-stack"><p>* Los tiempos son aproximados.</p><p>La potencia real en DC varía según el estado de carga, la temperatura y la curva de carga.</p><p>El tramo 80%→100% suele ser considerablemente más lento.</p></div>
   </div>
+  </section>
 
   <section class="home-calc-section" aria-labelledby="home-calc-title">
-    <h2 id="home-calc-title">🏠 Carga domiciliaria AC a 6,6 kW</h2>
-    <div class="section-copy compact copy-stack"><p>Usa la misma versión y porcentajes indicados arriba.</p><p>Elegí la hora de inicio y el comienzo de las cuatro horas Punta que figuran en tu contrato.</p></div>
+    <h2 id="home-calc-title">🏠 Carga domiciliaria AC</h2>
+    <div class="section-copy compact copy-stack"><p>Usa la misma versión y porcentajes indicados arriba.</p><p>Elegí el amperaje de carga, la hora de inicio y el comienzo de las cuatro horas Punta que figuran en tu contrato.</p></div>
     <div class="calc-inputs" style="margin-top:1rem;">
+      <div class="field"><label for="home-current">Amperaje de carga</label><select id="home-current" aria-describedby="home-current-help"><option value="6">6 A</option><option value="8">8 A</option><option value="10">10 A</option><option value="13">13 A</option><option value="16" selected>16 A</option><option value="20">20 A</option><option value="24">24 A</option><option value="32">32 A</option></select><p class="form-help" id="home-current-help">A 32 A el cálculo se limita por el máximo AC del auto: 6,6 kW, aprox. 28,7 A a 230 V.</p></div>
       <div class="field"><label for="home-start-time">Hora de inicio de la carga</label><input type="time" id="home-start-time" value="22:00"/></div>
       <div class="field"><label for="peak-start">Inicio de horario Punta</label><select id="peak-start"><option value="17">17:00</option><option value="18" selected>18:00</option><option value="19">19:00</option></select></div>
     </div>
@@ -93,7 +102,39 @@
         </table>
       </div>
       <div class="home-total" id="home-total"></div>
-      <div class="calc-note copy-stack"><p>Estimación realizada a la potencia máxima AC del vehículo.</p><p>No incluye pérdidas de carga ni cambios de potencia de la instalación.</p><p>El consumo facturado real puede ser mayor.</p></div>
+      <div class="calc-note copy-stack"><p>Estimación realizada según el amperaje seleccionado y el límite AC del vehículo.</p><p>No incluye pérdidas de carga ni cambios de potencia de la instalación.</p><p>El consumo facturado real puede ser mayor.</p></div>
+    </div>
+  </section>
+
+  <section class="calc-subsection" aria-labelledby="instant-power-title">
+    <h2 id="instant-power-title">🔌 Potencia instantánea A × V</h2>
+    <div class="section-copy compact copy-stack"><p>Si el cargador o medidor muestra amperes y volts, podés estimar la potencia en kW.</p></div>
+    <div class="calc-inputs">
+      <div class="field"><label for="amps-now">Amperes (A)</label><input type="number" id="amps-now" min="0" step="0.1" placeholder="ej. 16"/></div>
+      <div class="field"><label for="volts-now">Volts (V)</label><input type="number" id="volts-now" min="0" step="1" value="230"/></div>
+    </div>
+    <button type="button" class="calc-btn" onclick="calcularPotencia()">🔌 Calcular kW</button>
+    <p class="error-msg" id="power-error-msg" role="alert"></p>
+    <div class="inline-result" id="power-result" aria-live="polite"></div>
+  </section>
+
+  <section class="calc-subsection" aria-labelledby="trip-consumption-title">
+    <h2 id="trip-consumption-title">📊 Consumo del viaje y costo estimado</h2>
+    <div class="section-copy compact copy-stack"><p>Usa la versión indicada arriba para calcular qué porcentaje de batería representa el consumo.</p><p>El consumo promedio se ingresa como kWh/100 km, tal como suele mostrar la computadora del auto.</p></div>
+    <div class="calc-inputs">
+      <div class="field"><label for="avg-consumption">Consumo promedio (kWh/100 km)</label><input type="number" id="avg-consumption" min="0" step="0.1" placeholder="ej. 15"/></div>
+      <div class="field"><label for="trip-km">Kilómetros recorridos</label><input type="number" id="trip-km" min="0" step="0.1" placeholder="ej. 120"/></div>
+    </div>
+    <button type="button" class="calc-btn" onclick="calcularConsumo()">📊 Calcular consumo y costo</button>
+    <p class="error-msg" id="trip-error-msg" role="alert"></p>
+    <div class="home-result" id="trip-result" aria-live="polite">
+      <p class="result-summary" id="trip-summary"></p>
+      <div class="result-table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Referencia de costo</th><th class="right">Precio/kWh</th><th class="right">Costo estimado</th></tr></thead>
+          <tbody id="trip-cost-tbody"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 </div>
@@ -102,7 +143,8 @@
 </div></main>
 <script>
 const BATTERIES = {max:75.26,plus:64.5};
-const HOME_POWER_KW = 6.6;
+const HOME_MAX_POWER_KW = 6.6;
+const HOME_VOLTAGE = 230;
 const HOME_RATES = {
   valle:{name:'Valle',rate:2.98},
   llano:{name:'Llano',rate:6.31},
@@ -118,6 +160,11 @@ function formatTime(h){const m=Math.round(h*60),hh=Math.floor(m/60),mm=m%60;if(h
 function timeEst(kwh,c){if(!c.timeKw)return 'según estación';if(c.type==='DC')return '~'+formatTime(kwh/c.timeKw)+' – '+formatTime(kwh/(c.timeKw*0.55));return '~'+formatTime(kwh/c.timeKw);}
 function fmtP(n){return '$'+n.toLocaleString('es-UY',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function fmtKw(n){return n.toLocaleString('es-UY',{maximumFractionDigits:1});}
+function getVersionLabel(version){return version==='max'?'Max':'Plus';}
+function homePowerKw(){
+  const amps=parseFloat(document.getElementById('home-current').value);
+  return Math.min((amps*HOME_VOLTAGE)/1000,HOME_MAX_POWER_KW);
+}
 function calcular(){
   const err=document.getElementById('error-msg'),res=document.getElementById('calc-result');
   err.classList.remove('visible');res.classList.remove('visible');
@@ -155,7 +202,7 @@ function calcular(){
     tr.innerHTML=`<td>${r.name}${tags.join('')}</td><td>${r.op}</td><td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td><td class="mono">${r.powerLabel}</td><td class="right mono">${r.franja}</td><td class="${cc}">${fmtP(r.cost)}</td><td class="right mono">${timeEst(kwh,r)}${tn}</td>`;
     tbody.appendChild(tr);
   });
-  document.getElementById('result-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · de <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong> · cargador DC indicado: <strong>${fmtKw(chargerPower)} kW</strong>`;
+  document.getElementById('result-summary').innerHTML=`AION V ${getVersionLabel(version)} · de <strong>${s}%</strong> a <strong>${e}%</strong> = <strong>${(e-s).toFixed(0)}%</strong> de la batería · <strong>${kwh.toFixed(2)} kWh</strong> · cargador DC indicado: <strong>${fmtKw(chargerPower)} kW</strong>`;
   document.getElementById('calc-verdict').innerHTML=`
     <div class="verdict-item"><div class="verdict-label v-cheap">Más barato</div><div class="verdict-val">${cheapest.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(cheapest.cost)}</div></div>
     <div class="verdict-item"><div class="verdict-label v-bal">Mejor equilibrio</div><div class="verdict-val">${bal.name.split('(')[0].trim()}</div><div class="verdict-sub">${fmtP(bal.cost)} · DC</div></div>
@@ -192,6 +239,7 @@ function calcularCasa(){
   const version=document.getElementById('version').value;
   const battery=BATTERIES[version];
   const kwh=battery*(e-s)/100;
+  const powerKw=homePowerKw();
   const peakStart=parseInt(document.getElementById('peak-start').value,10)*60;
   const totals={};const order=[];
   let remaining=kwh,elapsedHours=0;
@@ -200,8 +248,8 @@ function calcularCasa(){
     const minute=((absoluteMinute%1440)+1440)%1440;
     const band=homeBand(minute,peakStart);
     const availableHours=(nextHomeBoundary(minute,peakStart)-minute)/60;
-    const energy=Math.min(remaining,availableHours*HOME_POWER_KW);
-    const hours=energy/HOME_POWER_KW;
+    const energy=Math.min(remaining,availableHours*powerKw);
+    const hours=energy/powerKw;
     if(!totals[band]){totals[band]={hours:0,energy:0,cost:0};order.push(band);}
     totals[band].hours+=hours;totals[band].energy+=energy;totals[band].cost+=energy*HOME_RATES[band].rate;
     remaining-=energy;elapsedHours+=hours;
@@ -218,13 +266,49 @@ function calcularCasa(){
     tbody.appendChild(tr);
   });
   const totalCost=order.reduce((sum,band)=>sum+totals[band].cost,0);
-  document.getElementById('home-summary').innerHTML=`AION V ${version==='max'?'Max':'Plus'} · <strong>${kwh.toFixed(2)} kWh</strong> · inicio <strong>${document.getElementById('home-start-time').value}</strong> · fin estimado <strong>${clockLabel(startMinutes+elapsedHours*60)}</strong>`;
+  document.getElementById('home-summary').innerHTML=`AION V ${getVersionLabel(version)} · <strong>${kwh.toFixed(2)} kWh</strong> · potencia AC estimada <strong>${fmtKw(powerKw)} kW</strong> · inicio <strong>${document.getElementById('home-start-time').value}</strong> · fin estimado <strong>${clockLabel(startMinutes+elapsedHours*60)}</strong>`;
   document.getElementById('home-total').innerHTML=`Tiempo total: <strong>${formatTime(elapsedHours)}</strong> · Costo total estimado: <strong>${fmtP(totalCost)}</strong>`;
+  result.classList.add('visible');
+}
+function calcularPotencia(){
+  const err=document.getElementById('power-error-msg'),result=document.getElementById('power-result');
+  err.classList.remove('visible');result.classList.remove('visible');
+  const amps=parseFloat(document.getElementById('amps-now').value);
+  const volts=parseFloat(document.getElementById('volts-now').value);
+  if(isNaN(amps)||isNaN(volts)||amps<=0||volts<=0){err.textContent='Ingresá valores válidos de amperes y volts.';err.classList.add('visible');return;}
+  const kw=amps*volts/1000;
+  result.innerHTML=`Potencia estimada: <strong>${fmtKw(kw)} kW</strong> <span class="text-small">(${amps.toLocaleString('es-UY')} A × ${volts.toLocaleString('es-UY')} V ÷ 1000)</span>`;
+  result.classList.add('visible');
+}
+function costRowsForEnergy(kwh){
+  const publicRows=CHARGERS.map(c=>({label:c.name+' · '+c.franja,rate:c.rate,cost:c.fixed+c.rate*kwh}));
+  const homeRows=Object.values(HOME_RATES).map(r=>({label:'UTE hogar · '+r.name,rate:r.rate,cost:r.rate*kwh}));
+  return [...homeRows,...publicRows];
+}
+function calcularConsumo(){
+  const err=document.getElementById('trip-error-msg'),result=document.getElementById('trip-result');
+  err.classList.remove('visible');result.classList.remove('visible');
+  const avg=parseFloat(document.getElementById('avg-consumption').value);
+  const km=parseFloat(document.getElementById('trip-km').value);
+  if(isNaN(avg)||isNaN(km)||avg<=0||km<=0){err.textContent='Ingresá consumo promedio y kilómetros recorridos válidos.';err.classList.add('visible');return;}
+  const version=document.getElementById('version').value;
+  const battery=BATTERIES[version];
+  const kwh=avg*km/100;
+  const pct=kwh/battery*100;
+  document.getElementById('trip-summary').innerHTML=`AION V ${getVersionLabel(version)} · consumo estimado <strong>${kwh.toFixed(2)} kWh</strong> · equivalente a <strong>${pct.toFixed(1)}%</strong> de batería.`;
+  const tbody=document.getElementById('trip-cost-tbody');tbody.innerHTML='';
+  costRowsForEnergy(kwh).forEach(row=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${row.label}</td><td class="right mono">${fmtP(row.rate)}</td><td class="cost">${fmtP(row.cost)}</td>`;
+    tbody.appendChild(tr);
+  });
   result.classList.add('visible');
 }
 document.addEventListener('keydown',e=>{
   if(e.key!=='Enter')return;
-  if(e.target.id==='home-start-time'||e.target.id==='peak-start')calcularCasa();
+  if(['home-start-time','peak-start','home-current'].includes(e.target.id))calcularCasa();
+  else if(['amps-now','volts-now'].includes(e.target.id))calcularPotencia();
+  else if(['avg-consumption','trip-km'].includes(e.target.id))calcularConsumo();
   else calcular();
 });
 function applyTariffs(data){
