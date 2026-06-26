@@ -53,15 +53,16 @@
   <section class="calc-subsection" aria-labelledby="battery-input-title">
   <h2 class="calc-section-title" id="battery-input-title">🚙 Versión y batería</h2>
   <div class="calc-inputs charge-inputs">
-    <div class="field field-version"><label for="version">Elegí la versión/modelo</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh · AC 6,6 kW · DC 180 kW</option><option value="plus">AION V Plus · 64,5 kWh · AC 6,6 kW · DC 150 kW</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
+    <div class="field field-version"><label for="version">Elegí el modelo y capacidad de batería</label><select id="version" aria-describedby="version-help"><option value="max">AION V Max · 75,26 kWh</option><option value="plus">AION V Plus · 64,5 kWh</option></select><p class="form-help" id="version-help">Abrí la lista y seleccioná la versión de tu AION V.</p></div>
     <div class="field"><label for="pct-start">% inicial de batería</label><input type="number" id="pct-start" min="0" max="99" placeholder="ej. 20"/></div>
     <div class="field"><label for="pct-end">% final deseado</label><input type="number" id="pct-end" min="1" max="100" placeholder="ej. 80"/></div>
   </div>
   </section>
 
   <section class="calc-subsection" aria-labelledby="dc-calc-title">
-  <h2 class="calc-section-title" id="dc-calc-title">⚡ Carga pública DC de hasta 180 kW</h2>
+  <h2 class="calc-section-title" id="dc-calc-title">⚡ Carga pública DC</h2>
   <div class="section-copy compact copy-stack"><p>Usa la versión y porcentajes indicados arriba.</p><p>Indicá la potencia del cargador DC para estimar el tiempo según el punto que vas a usar.</p></div>
+  <div class="info-box calc-limit-box"><strong class="info-box-title">ℹ️ Límite DC del AION V según versión:</strong><ul class="bullet-list"><li>AION V Max: hasta 180 kW.</li><li>AION V Plus: hasta 150 kW.</li><li>Si indicás una potencia mayor, el cálculo usa el máximo admitido por el modelo seleccionado.</li></ul></div>
   <div class="calc-inputs">
     <div class="field"><label for="charger-power">Potencia del cargador DC</label><input type="number" id="charger-power" min="1" max="500" step="1" value="180" aria-describedby="charger-power-help"/><p class="form-help" id="charger-power-help">El cálculo limita la potencia efectiva según el máximo DC de la versión seleccionada.</p></div>
   </div>
@@ -86,8 +87,9 @@
   <section class="home-calc-section" aria-labelledby="home-calc-title">
     <h2 id="home-calc-title">🏠 Carga domiciliaria AC</h2>
     <div class="section-copy compact copy-stack"><p>Usa la misma versión y porcentajes indicados arriba.</p><p>Elegí el amperaje de carga, la hora de inicio y el comienzo de las cuatro horas Punta que figuran en tu contrato.</p></div>
-    <div class="calc-inputs" style="margin-top:1rem;">
-      <div class="field"><label for="home-current">Amperaje de carga</label><select id="home-current" aria-describedby="home-current-help"><option value="6">6 A</option><option value="8">8 A</option><option value="10">10 A</option><option value="13">13 A</option><option value="16" selected>16 A</option><option value="20">20 A</option><option value="24">24 A</option><option value="32">32 A</option></select><p class="form-help" id="home-current-help">A 32 A el cálculo se limita por el máximo AC del auto: 6,6 kW, aprox. 28,7 A a 230 V.</p></div>
+    <div class="info-box calc-limit-box"><strong class="info-box-title">ℹ️ Límite AC del AION V:</strong><ul class="bullet-list"><li>Plus y Max admiten hasta 6,6 kW en AC.</li><li>Con 230 V, equivale aproximadamente a 28,7 A.</li><li>Si seleccionás 32 A, el cálculo se limita automáticamente a 6,6 kW por la limitación del auto.</li></ul></div>
+    <div class="calc-inputs home-inputs" style="margin-top:1rem;">
+      <div class="field field-current"><label for="home-current">Amperaje de carga</label><select id="home-current" aria-describedby="home-current-help"><option value="" selected>Seleccioná el amperaje de carga</option><option value="6">6 A</option><option value="8">8 A</option><option value="10">10 A</option><option value="13">13 A</option><option value="16">16 A</option><option value="20">20 A</option><option value="24">24 A</option><option value="32">32 A</option></select><p class="form-help" id="home-current-help">El cálculo toma 230 V como referencia para estimar la potencia.</p></div>
       <div class="field"><label for="home-start-time">Hora de inicio de la carga</label><input type="time" id="home-start-time" value="22:00"/></div>
       <div class="field"><label for="peak-start">Inicio de horario Punta</label><select id="peak-start"><option value="17">17:00</option><option value="18" selected>18:00</option><option value="19">19:00</option></select></div>
     </div>
@@ -165,6 +167,30 @@ function homePowerKw(){
   const amps=parseFloat(document.getElementById('home-current').value);
   return Math.min((amps*HOME_VOLTAGE)/1000,HOME_MAX_POWER_KW);
 }
+function hasBatteryRange(){
+  const s=parseFloat(document.getElementById('pct-start').value);
+  const e=parseFloat(document.getElementById('pct-end').value);
+  return Number.isFinite(s)&&Number.isFinite(e)&&s>=0&&s<=99&&e>=1&&e<=100&&e>s;
+}
+function hasDcInputs(){
+  const chargerPower=parseFloat(document.getElementById('charger-power').value);
+  return hasBatteryRange()&&Number.isFinite(chargerPower)&&chargerPower>=1&&chargerPower<=500;
+}
+function hasHomeInputs(){
+  const startMinutes=parseClock(document.getElementById('home-start-time').value);
+  const amps=parseFloat(document.getElementById('home-current').value);
+  return hasBatteryRange()&&Number.isFinite(amps)&&amps>0&&startMinutes!==null;
+}
+function hasPowerInputs(){
+  const amps=parseFloat(document.getElementById('amps-now').value);
+  const volts=parseFloat(document.getElementById('volts-now').value);
+  return Number.isFinite(amps)&&Number.isFinite(volts)&&amps>0&&volts>0;
+}
+function hasTripInputs(){
+  const avg=parseFloat(document.getElementById('avg-consumption').value);
+  const km=parseFloat(document.getElementById('trip-km').value);
+  return Number.isFinite(avg)&&Number.isFinite(km)&&avg>0&&km>0;
+}
 function calcular(){
   const err=document.getElementById('error-msg'),res=document.getElementById('calc-result');
   err.classList.remove('visible');res.classList.remove('visible');
@@ -236,6 +262,7 @@ function calcularCasa(){
   if(isNaN(s)||isNaN(e)){err.textContent='Ingresá arriba los porcentajes inicial y final.';err.classList.add('visible');return;}
   if(s<0||s>99||e<1||e>100||e<=s){err.textContent='Revisá los porcentajes: el final debe ser mayor que el inicial.';err.classList.add('visible');return;}
   if(startMinutes===null){err.textContent='Ingresá una hora de inicio válida.';err.classList.add('visible');return;}
+  if(isNaN(homePowerKw())){err.textContent='Seleccioná el amperaje de carga domiciliaria.';err.classList.add('visible');return;}
   const version=document.getElementById('version').value;
   const battery=BATTERIES[version];
   const kwh=battery*(e-s)/100;
@@ -310,6 +337,20 @@ document.addEventListener('keydown',e=>{
   else if(['amps-now','volts-now'].includes(e.target.id))calcularPotencia();
   else if(['avg-consumption','trip-km'].includes(e.target.id))calcularConsumo();
   else calcular();
+});
+function debounce(fn,delay=180){
+  let timer;
+  return (...args)=>{clearTimeout(timer);timer=setTimeout(()=>fn(...args),delay);};
+}
+const autoCalculate=debounce(()=>{
+  if(hasDcInputs())calcular();
+  if(hasHomeInputs())calcularCasa();
+  if(hasPowerInputs())calcularPotencia();
+  if(hasTripInputs())calcularConsumo();
+});
+['version','pct-start','pct-end','charger-power','home-current','home-start-time','peak-start','amps-now','volts-now','avg-consumption','trip-km'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener(el.tagName==='SELECT'?'change':'input',autoCalculate);
 });
 function applyTariffs(data){
   CHARGERS=CHARGERS.map(c=>{
