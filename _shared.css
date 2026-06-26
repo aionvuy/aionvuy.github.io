@@ -462,6 +462,9 @@ details[open] summary::after { transform: rotate(45deg); }
 .bullet-list { margin-left: 1.2rem; color: var(--muted); }
 .bullet-list li + li { margin-top: 0.35rem; }
 .responsive-table { overflow-x: auto; border: 1px solid var(--border); border-radius: 9px; }
+.info-box + .responsive-table,
+.warning-box + .responsive-table { margin-top: 1rem; }
+.responsive-table + .section-title { margin-top: 2.2rem; }
 .simple-table { width: 100%; border-collapse: collapse; min-width: 560px; }
 .service-cost-table { min-width: 780px; }
 .simple-table th, .simple-table td { padding: 0.75rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
