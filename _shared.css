@@ -379,6 +379,10 @@ a { text-underline-offset: 0.18em; }
 .calc-assumptions { margin-top: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
 .calc-assumptions summary { min-height: 44px; padding: 0.7rem 0.9rem; font-size: var(--type-sm); }
 .calc-assumptions .bullet-list { padding: 0 1rem 1rem 2rem; }
+.calc-assumptions + .info-box { margin-top: 1rem; }
+.tariff-sync .action-links { margin: 1rem 0 0; }
+.calc-line-break { display: block; }
+.calc-line-break + .calc-line-break { margin-top: 0.35rem; }
 .mobile-result-cards { display: none; }
 .mobile-result-card, .home-summary-card { border: 1px solid var(--border); border-radius: 8px; background: var(--bg); padding: 0.9rem 1rem; }
 .mobile-result-card h3 { margin: 0 0 0.5rem; font-size: var(--type-md); font-weight: 600; }
