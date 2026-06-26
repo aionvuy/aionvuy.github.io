@@ -348,6 +348,41 @@ a { text-underline-offset: 0.18em; }
 .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.3rem; }
 .charge-inputs .field-version,
 .home-inputs .field-current { grid-column: 1 / -1; }
+.calc-jump-nav { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.25rem 0 0.75rem; margin: 0 0 1.25rem; scrollbar-width: thin; }
+.calc-jump-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; flex: 0 0 auto; padding: 0.6rem 0.85rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.calc-jump-nav a:hover, .calc-jump-nav a:focus-visible, .calc-jump-nav a.active { border-color: var(--accent); background: rgba(0,107,143,0.08); color: var(--accent2); }
+.calc-section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; }
+.calc-section-header .calc-section-title { margin-bottom: 0; }
+.calc-secondary-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 0.75rem; background: var(--surface); color: var(--text-link); font: 600 var(--type-sm)/1.2 var(--font-main); cursor: pointer; text-decoration: none; }
+.calc-secondary-btn:hover, .calc-secondary-btn:focus-visible { border-color: var(--accent); background: rgba(0,107,143,0.08); color: var(--accent2); }
+.input-suffix { display: flex; align-items: stretch; }
+.input-suffix input { border-radius: 6px 0 0 6px; }
+.input-suffix span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.75rem; border: 1px solid #94a3b8; border-left: 0; border-radius: 0 6px 6px 0; background: var(--surface2); color: var(--text-muted); font-weight: 600; }
+.field.has-error input, .field.has-error select { border-color: var(--text-danger); box-shadow: 0 0 0 3px rgba(185,28,28,0.12); }
+.field.has-error .input-suffix span { border-color: var(--text-danger); }
+.field-error { min-height: 1.05rem; margin-top: 0.35rem; color: var(--text-danger); font-size: 0.75rem; line-height: 1.4; }
+.battery-presets { display: flex; align-items: center; flex-wrap: wrap; gap: 0.45rem; margin: -0.25rem 0 1rem; color: var(--text-muted); font-size: var(--type-sm); }
+.battery-presets button { min-height: 34px; border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.65rem; background: var(--bg); color: var(--text-link); font: 600 var(--type-sm)/1.2 var(--font-main); cursor: pointer; }
+.battery-presets button:hover, .battery-presets button:focus-visible { border-color: var(--accent); background: rgba(0,107,143,0.08); }
+.calc-context { display: flex; align-items: center; justify-content: space-between; gap: 0.9rem; margin: 1rem 0 1.25rem; padding: 0.8rem 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); font-size: 0.8125rem; }
+.calc-context-compact { margin: 0.85rem 0 1rem; }
+.calc-context-label { display: block; margin-bottom: 0.12rem; color: var(--text-muted); font-size: 0.75rem; font-weight: 500; }
+.calc-context strong { color: var(--text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+.calc-context a { flex: 0 0 auto; color: var(--text-link); font-size: 0.8125rem; font-weight: 600; }
+.calc-auto-note, .calc-update-status, .calc-context-line { color: var(--text-muted); font-size: var(--type-sm); line-height: 1.5; margin: 0.55rem 0 0.8rem; }
+.calc-update-status { min-height: 1.1rem; color: var(--ok); font-weight: 600; }
+.calc-empty-state { display: none; margin: 0.9rem 0; padding: 0.85rem 0.95rem; border: 1px dashed var(--border); border-radius: 7px; background: var(--bg); color: var(--text-muted); font-size: var(--type-base); }
+.calc-empty-state.visible { display: block; }
+.custom-power-field[hidden] { display: none; }
+.result-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin: 0.75rem 0 0.9rem; }
+.copy-feedback { color: var(--ok); font-size: var(--type-sm); font-weight: 600; min-height: 1.1rem; }
+.calc-assumptions { margin-top: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+.calc-assumptions summary { min-height: 44px; padding: 0.7rem 0.9rem; font-size: var(--type-sm); }
+.calc-assumptions .bullet-list { padding: 0 1rem 1rem 2rem; }
+.mobile-result-cards { display: none; }
+.mobile-result-card, .home-summary-card { border: 1px solid var(--border); border-radius: 8px; background: var(--bg); padding: 0.9rem 1rem; }
+.mobile-result-card h3 { margin: 0 0 0.5rem; font-size: var(--type-md); font-weight: 600; }
+.mobile-result-card p, .home-summary-card p { margin: 0.25rem 0; max-width: none; color: var(--text-secondary); font-size: var(--type-base); }
 .field label { display: block; font-size: 0.72rem; color: var(--muted); letter-spacing: 0; text-transform: none; margin-bottom: 0.4rem; }
 .field input, .field select { width: 100%; background: var(--surface); border: 1px solid #94a3b8; border-radius: 6px; padding: 0.7rem 0.85rem; color: var(--text); font-family: var(--mono); font-size: 0.92rem; transition: border-color 0.2s, box-shadow 0.2s; }
 .field select { appearance: auto; -webkit-appearance: menulist; cursor: pointer; padding-right: 2.4rem; }
@@ -364,10 +399,10 @@ a { text-underline-offset: 0.18em; }
 .result-summary { font-size: 0.83rem; color: var(--muted); margin-bottom: 1rem; }
 .result-summary strong { color: var(--text); }
 .result-table-wrap { overflow-x: auto; margin: 0.9rem 0 1.2rem; }
-.result-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-.result-table th { text-align: left; padding: 0.5rem 0.7rem; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0; color: var(--muted); text-transform: none; border-bottom: 2px solid var(--border); white-space: nowrap; }
+.result-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.result-table th { text-align: left; padding: 0.65rem 0.75rem; font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0; color: var(--muted); text-transform: none; border-bottom: 2px solid var(--border); white-space: nowrap; }
 .result-table th.right { text-align: right; }
-.result-table td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.result-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
 .result-table tr:last-child td { border-bottom: none; }
 .result-table td.mono  { font-family: var(--mono); }
 .result-table td.right { text-align: right; }
@@ -682,6 +717,9 @@ input, select, textarea, .field input, .field select { font-family: var(--font-m
 .page-eyebrow, .section-label, .spec-group-title, .location-department, .connector-type { font-family: var(--font-main); font-size: var(--type-sm); font-weight: 500; letter-spacing: 0; text-transform: none; }
 .verdict-label, .verdict-sub { font-family: var(--font-main); font-size: var(--type-sm); }
 .score-row, .charger-meta, .spec-key, .spec-val, .score-price { font-family: var(--font-main); font-size: 0.8125rem; line-height: 1.45; }
+.result-table { font-size: 0.875rem; }
+.result-table th { font-size: 0.8125rem; }
+.result-table td { font-size: 0.875rem; }
 
 /* MOBILE */
 .mob-nav-toggle { display: none; }
@@ -707,6 +745,17 @@ input, select, textarea, .field input, .field select { font-family: var(--font-m
   input, select, textarea, .field input, .field select { font-size: 1rem; }
   table, td { font-size: 0.8125rem; }
   th { font-size: var(--type-sm); }
+  .calc-card { padding: 1.1rem; }
+  .calc-section-header, .calc-context { flex-direction: column; align-items: stretch; }
+  .calc-context a { align-self: flex-start; }
+  .battery-presets { align-items: flex-start; }
+  .battery-presets span { flex-basis: 100%; }
+  .result-table-public { display: none; }
+  .mobile-result-cards { display: grid; gap: 0.75rem; margin: 0.8rem 0 1rem; }
+  .result-table th { font-size: 0.8125rem; }
+  .result-table td { font-size: 0.875rem; }
+  .result-table th,
+  .result-table td { padding: 0.65rem 0.75rem; }
   .info-box,
   .note-box,
   .callout,
