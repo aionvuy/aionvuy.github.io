@@ -355,6 +355,7 @@ a { text-underline-offset: 0.18em; }
 .calc-section-header .calc-section-title { margin-bottom: 0; }
 .calc-secondary-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 0.75rem; background: var(--surface); color: var(--text-link); font: 600 var(--type-sm)/1.2 var(--font-main); cursor: pointer; text-decoration: none; }
 .calc-secondary-btn:hover, .calc-secondary-btn:focus-visible { border-color: var(--accent); background: rgba(0,107,143,0.08); color: var(--accent2); }
+#use-reference-volts { margin-top: 0.5rem; }
 .input-suffix { display: flex; align-items: stretch; }
 .input-suffix input { border-radius: 6px 0 0 6px; }
 .input-suffix span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.75rem; border: 1px solid #94a3b8; border-left: 0; border-radius: 0 6px 6px 0; background: var(--surface2); color: var(--text-muted); font-weight: 600; }
