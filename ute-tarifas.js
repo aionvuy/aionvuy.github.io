@@ -3,7 +3,18 @@ const UTE_TARIFF_FALLBACK = {
   updated_at: '2026-06-18',
   source: 'https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5',
   ac: {base: 54.8, energy: 10.4, idle: 9.6},
-  dc: {base: 132.9, energy: 11.8, idle: 12.3}
+  dc: {base: 132.9, energy: 11.8, idle: 12.3},
+  home: {
+    year: 2025,
+    updated_at: '2026-06-27',
+    checked_at: '2026-06-27',
+    source: 'https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2',
+    prices_include_vat: true,
+    vat_rate: 0.22,
+    punta: 14.68,
+    valle: 2.98,
+    llano: 6.31
+  }
 };
 
 function formatUtePrice(value) {

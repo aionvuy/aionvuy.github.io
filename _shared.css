@@ -348,9 +348,10 @@ a { text-underline-offset: 0.18em; }
 .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.3rem; }
 .charge-inputs .field-version,
 .home-inputs .field-current { grid-column: 1 / -1; }
-.calc-jump-nav { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.25rem 0 0.75rem; margin: 0 0 1.25rem; scrollbar-width: thin; }
-.calc-jump-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; flex: 0 0 auto; padding: 0.6rem 0.85rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
-.calc-jump-nav a:hover, .calc-jump-nav a:focus-visible, .calc-jump-nav a.active { border-color: var(--accent); background: rgba(0,107,143,0.08); color: var(--accent2); }
+.calc-jump-nav, .section-jump-nav { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.25rem 0 0.75rem; margin: 0 0 1.25rem; scrollbar-width: thin; }
+.calc-jump-nav a, .section-jump-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; flex: 0 0 auto; padding: 0.6rem 0.85rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.calc-jump-nav a:hover, .calc-jump-nav a:focus-visible, .calc-jump-nav a.active, .section-jump-nav a:hover, .section-jump-nav a:focus-visible { border-color: var(--accent); background: rgba(0,107,143,0.08); color: var(--accent2); }
+.info-box + .section-jump-nav { margin-top: 1.25rem; }
 .calc-section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; }
 .calc-section-header .calc-section-title { margin-bottom: 0; }
 .calc-secondary-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 0.75rem; background: var(--surface); color: var(--text-link); font: 600 var(--type-sm)/1.2 var(--font-main); cursor: pointer; text-decoration: none; }
@@ -387,6 +388,7 @@ a { text-underline-offset: 0.18em; }
 .calc-assumptions summary { min-height: 44px; padding: 0.7rem 0.9rem; font-size: var(--type-sm); }
 .calc-assumptions .bullet-list { padding: 0 1rem 1rem 2rem; }
 .calc-assumptions + .info-box { margin-top: 1rem; }
+.safety-followup { margin-top: 1rem; }
 .calc-line-break { display: block; }
 .calc-line-break + .calc-line-break { margin-top: 0.35rem; }
 .mobile-result-cards { display: none; }
@@ -633,6 +635,25 @@ code {
 .approx { color: var(--warn); font-weight: 600; }
 .table-reference-date, .uyu-value { display: block; margin-top: 0.2rem; color: var(--text-muted); font-size: var(--type-sm); font-weight: 400; line-height: 1.35; }
 .exchange-rate-box { margin-top: 1rem; }
+.cost-section { scroll-margin-top: 1rem; }
+.table-help { margin: 0.75rem 0 0.4rem; color: var(--text-muted); font-size: var(--type-sm); line-height: 1.5; }
+.patent-table { min-width: 720px; }
+.vehicle-version, .vehicle-usd { display: block; }
+.vehicle-version { color: var(--text-primary); font-weight: 600; }
+.vehicle-usd { margin-top: 0.2rem; color: var(--text-secondary); font-size: var(--type-sm); }
+.patent-main-value strong { color: var(--text-primary); font-weight: 700; }
+.patent-main-value .uyu-value { color: var(--text-secondary); }
+.patent-table td[data-discount] .usd-value { color: var(--text-muted); font-size: var(--type-sm); font-weight: 400; }
+.patent-table td[data-discount] .uyu-value { color: var(--text-primary); font-size: var(--type-base); font-weight: 700; }
+.fx-status-box { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.6rem; margin: 1rem 0 0.75rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); font-size: var(--type-sm); }
+.fx-status-label { color: var(--text-muted); font-weight: 500; }
+.fx-status-box strong { color: var(--text-primary); font-weight: 600; }
+.fx-checked { flex-basis: 100%; color: var(--text-muted); font-size: var(--type-xs); }
+.source-list { display: grid; gap: 0.35rem; margin: 0.7rem 0 0; padding-left: 1.15rem; color: var(--text-muted); font-size: var(--type-sm); }
+.source-list a { color: var(--text-link); font-weight: 500; }
+.cost-card-label { display: block; margin-bottom: 0.35rem; color: var(--text-muted); font-size: var(--type-xs); font-weight: 600; }
+.cost-card-note { margin: 0; color: var(--text-muted); font-size: var(--type-sm); line-height: 1.5; }
+.insurance-checklist { margin-top: 1rem; }
 .company-accordion-list { display: grid; gap: 0.8rem; margin: 1.4rem 0 2rem; }
 .company-accordion summary { padding: 1rem 1.15rem; }
 .company-accordion summary span { display: grid; gap: 0.2rem; }
