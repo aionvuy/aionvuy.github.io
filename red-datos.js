@@ -134,7 +134,7 @@ function makeLocationCard(item, mapLabel = '') {
     return link;
   });
   const hours = scheduleListItem(item, contacts.hours);
-  [address, mobiles, phones, emails, hours].filter(Boolean).forEach(node => list.append(node));
+  [address, hours, mobiles, phones, emails].filter(Boolean).forEach(node => list.append(node));
   if (list.children.length) article.append(list);
   if (item.map) {
     const link = document.createElement('a');
@@ -195,8 +195,14 @@ async function loadGacNetwork() {
     if (postSales) renderGroupedLocations(postSales, data.post_sales);
     document.querySelectorAll('[data-gac-date]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
   } catch (error) {
-    [sales, postSales].filter(Boolean).forEach(node => {
-      node.textContent = 'No fue posible cargar el listado. Consultá la fuente oficial de GAC.';
-    });
+    if (sales) sales.textContent = 'No fue posible cargar el listado. Consultá la fuente oficial de GAC.';
+    if (postSales) {
+      postSales.innerHTML = `
+        <div class="workshops-load-error" role="status">
+          <p>No fue posible cargar el listado de talleres oficiales.</p>
+          <a href="https://www.gacmotor.uy/postventas" target="_blank" rel="noopener noreferrer">Consultar postventa GAC ↗</a>
+        </div>
+      `;
+    }
   }
 }
