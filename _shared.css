@@ -605,6 +605,7 @@ code {
 .data-note { color: var(--muted); font-size: 0.78rem; margin: 0.7rem 0 1.3rem; }
 .location-section { margin-bottom: 2.2rem; }
 .location-grid, .version-grid, .cost-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.cost-grid-single { grid-template-columns: minmax(0,1fr); }
 .location-card, .version-card, .cost-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
 .location-card h4, .version-card h3, .cost-card h3 { margin-bottom: 0.35rem; line-height: 1.3; }
 .location-department { display: inline-block; color: var(--accent2); font-family: var(--mono); font-size: 0.68rem; font-weight: 500; text-transform: none; letter-spacing: 0; margin-bottom: 0.45rem; }
@@ -640,15 +641,18 @@ code {
 .patent-table { min-width: 720px; }
 .vehicle-version, .vehicle-usd { display: block; }
 .vehicle-version { color: var(--text-primary); font-weight: 600; }
+.vehicle-price-label { display: block; margin-top: 0.3rem; color: var(--text-muted); font-size: var(--type-xs); font-weight: 500; }
 .vehicle-usd { margin-top: 0.2rem; color: var(--text-secondary); font-size: var(--type-sm); }
 .patent-main-value strong { color: var(--text-primary); font-weight: 700; }
 .patent-main-value .uyu-value { color: var(--text-secondary); }
 .patent-table td[data-discount] .usd-value { color: var(--text-muted); font-size: var(--type-sm); font-weight: 400; }
 .patent-table td[data-discount] .uyu-value { color: var(--text-primary); font-size: var(--type-base); font-weight: 700; }
 .fx-status-box { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.6rem; margin: 1rem 0 0.75rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); font-size: var(--type-sm); }
-.fx-status-label { color: var(--text-muted); font-weight: 500; }
+.fx-status-label { flex-basis: 100%; color: var(--text-muted); font-weight: 500; }
 .fx-status-box strong { color: var(--text-primary); font-weight: 600; }
+.fx-updated { color: var(--text-muted); }
 .fx-checked { flex-basis: 100%; color: var(--text-muted); font-size: var(--type-xs); }
+.fx-source-link { color: var(--text-link); font-weight: 500; }
 .source-list { display: grid; gap: 0.35rem; margin: 0.7rem 0 0; padding-left: 1.15rem; color: var(--text-muted); font-size: var(--type-sm); }
 .source-list a { color: var(--text-link); font-weight: 500; }
 .cost-card-label { display: block; margin-bottom: 0.35rem; color: var(--text-muted); font-size: var(--type-xs); font-weight: 600; }
