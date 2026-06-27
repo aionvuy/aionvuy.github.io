@@ -194,6 +194,7 @@ async function loadGacNetwork() {
     if (sales) renderGroupedLocations(sales, data.sales);
     if (postSales) renderGroupedLocations(postSales, data.post_sales);
     document.querySelectorAll('[data-gac-date]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
+    document.querySelectorAll('[data-gac-checked]').forEach(node => node.textContent = formatSourceDate(data.checked_at || data.updated_at));
   } catch (error) {
     if (sales) sales.textContent = 'No fue posible cargar el listado. Consultá la fuente oficial de GAC.';
     if (postSales) {

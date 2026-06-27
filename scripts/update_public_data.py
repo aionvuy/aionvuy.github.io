@@ -150,7 +150,12 @@ def write_if_changed(path: Path, values: dict[str, object], comparable_keys: tup
     previous = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     same = all(previous.get(key) == values.get(key) for key in comparable_keys)
     values["updated_at"] = previous.get("updated_at", str(date.today())) if same else str(date.today())
-    ordered = {"updated_at": values.pop("updated_at"), **values}
+    values["checked_at"] = str(date.today())
+    ordered = {
+        "updated_at": values.pop("updated_at"),
+        "checked_at": values.pop("checked_at"),
+        **values,
+    }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(ordered, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
