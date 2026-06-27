@@ -168,7 +168,7 @@
   </div>
   <div class="tariff-source-group">
     <h3>🏠 Carga domiciliaria</h3>
-    <div class="responsive-table"><table class="simple-table tariff-sources-table"><thead><tr><th>Fuente</th><th>Información actualizada</th><th>Actualización automática</th><th>Origen</th></tr></thead><tbody><tr><td><a href="https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ↗</a></td><td>27/6/2026</td><td>No automatizada</td><td>Página oficial de UTE</td></tr></tbody></table></div>
+    <div class="responsive-table"><table class="simple-table tariff-sources-table"><thead><tr><th>Fuente</th><th>Información actualizada</th><th>Actualización automática</th><th>Origen</th></tr></thead><tbody id="home-tariff-source"><tr><td><a href="https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ↗</a></td><td>27/6/2026</td><td>No automatizada</td><td>Página oficial de UTE</td></tr></tbody></table></div>
   </div>
 </section>
 </div></main>
@@ -216,6 +216,17 @@ function renderPublicTariffSources(){
   container.innerHTML=uniqueSources.map(source=>source.url
     ? `<tr><td><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.name} — tarifas de carga pública ↗</a></td><td>${formatSourceDate(source.updated)}</td><td>${formatSourceDate(source.automaticUpdated,'No automatizada')}</td><td>${source.type}</td></tr>`
     : `<tr><td><span class="tariff-source-missing">${source.name} — fuente pendiente de confirmar</span></td><td>${formatSourceDate(source.updated)}</td><td>${formatSourceDate(source.automaticUpdated,'No automatizada')}</td><td>${source.type}</td></tr>`).join('');
+}
+function applyHomeTariffs(home){
+  if(!home)return;
+  for(const band of ['valle','llano','punta']){
+    if(Number.isFinite(Number(home[band])))HOME_RATES[band].rate=Number(home[band]);
+  }
+  const source=$('home-tariff-source');
+  if(source){
+    const updated=formatSourceDate(home.updated_at),checked=formatSourceDate(home.checked_at||home.updated_at);
+    source.innerHTML=`<tr><td><a href="${home.source}" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ${home.year} ↗</a></td><td>${updated}</td><td>${checked}</td><td>Página oficial de UTE</td></tr>`;
+  }
 }
 function calcular({silent=false}={}){
   const data=batteryRange(),chargerPower=getChargerPower(),res=$('calc-result');
@@ -280,7 +291,7 @@ function setActiveJump(id){if(!id||id===activeSectionId)return;activeSectionId=i
 jumpLinks.forEach(link=>link.addEventListener('click',()=>setActiveJump(link.getAttribute('href').slice(1))));
 const sectionObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>sectionVisibility.set(entry.target.id,entry.isIntersecting?entry.intersectionRect.height:0));const ranked=[...sectionVisibility.entries()].sort((a,b)=>b[1]-a[1]);if(!ranked.length||ranked[0][1]===0)return;const currentVisible=sectionVisibility.get(activeSectionId)||0;if(ranked[0][0]!==activeSectionId&&ranked[0][1]>=currentVisible+32)setActiveJump(ranked[0][0]);},{threshold:[0,0.15,0.3,0.45,0.6,0.75,0.9],rootMargin:'-12% 0px -35% 0px'});
 ['carga-publica','carga-casa','potencia-instantanea','consumo-viaje'].forEach(id=>sectionObserver.observe($(id)));
-function applyTariffs(data){CHARGERS=CHARGERS.map(c=>{if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};if(c.id==='ute-dc')return {...c,fixed:data.dc.base,rate:data.dc.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};return c;});renderUteTariffs(data);renderPublicTariffSources();autoCalculate();}
+function applyTariffs(data){CHARGERS=CHARGERS.map(c=>{if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};if(c.id==='ute-dc')return {...c,fixed:data.dc.base,rate:data.dc.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};return c;});applyHomeTariffs(data.home);renderUteTariffs(data);renderPublicTariffSources();autoCalculate();}
 ['dc-empty','home-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));
 renderPublicTariffSources();
 updateContext();updateDcPowerContext();updateHomePowerContext();

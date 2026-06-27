@@ -19,6 +19,7 @@ jobs:
       - name: Consultar fuentes oficiales
         run: |
           python scripts/update_ute_tariffs.py
+          python scripts/update_exchange_rate.py
           python scripts/update_public_data.py
       - name: Publicar cambios si las fuentes se actualizaron
         run: |
