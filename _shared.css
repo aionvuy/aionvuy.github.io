@@ -672,6 +672,18 @@ code {
 .calculator-crosslink p { margin: 0 0 0.45rem; font-size: var(--type-sm); }
 .calculator-crosslink a, .home-calculator-link { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
 .app-coverage { margin: 0.55rem 0 0; color: var(--text-muted); font-size: var(--type-xs); font-weight: 500; }
+.app-card .action-links + .app-coverage { margin-top: 0.7rem; }
+.app-card-header { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.65rem; }
+.app-card-header h3 { margin: 0; }
+.app-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
 .home-calculator-link { display: inline-flex; margin-top: 0.65rem; text-decoration: none; }
 .table-help { margin: 0.75rem 0 0.4rem; color: var(--text-muted); font-size: var(--type-sm); line-height: 1.5; }
 .patent-table { min-width: 720px; }
@@ -697,6 +709,21 @@ code {
 .company-accordion-list { display: grid; gap: 0.8rem; margin: 1.4rem 0 2rem; }
 .company-accordion summary { padding: 1rem 1.15rem; }
 .company-accordion summary span { display: grid; gap: 0.2rem; }
+.company-accordion summary .company-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.company-summary-copy { min-width: 0; }
+.company-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
 .company-accordion summary strong { color: var(--text); font-size: var(--type-md); }
 .company-accordion summary small { color: var(--muted); font-size: var(--type-sm); font-weight: 400; }
 .company-accordion-content { padding: 1rem 1.15rem 1.2rem; border-top: 1px solid var(--border); }
