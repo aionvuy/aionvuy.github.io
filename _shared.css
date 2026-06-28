@@ -651,9 +651,10 @@ code {
 .voice-start-note { margin-top: 0.55rem; color: var(--text-secondary); font-size: var(--type-sm); }
 .voice-section { scroll-margin-top: 1rem; }
 .voice-section + .voice-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.voice-section > .section-title:first-child { margin-top: 0; }
 .command-note { display: block; margin-top: 0.2rem; color: var(--text-muted); font-size: var(--type-xs); line-height: 1.4; }
 .section-note { margin: 0.4rem 0 0.85rem; color: var(--text-secondary); font-size: var(--type-sm); line-height: 1.5; }
-.voice-section .responsive-table + .section-title { margin-top: 1.5rem; }
+.voice-section .responsive-table + .section-title { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
 .voice-feedback-footer { display: grid; gap: 0.55rem; }
 .voice-feedback-footer p { margin: 0; }
 .voice-feedback-link { width: fit-content; color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
