@@ -646,6 +646,32 @@ code {
 .workshops-source-link, .workshops-load-error a { color: var(--text-link); font-weight: 500; }
 .workshops-load-error { margin-top: 1rem; padding: 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); }
 .workshops-load-error p { margin: 0 0 0.45rem; }
+.voice-start-box { margin-bottom: 1.5rem; }
+.voice-start-box .bullet-list { margin-bottom: 0.9rem; }
+.voice-start-note { margin-top: 0.55rem; color: var(--text-secondary); font-size: var(--type-sm); }
+.voice-section { scroll-margin-top: 1rem; }
+.voice-section + .voice-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.command-note { display: block; margin-top: 0.2rem; color: var(--text-muted); font-size: var(--type-xs); line-height: 1.4; }
+.section-note { margin: 0.4rem 0 0.85rem; color: var(--text-secondary); font-size: var(--type-sm); line-height: 1.5; }
+.voice-section .responsive-table + .section-title { margin-top: 1.5rem; }
+.voice-feedback-footer { display: grid; gap: 0.55rem; }
+.voice-feedback-footer p { margin: 0; }
+.voice-feedback-link { width: fit-content; color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
+.network-section { scroll-margin-top: 1rem; }
+.network-load-error { margin-top: 1rem; padding: 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); }
+.network-load-error p { margin: 0 0 0.45rem; }
+.network-load-error a { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
+.chargers-section { scroll-margin-top: 1rem; }
+.operator-note, .home-safety-note { margin: 0.75rem 0 0; color: var(--text-secondary); font-size: var(--type-sm); line-height: 1.5; }
+.operator-load-error { margin-top: 1rem; padding: 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); }
+.operator-load-error p { margin: 0 0 0.45rem; }
+.operator-load-error a { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
+.calculator-crosslink { margin-top: 1.5rem; padding: 0.9rem 1rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); }
+.calculator-crosslink strong { display: block; color: var(--text-primary); margin-bottom: 0.2rem; }
+.calculator-crosslink p { margin: 0 0 0.45rem; font-size: var(--type-sm); }
+.calculator-crosslink a, .home-calculator-link { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
+.app-coverage { margin: 0.55rem 0 0; color: var(--text-muted); font-size: var(--type-xs); font-weight: 500; }
+.home-calculator-link { display: inline-flex; margin-top: 0.65rem; text-decoration: none; }
 .table-help { margin: 0.75rem 0 0.4rem; color: var(--text-muted); font-size: var(--type-sm); line-height: 1.5; }
 .patent-table { min-width: 720px; }
 .vehicle-version, .vehicle-usd { display: block; }

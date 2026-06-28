@@ -112,7 +112,7 @@ function makeLocationCard(item, mapLabel = '') {
   const list = document.createElement('ul');
   list.className = 'location-details-list';
   const address = contactListItem('Dirección', contacts.address ? [contacts.address] : []);
-  const mobiles = contactListItem('Celular', contacts.mobiles, value => {
+  const mobiles = contactListItem('WhatsApp', contacts.mobiles, value => {
     const link = document.createElement('a');
     link.href = `https://wa.me/${internationalPhone(value)}`;
     link.target = '_blank';
@@ -152,7 +152,7 @@ function renderGroupedLocations(container, items) {
   container.replaceChildren();
   const groups = [
     ['Montevideo', items.filter(item => item.area === 'montevideo')],
-    ['Interior', items.filter(item => item.area === 'interior')]
+    ['Interior del país', items.filter(item => item.area === 'interior')]
   ];
   groups.forEach(([label, locations]) => {
     if (!locations.length) return;
@@ -177,9 +177,19 @@ async function loadEonePoints() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     container.replaceChildren(...data.points.map(point => makeLocationCard({...point, department: 'eOne'})));
-    document.querySelectorAll('[data-eone-date]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
+    document.querySelectorAll('[data-eone-updated]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
+    const checkedDate = data.checked_at ? new Date(data.checked_at + 'T12:00:00') : null;
+    const checkedLabel = checkedDate && !Number.isNaN(checkedDate.getTime())
+      ? formatSourceDate(data.checked_at)
+      : 'No disponible';
+    document.querySelectorAll('[data-eone-checked]').forEach(node => node.textContent = checkedLabel);
   } catch (error) {
-    container.textContent = 'No fue posible cargar el listado. Consultá la fuente oficial de eOne.';
+    container.innerHTML = `
+      <div class="operator-load-error" role="status">
+        <p>No fue posible cargar el listado de puntos eOne.</p>
+        <a href="https://eone.eco/puntos-de-carga/" target="_blank" rel="noopener noreferrer">Consultar puntos eOne ↗</a>
+      </div>
+    `;
   }
 }
 
@@ -193,14 +203,25 @@ async function loadGacNetwork() {
     const data = await response.json();
     if (sales) renderGroupedLocations(sales, data.sales);
     if (postSales) renderGroupedLocations(postSales, data.post_sales);
-    document.querySelectorAll('[data-gac-date]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
-    document.querySelectorAll('[data-gac-checked]').forEach(node => node.textContent = formatSourceDate(data.checked_at || data.updated_at));
+    document.querySelectorAll('[data-gac-updated], [data-gac-date]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
+    const checkedDate = data.checked_at ? new Date(data.checked_at + 'T12:00:00') : null;
+    const checkedLabel = checkedDate && !Number.isNaN(checkedDate.getTime())
+      ? formatSourceDate(data.checked_at)
+      : 'No disponible';
+    document.querySelectorAll('[data-gac-checked]').forEach(node => node.textContent = checkedLabel);
   } catch (error) {
-    if (sales) sales.textContent = 'No fue posible cargar el listado. Consultá la fuente oficial de GAC.';
+    if (sales) {
+      sales.innerHTML = `
+        <div class="network-load-error" role="status">
+          <p>No fue posible cargar el listado de automotoras oficiales.</p>
+          <a href="https://www.gacmotor.uy/ventas" target="_blank" rel="noopener noreferrer">Consultar ventas GAC ↗</a>
+        </div>
+      `;
+    }
     if (postSales) {
       postSales.innerHTML = `
-        <div class="workshops-load-error" role="status">
-          <p>No fue posible cargar el listado de talleres oficiales.</p>
+        <div class="network-load-error" role="status">
+          <p>No fue posible cargar el listado de centros oficiales de postventa.</p>
           <a href="https://www.gacmotor.uy/postventas" target="_blank" rel="noopener noreferrer">Consultar postventa GAC ↗</a>
         </div>
       `;
