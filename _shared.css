@@ -406,8 +406,26 @@ a { text-underline-offset: 0.18em; }
 .tariff-source-group + .tariff-source-group { margin-top: 1.25rem; }
 .tariff-source-group h3 { margin: 0 0 0.55rem; color: var(--text-primary); font-size: var(--type-md); font-weight: 600; }
 .tariff-source-group a { color: var(--text-link); font-weight: 500; }
-.tariff-sources-table { min-width: 720px; }
+.tariff-sources-table { min-width: 560px; }
 .tariff-sources-table td { color: var(--text-secondary); font-size: var(--type-sm); vertical-align: top; }
+.tariff-sources-table th:first-child { width: 50%; }
+.source-company {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.source-company a,
+.source-company .tariff-source-missing { min-width: 0; overflow-wrap: anywhere; }
+.source-logo {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
 .field label { display: block; font-size: 0.72rem; color: var(--muted); letter-spacing: 0; text-transform: none; margin-bottom: 0.4rem; }
 .field input, .field select { width: 100%; background: var(--surface); border: 1px solid #94a3b8; border-radius: 6px; padding: 0.7rem 0.85rem; color: var(--text); font-family: var(--mono); font-size: 0.92rem; transition: border-color 0.2s, box-shadow 0.2s; }
 .field select { appearance: auto; -webkit-appearance: menulist; cursor: pointer; padding-right: 2.4rem; }
@@ -663,7 +681,22 @@ code {
 .network-load-error p { margin: 0 0 0.45rem; }
 .network-load-error a { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
 .chargers-section { scroll-margin-top: 1rem; }
-.operator-note, .home-safety-note { margin: 0.75rem 0 0; color: var(--text-secondary); font-size: var(--type-sm); line-height: 1.5; }
+.operator-note { margin: 0.75rem 0 0; color: var(--text-secondary); font-size: var(--type-sm); line-height: 1.5; }
+.operator-status-line {
+  margin: 0.6rem 0 0.9rem;
+  color: var(--text-muted);
+  font-size: var(--type-sm);
+}
+.home-safety-note {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  border-left: 3px solid var(--accent);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: var(--type-sm);
+  line-height: 1.5;
+}
+.home-safety-note p { margin: 0.3rem 0 0; }
 .operator-load-error { margin-top: 1rem; padding: 0.9rem; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text-secondary); }
 .operator-load-error p { margin: 0 0 0.45rem; }
 .operator-load-error a { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
@@ -672,7 +705,7 @@ code {
 .calculator-crosslink p { margin: 0 0 0.45rem; font-size: var(--type-sm); }
 .calculator-crosslink a, .home-calculator-link { color: var(--text-link); font-size: var(--type-sm); font-weight: 600; }
 .app-coverage { margin: 0.55rem 0 0; color: var(--text-muted); font-size: var(--type-xs); font-weight: 500; }
-.app-card .action-links + .app-coverage { margin-top: 0.7rem; }
+.app-card .app-coverage + .action-links { margin-top: 0.7rem; }
 .app-card-header { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.65rem; }
 .app-card-header h3 { margin: 0; }
 .app-icon {

@@ -164,11 +164,11 @@
   <h2 id="tariff-sources-title">📚 Fuentes de tarifas y datos</h2>
   <div class="tariff-source-group">
     <h3>⚡ Carga pública</h3>
-    <div class="responsive-table"><table class="simple-table tariff-sources-table"><thead><tr><th>Fuente</th><th>Información actualizada</th><th>Actualización automática</th><th>Origen</th></tr></thead><tbody id="public-tariff-sources"></tbody></table></div>
+    <div class="responsive-table"><table class="simple-table tariff-sources-table"><thead><tr><th>Fuente</th><th>Información actualizada</th><th>Actualización automática</th></tr></thead><tbody id="public-tariff-sources"></tbody></table></div>
   </div>
   <div class="tariff-source-group">
     <h3>🏠 Carga domiciliaria</h3>
-    <div class="responsive-table"><table class="simple-table tariff-sources-table"><thead><tr><th>Fuente</th><th>Información actualizada</th><th>Actualización automática</th><th>Origen</th></tr></thead><tbody id="home-tariff-source"><tr><td><a href="https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ↗</a></td><td>27/6/2026</td><td>No automatizada</td><td>Página oficial de UTE</td></tr></tbody></table></div>
+    <div class="responsive-table"><table class="simple-table tariff-sources-table"><thead><tr><th>Fuente</th><th>Información actualizada</th><th>Actualización automática</th></tr></thead><tbody id="home-tariff-source"><tr><td><div class="source-company"><img class="source-logo" src="assets/apps/ute-mueve.png" alt="" width="22" height="22" loading="lazy"><a href="https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ↗</a></div></td><td>27/6/2026</td><td>No automatizada</td></tr></tbody></table></div>
   </div>
 </section>
 </div></main>
@@ -213,9 +213,14 @@ function formatSourceDate(value,emptyLabel='Fecha pendiente'){
 function renderPublicTariffSources(){
   const container=$('public-tariff-sources');if(!container)return;
   const uniqueSources=[...new Map(CHARGERS.map(item=>[item.sourceName||item.op,{name:item.sourceName||item.op,url:item.sourceUrl||'',updated:item.sourceUpdated||'',automaticUpdated:item.sourceAutomaticUpdated||'',type:item.sourceType||'Fuente pendiente de clasificar'}])).values()];
-  container.innerHTML=uniqueSources.map(source=>source.url
-    ? `<tr><td><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.name} — tarifas de carga pública ↗</a></td><td>${formatSourceDate(source.updated)}</td><td>${formatSourceDate(source.automaticUpdated,'No automatizada')}</td><td>${source.type}</td></tr>`
-    : `<tr><td><span class="tariff-source-missing">${source.name} — fuente pendiente de confirmar</span></td><td>${formatSourceDate(source.updated)}</td><td>${formatSourceDate(source.automaticUpdated,'No automatizada')}</td><td>${source.type}</td></tr>`).join('');
+  const sourceLogos={UTE:'assets/apps/ute-mueve.png',eOne:'assets/apps/eone-ev.png'};
+  container.innerHTML=uniqueSources.map(source=>{
+    const logo=sourceLogos[source.name] ? `<img class="source-logo" src="${sourceLogos[source.name]}" alt="" width="22" height="22" loading="lazy">` : '';
+    const label=source.url
+      ? `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.name} — tarifas de carga pública ↗</a>`
+      : `<span class="tariff-source-missing">${source.name} — fuente pendiente de confirmar</span>`;
+    return `<tr><td><div class="source-company">${logo}${label}</div></td><td>${formatSourceDate(source.updated)}</td><td>${formatSourceDate(source.automaticUpdated,'No automatizada')}</td></tr>`;
+  }).join('');
 }
 function applyHomeTariffs(home){
   if(!home)return;
