@@ -146,8 +146,9 @@ def main() -> None:
     previous = json.loads(OUTPUT.read_text(encoding="utf-8")) if OUTPUT.exists() else {}
     comparable = {key: previous.get(key) for key in ("year", "source", "ac", "dc")}
     values["updated_at"] = previous.get("updated_at", str(date.today())) if comparable == values else str(date.today())
+    values["checked_at"] = str(date.today())
     values["home"] = home_tariff(home_html, previous.get("home", {}))
-    ordered = {key: values[key] for key in ("year", "updated_at", "source", "ac", "dc", "home")}
+    ordered = {key: values[key] for key in ("year", "updated_at", "checked_at", "source", "ac", "dc", "home")}
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(ordered, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
