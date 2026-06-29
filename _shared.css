@@ -516,34 +516,6 @@ a { text-underline-offset: 0.18em; }
   margin-top: 1rem;
 }
 
-.version-arrival-note {
-  margin: 1rem 0 1.5rem;
-}
-
-.version-arrival-note p {
-  max-width: 75ch;
-  margin-bottom: 0;
-}
-
-.version-arrival-note p + p {
-  margin-top: 0.7rem;
-}
-
-.version-arrival-note .bullet-list {
-  margin-top: 0.55rem;
-}
-
-.version-arrival-note a {
-  font-size: var(--type-sm);
-  font-weight: 600;
-}
-
-.version-arrival-privacy-note {
-  color: var(--text-muted) !important;
-  font-size: var(--type-sm) !important;
-  line-height: 1.5;
-}
-
 .historical-version-note {
   margin: 0.85rem 0 0;
   color: var(--text-secondary);
@@ -1241,3 +1213,162 @@ input, select, textarea, .field input, .field select { font-family: var(--font-m
   }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.version-arrival-note {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid #ead7a2;
+  border-left: 3px solid #d99a00;
+  border-radius: 7px;
+  background: #fff8e6;
+}
+
+.version-arrival-note summary {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+  min-height: 44px;
+  padding: 0.85rem 2.8rem 0.85rem 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.version-arrival-note[open] {
+  background: #ffffff;
+  border-color: #ead7a2;
+  border-left-color: #d99a00;
+}
+
+.version-arrival-note summary {
+  background: #fff8e6;
+}
+
+@media (max-width: 640px) {
+  .version-arrival-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .version-arrival-actions .action-link {
+    justify-content: center;
+  }
+}
+.faq-item-actions {
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.faq-copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 38px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #3730a3;
+  font: 500 var(--type-sm) var(--font-main);
+  cursor: pointer;
+}
+
+.faq-copy-button:hover {
+  background: #e0e7ff;
+}
+
+.faq-copy-button:focus-visible {
+  outline: 3px solid rgba(55, 48, 163, 0.25);
+  outline-offset: 2px;
+}
+.version-arrival-note-content {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.version-arrival-note-content p {
+  max-width: 75ch;
+}
+
+.version-arrival-context {
+  padding-top: 0.9rem;
+}
+
+.version-arrival-label {
+  margin-top: 1rem !important;
+  margin-bottom: 0.45rem !important;
+  color: var(--text-primary);
+  font-size: var(--type-sm);
+  font-weight: 600;
+}
+
+.version-arrival-context .bullet-list {
+  margin-top: 0;
+}
+
+.version-arrival-verification {
+  margin-top: 1rem !important;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.version-arrival-contribute {
+  margin-top: 1rem;
+}
+
+.version-arrival-contribute-title {
+  margin-bottom: 0.3rem !important;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.version-arrival-contribute p + p {
+  margin-top: 0.35rem;
+}
+
+.version-arrival-actions {
+  margin-top: 0.75rem;
+}
+
+.version-arrival-actions .action-link {
+  min-height: 38px;
+}
+
+.version-arrival-actions .action-link.secondary {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #3730a3;
+}
+
+.version-arrival-actions .action-link.secondary:hover {
+  background: #e0e7ff;
+}
+
+.version-arrival-actions .whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #e9f7ee;
+  border-color: #8fd6a6;
+  color: #04783c;
+}
+
+.version-arrival-actions .whatsapp-link:hover {
+  background: #d8f0e1;
+}
+
+.version-arrival-contribution-note {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.version-arrival-contribution-note p {
+  margin: 0;
+}
+
+.version-arrival-privacy-note {
+  margin-top: 0.55rem !important;
+  color: var(--text-muted) !important;
+  font-size: var(--type-sm) !important;
+  line-height: 1.5;
+}
