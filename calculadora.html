@@ -215,7 +215,11 @@ let CHARGERS = [
   {name:'Red pública UTE · AC',op:'UTE',type:'AC',powerLabel:'auto: máx. 6,6 kW',franja:'tarifa AC',fixed:54.8,rate:10.4,timeKw:6.6,id:'ute-ac',sourceName:'UTE',sourceUrl:'https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'2026-06-18',sourceType:'Página oficial de UTE'},
   {name:'Red pública UTE · DC',op:'UTE',type:'DC',powerLabel:'según estación',franja:'tarifa DC',fixed:132.9,rate:11.8,timeKw:null,id:'ute-dc',sourceName:'UTE',sourceUrl:'https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'2026-06-18',sourceType:'Página oficial de UTE'},
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'00:00–18:00 y 22:00–24:00',fixed:0,rate:18.3,timeKw:180,id:'eone-off',sourceName:'eOne',sourceUrl:'https://eone.eco/puntos-de-carga/',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'',sourceType:'Página oficial de eOne'},
-  {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:23.85,timeKw:180,isPeak:true,id:'eone-peak',sourceName:'eOne',sourceUrl:'https://eone.eco/puntos-de-carga/',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'',sourceType:'Página oficial de eOne'}
+  {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:23.85,timeKw:180,isPeak:true,id:'eone-peak',sourceName:'eOne',sourceUrl:'https://eone.eco/puntos-de-carga/',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'',sourceType:'Página oficial de eOne'},
+  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'00:00–07:00',fixed:0,rate:15,timeKw:120,id:'dmc-valle',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
+  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'07:00–18:00',fixed:0,rate:16,timeKw:120,id:'dmc-dia',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
+  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:18,timeKw:120,isPeak:true,id:'dmc-peak',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
+  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'22:00–24:00',fixed:0,rate:16,timeKw:120,id:'dmc-noche',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'}
 ];
 let lastPublicSummary='',lastHomeSummary='',lastTripSummary='',calcDirty=false,autoTimer=null,statusTimer=null;
 function $(id){return document.getElementById(id);}
@@ -247,12 +251,12 @@ function formatSourceDate(value,emptyLabel='Fecha pendiente'){
 function renderPublicTariffSources(){
   const container=$('public-tariff-sources');if(!container)return;
   const uniqueSources=[...new Map(CHARGERS.map(item=>[item.sourceName||item.op,{name:item.sourceName||item.op,url:item.sourceUrl||'',updated:item.sourceUpdated||'',automaticUpdated:item.sourceAutomaticUpdated||'',type:item.sourceType||'Fuente pendiente de clasificar'}])).values()];
-  const sourceLogos={UTE:'assets/apps/ute-mueve.png',eOne:'assets/apps/eone-ev.png'};
+  const sourceLogos={UTE:'assets/apps/ute-mueve.png',eOne:'assets/apps/eone-ev.png','DMC Mobility':'assets/apps/dmcmobility.png'};
   container.innerHTML=uniqueSources.map(source=>{
     const logo=sourceLogos[source.name] ? `<img class="source-logo" src="${sourceLogos[source.name]}" alt="" width="22" height="22" loading="lazy">` : '';
     const label=source.url
       ? `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.name} — tarifas de carga pública ↗ <span class="sr-only">(se abre en una pestaña nueva)</span></a>`
-      : `<span class="tariff-source-missing">${source.name} — fuente pendiente de confirmar</span>`;
+      : `<span class="tariff-source-missing">${source.name} — ${source.type}</span>`;
     return `<tr><td><div class="source-company">${logo}${label}</div></td><td>${formatSourceDate(source.updated)}</td><td>${formatSourceDate(source.automaticUpdated,'No automatizada')}</td></tr>`;
   }).join('');
 }
@@ -274,7 +278,7 @@ function calcular({silent=false}={}){
   if(!Number.isFinite(chargerPower)){return null;}
   if(chargerPower<1||chargerPower>500){setFieldError('charger-power','Ingresá una potencia entre 1 y 500 kW.');return null;}else setFieldError('charger-power','');
   const effectiveDc=Math.min(chargerPower,vehicleDcLimit(data.version));
-  const rows=CHARGERS.map(c=>({...c,timeKw:c.type==='DC'?effectiveDc:c.timeKw,powerLabel:c.type==='DC'?`indicada ${fmtKw(chargerPower)} kW · efectiva ${fmtKw(effectiveDc)} kW`:c.powerLabel,cost:c.fixed+c.rate*data.kwh})).sort((a,b)=>a.cost-b.cost);
+  const rows=CHARGERS.map(c=>{const dcEffective=c.type==='DC'?Math.min(effectiveDc,c.timeKw||effectiveDc):c.timeKw;return {...c,timeKw:dcEffective,powerLabel:c.type==='DC'?(c.timeKw?`cargador ${fmtKw(c.timeKw)} kW · efectiva ${fmtKw(dcEffective)} kW`:`indicada ${fmtKw(chargerPower)} kW · efectiva ${fmtKw(dcEffective)} kW`):c.powerLabel,cost:c.fixed+c.rate*data.kwh};}).sort((a,b)=>a.cost-b.cost);
   const cheapest=rows[0],fastestPower=Math.max(...rows.filter(r=>r.timeKw).map(r=>r.timeKw)),reference=rows.find(r=>r.id==='ute-dc')||rows.find(r=>r.type==='DC'&&!r.isPeak)||rows[0];
   const tbody=$('result-tbody');tbody.innerHTML='';$('public-mobile-cards').innerHTML='';
   rows.forEach(r=>{
@@ -282,7 +286,7 @@ function calcular({silent=false}={}){
     if(isCheapest)tr.classList.add('row-best');if(isFastest)tr.classList.add('row-fast');if(isReference)tr.classList.add('row-balanced');
     const tags=[isCheapest?'<span class="tag tag-best">más barato</span>':'',isFastest?'<span class="tag tag-fast">más rápido</span>':'',isReference&&!isFastest&&!isCheapest?'<span class="tag tag-balanced">referencia rápida</span>':''].join('');
     const cc=isCheapest?'cost-best':r.id===rows[rows.length-1].id?'cost-worst':'cost',tn=(r.type==='DC'&&data.e>80)?' *':'';
-    const mobileSource=r.sourceUrl?`<p class="tariff-source-mobile"><strong>Fuente de tarifa:</strong> <a href="${r.sourceUrl}" target="_blank" rel="noopener noreferrer" aria-label="Ver fuente oficial de tarifa de ${r.sourceName}">${r.sourceName} ↗ <span class="sr-only">(se abre en una pestaña nueva)</span></a></p>`:`<p class="tariff-source-mobile tariff-source-missing"><strong>Fuente de tarifa:</strong> pendiente de confirmar</p>`;
+    const mobileSource=r.sourceUrl?`<p class="tariff-source-mobile"><strong>Fuente de tarifa:</strong> <a href="${r.sourceUrl}" target="_blank" rel="noopener noreferrer" aria-label="Ver fuente oficial de tarifa de ${r.sourceName}">${r.sourceName} ↗ <span class="sr-only">(se abre en una pestaña nueva)</span></a></p>`:`<p class="tariff-source-mobile tariff-source-missing"><strong>Fuente de tarifa:</strong> ${r.sourceName||r.op} · ${r.sourceType||'fuente pendiente de confirmar'}</p>`;
     tr.innerHTML=`<td><span class="result-provider-name">${r.name}${tags}</span></td><td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td><td class="mono">${r.powerLabel}</td><td class="right mono">${r.franja}</td><td class="${cc}">${fmtP(r.cost)}</td><td class="right mono">${timeEst(data.kwh,r)}${tn}</td>`;tbody.appendChild(tr);
     const card=document.createElement('article');card.className='mobile-result-card';card.innerHTML=`${tags}<h3>${r.op} · ${r.type}</h3><p><strong>Costo total estimado:</strong> ${fmtP(r.cost)}</p><p><strong>Tiempo aproximado:</strong> ${timeEst(data.kwh,r)}${tn}</p><p><strong>Potencia efectiva:</strong> ${r.powerLabel}</p><p><strong>Franja:</strong> ${r.franja}</p>${mobileSource}`;$('public-mobile-cards').appendChild(card);
   });
