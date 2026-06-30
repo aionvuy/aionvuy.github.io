@@ -264,7 +264,7 @@ function applyHomeTariffs(home){
   const source=$('home-tariff-source');
   if(source){
     const updated=formatSourceDate(home.updated_at),checked=formatSourceDate(home.checked_at||home.updated_at);
-    source.innerHTML=`<tr><td><a href="${home.source}" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ${home.year} ↗ <span class="sr-only">(se abre en una pestaña nueva)</span></a></td><td>${updated}</td><td>${checked}</td><td>Página oficial de UTE</td></tr>`;
+    source.innerHTML=`<tr><td><div class="source-company"><img class="source-logo" src="assets/apps/ute-mueve.png" alt="" width="22" height="22" loading="lazy"><a href="${home.source}" target="_blank" rel="noopener noreferrer">UTE — Tarifa Residencial Triple Horario ${home.year} ↗ <span class="sr-only">(se abre en una pestaña nueva)</span></a></div></td><td>${updated}</td><td>${checked}</td></tr>`;
   }
 }
 function calcular({silent=false}={}){

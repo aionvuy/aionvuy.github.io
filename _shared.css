@@ -2261,3 +2261,49 @@ h3[id],
   border-color: #82c99e;
   color: var(--ok);
 }
+/* ===== HOME CHARGING FIELD ALIGNMENT ===== */
+.home-inputs {
+  align-items: start;
+}
+
+.home-inputs .field {
+  align-self: start;
+}
+
+.home-inputs .field input,
+.home-inputs .field select {
+  min-height: 44px;
+  height: 44px;
+}
+/* ===== WHATSAPP ACTION COLOR CONSISTENCY ===== */
+a.whatsapp-link,
+a.action-link.whatsapp-link,
+a.action-link.secondary.whatsapp-link,
+.version-arrival-actions a.whatsapp-link,
+.community-action.whatsapp {
+  background: #e9f7ee;
+  border-color: #82c99e;
+  color: var(--ok);
+}
+
+a.whatsapp-link:hover,
+a.action-link.whatsapp-link:hover,
+a.action-link.secondary.whatsapp-link:hover,
+.version-arrival-actions a.whatsapp-link:hover,
+.community-action.whatsapp:hover {
+  background: #d8f0e1;
+  border-color: #82c99e;
+  color: var(--ok);
+}
+/* ===== YOUTUBE ACTION LINKS ===== */
+.action-link.youtube-link {
+  gap: var(--space-2);
+}
+
+.action-link.youtube-link::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e62117' d='M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
