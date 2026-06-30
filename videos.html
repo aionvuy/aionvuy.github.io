@@ -105,27 +105,6 @@
 <article class="cost-card"><h3>Comparación visual entre gris y azul</h3><div class="action-links"><a class="action-link youtube-link" href="https://www.youtube.com/watch?v=Qf6qx3-6jYs" target="_blank" rel="noopener noreferrer">YouTube ↗ <span class="sr-only">(se abre en una pestaña nueva)</span></a></div></article>
 </div>
 </div></main>
-<script>
-(function () {
-  const nav = document.getElementById('sidebar-nav');
-  const button = document.querySelector('.mob-nav-toggle');
-  if (!nav || !button) return;
 
-  const setMenuState = (isOpen, returnFocus) => {
-    nav.classList.toggle('open', isOpen);
-    button.setAttribute('aria-expanded', String(isOpen));
-    if (!isOpen && returnFocus) button.focus();
-  };
-
-  button.addEventListener('click', () => {
-    setMenuState(!nav.classList.contains('open'), false);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && nav.classList.contains('open')) {
-      setMenuState(false, true);
-    }
-  });
-})();
-</script>
+<script src="mobile-nav.js" defer></script>
 </body></html>

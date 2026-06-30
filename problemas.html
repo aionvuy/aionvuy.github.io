@@ -172,27 +172,6 @@
 
 </div></main>
 
-<script>
-(function () {
-  const nav = document.getElementById('sidebar-nav');
-  const button = document.querySelector('.mob-nav-toggle');
-  if (!nav || !button) return;
 
-  const setMenuState = (isOpen, returnFocus) => {
-    nav.classList.toggle('open', isOpen);
-    button.setAttribute('aria-expanded', String(isOpen));
-    if (!isOpen && returnFocus) button.focus();
-  };
-
-  button.addEventListener('click', () => {
-    setMenuState(!nav.classList.contains('open'), false);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && nav.classList.contains('open')) {
-      setMenuState(false, true);
-    }
-  });
-})();
-</script>
+<script src="mobile-nav.js" defer></script>
 </body></html>

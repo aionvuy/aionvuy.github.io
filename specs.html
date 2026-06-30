@@ -147,28 +147,7 @@
 <footer class="source-footer"><p>🗓️ <strong>Última actualización de esta recopilación:</strong> 20/06/2026.</p><p>Esta página reúne información pública disponible al momento de su revisión. Las configuraciones, el equipamiento, los precios, la garantía y la disponibilidad pueden cambiar.</p><p>Antes de tomar una decisión de compra, confirmá con la automotora y con el vendedor de la unidad concreta los datos que sean importantes para tu caso.</p></footer>
 </section>
 </div></main>
-<script>
-(function () {
-  const nav = document.getElementById('sidebar-nav');
-  const button = document.querySelector('.mob-nav-toggle');
-  if (!nav || !button) return;
 
-  const setMenuState = (isOpen, returnFocus) => {
-    nav.classList.toggle('open', isOpen);
-    button.setAttribute('aria-expanded', String(isOpen));
-    if (!isOpen && returnFocus) button.focus();
-  };
-
-  button.addEventListener('click', () => {
-    setMenuState(!nav.classList.contains('open'), false);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && nav.classList.contains('open')) {
-      setMenuState(false, true);
-    }
-  });
-})();
-</script>
+<script src="mobile-nav.js" defer></script>
 </body>
 </html>

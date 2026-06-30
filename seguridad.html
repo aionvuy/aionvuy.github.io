@@ -153,27 +153,6 @@
 
 <footer class="source-footer"><p>🗓️ <strong>Última actualización documental:</strong> junio de 2026.</p><p>🔗 <strong>Fuentes:</strong> PDF disponibles en las páginas oficiales de ANCAP y Euro NCAP, más la hoja oficial de rescate GAC AION.</p><p>ℹ️ Los resultados corresponden a vehículos y configuraciones evaluadas para mercados específicos. Verificar siempre el equipamiento real del vehículo.</p></footer>
 </div></main>
-<script>
-(function () {
-  const nav = document.getElementById('sidebar-nav');
-  const button = document.querySelector('.mob-nav-toggle');
-  if (!nav || !button) return;
 
-  const setMenuState = (isOpen, returnFocus) => {
-    nav.classList.toggle('open', isOpen);
-    button.setAttribute('aria-expanded', String(isOpen));
-    if (!isOpen && returnFocus) button.focus();
-  };
-
-  button.addEventListener('click', () => {
-    setMenuState(!nav.classList.contains('open'), false);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && nav.classList.contains('open')) {
-      setMenuState(false, true);
-    }
-  });
-})();
-</script>
+<script src="mobile-nav.js" defer></script>
 </body></html>
