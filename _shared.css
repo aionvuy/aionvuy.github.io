@@ -2593,3 +2593,41 @@ a.action-link.secondary.whatsapp-link:hover,
     display: none !important;
   }
 }
+/* ===== SPEC ROW MOBILE WRAPPING ===== */
+@media (max-width: 720px) {
+  .specs-grid {
+    overflow: visible;
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+
+  .spec-key,
+  .spec-val {
+    min-width: 0;
+  }
+
+  .spec-key {
+    flex-shrink: 1;
+  }
+
+  .spec-val {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+}
+
+@media (max-width: 480px) {
+  .spec-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .spec-val {
+    text-align: left;
+  }
+}
