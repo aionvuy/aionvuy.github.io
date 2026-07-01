@@ -16,7 +16,88 @@
     }
   };
 
+  const addAppInformation = () => {
+    const technologyGrid = document.querySelector('#tecnologia-conectividad .cost-grid');
+    if (technologyGrid && !document.getElementById('app-aion-internacional')) {
+      const appCard = document.createElement('article');
+      appCard.className = 'cost-card';
+      appCard.id = 'app-aion-internacional';
+      appCard.innerHTML = `
+        <h3>App AION · referencia internacional</h3>
+        <p class="section-copy compact">Una captura de la aplicación oficial disponible en algunos mercados internacionales muestra estas funciones:</p>
+        <ul class="bullet-list">
+          <li>Consulta de autonomía estimada, nivel de batería y estado del vehículo.</li>
+          <li>Controles de bloqueo, ventanillas, baúl, luces y bocina.</li>
+          <li>Precalentamiento de batería, ventilación, función “antivirus con un toque” y modo de espera.</li>
+        </ul>
+        <p class="section-copy compact"><strong>Disponibilidad:</strong> actualmente, la aplicación no está disponible en Uruguay.</p>
+        <p class="section-copy compact">La captura no confirma que estas funciones remotas estén habilitadas en las unidades comercializadas localmente.</p>`;
+      technologyGrid.append(appCard);
+    }
+
+    const faqList = document.querySelector('#faq-versions .faq-list');
+    if (!faqList || document.getElementById('faq-aion-v-tiene-una-app')) return;
+
+    const faqItem = document.createElement('details');
+    faqItem.id = 'faq-aion-v-tiene-una-app';
+    faqItem.innerHTML = `
+      <summary>¿AION V tiene una app? ¿Está disponible en Uruguay?</summary>
+      <div class="faq-body">
+        <p>Sí, la AION V cuenta con una aplicación oficial en algunos mercados internacionales, desde la que se puede consultar información del vehículo y acceder a determinadas funciones remotas.</p>
+        <p>Actualmente, la aplicación no está disponible en Uruguay.</p>
+        <p>Tampoco hay información oficial que confirme que vaya a habilitarse en nuestro país en el futuro, ni una fecha anunciada para su posible llegada.</p>
+      </div>`;
+
+    const helpItem = [...faqList.querySelectorAll(':scope > details')].find((item) =>
+      item.querySelector('summary')?.textContent.includes('¿Cómo puedo ayudar')
+    );
+    faqList.insertBefore(faqItem, helpItem || null);
+
+    const body = faqItem.querySelector('.faq-body');
+    const summary = faqItem.querySelector('summary');
+    const actions = document.createElement('div');
+    actions.className = 'faq-item-actions';
+    const copyButton = document.createElement('button');
+    copyButton.type = 'button';
+    copyButton.className = 'faq-copy-button';
+    copyButton.innerHTML = '<span aria-hidden="true">📋</span> Copiar para WhatsApp';
+    copyButton.setAttribute('aria-label', `Copiar pregunta y respuesta: ${summary.textContent.trim()}`);
+    copyButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const answer = [...body.querySelectorAll('p')].map((node) => node.textContent.trim()).join('\n');
+      const text = `${summary.textContent.trim()}\n\n${answer}\n\nMás info: https://aionvuy.github.io/faq.html#${faqItem.id}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyButton.innerHTML = '<span aria-hidden="true">✅</span> Copiado';
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.left = '-9999px';
+        document.body.append(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        copyButton.innerHTML = '<span aria-hidden="true">✅</span> Copiado';
+      }
+      window.setTimeout(() => {
+        copyButton.innerHTML = '<span aria-hidden="true">📋</span> Copiar para WhatsApp';
+      }, 1800);
+    });
+    actions.append(copyButton);
+    body.append(actions);
+
+    if (window.location.hash === `#${faqItem.id}`) {
+      faqItem.open = true;
+      faqItem.scrollIntoView({ block: 'start' });
+    }
+  };
+
   ready(() => {
+    addAppInformation();
+
     const sidebar = document.querySelector('.sidebar');
     const desktopNav = document.getElementById('sidebar-nav');
     if (!sidebar || !desktopNav || document.querySelector('.mobile-nav-shell')) return;
