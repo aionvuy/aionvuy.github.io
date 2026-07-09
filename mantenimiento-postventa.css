@@ -21,10 +21,12 @@
 }
 
 .maintenance-summary-strip {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0;
+  width: fit-content;
+  max-width: 100%;
   margin: var(--space-3) 0 var(--space-4);
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
@@ -69,55 +71,94 @@
 
 .service-cost-table caption {
   caption-side: top;
-  padding: 0.75rem 0.85rem;
-  text-align: left;
-  color: var(--text-secondary);
-  font-size: var(--type-sm);
-  line-height: 1.45;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
-.service-cost-table .numeric-cell {
+.service-cost-table {
+  table-layout: fixed;
+}
+
+.service-cost-table .col-kilometraje { width: 13%; }
+.service-cost-table .col-meses { width: 10%; }
+.service-cost-table .col-punta { width: 12%; }
+.service-cost-table .col-parque { width: 12%; }
+.service-cost-table .col-vladimir { width: 16%; }
+.service-cost-table .col-observaciones { width: 37%; }
+
+.service-cost-table .numeric-cell,
+.first-control-cost-table .numeric-cell {
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
-.service-cost-table .nowrap {
+.service-cost-table th:nth-child(2),
+.service-cost-table td:nth-child(2),
+.service-cost-table th:nth-child(4),
+.service-cost-table td:nth-child(4),
+.service-cost-table th:nth-child(5),
+.service-cost-table td:nth-child(5) {
+  text-align: center;
+}
+
+.service-cost-table th:nth-child(3),
+.service-cost-table td:nth-child(3) {
+  text-align: right;
+}
+
+.service-cost-table th:nth-child(1),
+.service-cost-table td:nth-child(1),
+.service-cost-table th:nth-child(6),
+.service-cost-table td:nth-child(6) {
+  text-align: left;
+}
+
+.service-cost-table .nowrap,
+.first-control-cost-table .nowrap {
   white-space: nowrap;
 }
 
-.maintenance-repeat-table {
-  width: 100%;
+.first-control-cost-wrap,
+.maintenance-repeat-wrap {
   max-width: 30rem;
-  margin: var(--space-3) 0;
-  border-collapse: collapse;
-  font-size: var(--type-sm);
 }
 
+.first-control-cost-table,
+.maintenance-repeat-table {
+  min-width: 0;
+}
+
+.maintenance-work-table {
+  min-width: 680px;
+}
+
+.maintenance-work-table th:not(:first-child),
+.maintenance-work-table td:not(:first-child) {
+  text-align: center;
+}
+
+.maintenance-work-table td:first-child {
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+
+.first-control-cost-table caption,
 .maintenance-repeat-table caption {
   caption-side: top;
-  padding: 0 0 var(--space-2);
-  text-align: left;
-  color: var(--text-secondary);
-  font-size: var(--type-sm);
-  line-height: 1.45;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 
-.maintenance-repeat-table th,
-.maintenance-repeat-table td {
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--border);
-}
-
-.maintenance-repeat-table th {
-  text-align: left;
-  font-weight: var(--weight-semibold);
-  background: var(--surface2);
-}
-
+.first-control-cost-table td,
 .maintenance-repeat-table td {
   font-variant-numeric: tabular-nums;
+}
+
+.table-note {
+  color: var(--text-muted);
+  font-size: var(--type-sm);
+  line-height: 1.5;
+  margin: var(--space-2) 0 var(--space-3);
 }
 
 .maintenance-repeat-note {
@@ -135,6 +176,7 @@
 @media (max-width: 720px) {
   .maintenance-summary-strip {
     align-items: stretch;
+    width: 100%;
     padding: var(--space-2);
   }
 
