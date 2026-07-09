@@ -1,9 +1,9 @@
 .maintenance-schedule-notice {
-  margin: 1rem 0 1rem;
-  padding: 1rem 1.1rem;
+  margin: var(--space-3) 0;
+  padding: var(--space-3) var(--space-4);
   border: 1px solid #e8cf8b;
   border-left: 4px solid #d99a00;
-  border-radius: 9px;
+  border-radius: var(--radius-md);
   background: #fff8e6;
   color: #3f2d04;
 }
@@ -28,7 +28,7 @@
   width: fit-content;
   max-width: 100%;
   margin: var(--space-3) 0 var(--space-4);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--surface);
@@ -37,7 +37,7 @@
 .maintenance-summary-item {
   display: inline-flex;
   align-items: baseline;
-  gap: var(--space-1);
+  gap: 0.35rem;
   min-width: 0;
   padding: var(--space-1) var(--space-3);
 }
@@ -79,12 +79,12 @@
   table-layout: fixed;
 }
 
-.service-cost-table .col-kilometraje { width: 13%; }
-.service-cost-table .col-meses { width: 10%; }
-.service-cost-table .col-punta { width: 12%; }
-.service-cost-table .col-parque { width: 12%; }
-.service-cost-table .col-vladimir { width: 16%; }
-.service-cost-table .col-observaciones { width: 37%; }
+.service-cost-table .col-kilometraje { width: 12%; }
+.service-cost-table .col-meses { width: 9%; }
+.service-cost-table .col-punta { width: 13%; }
+.service-cost-table .col-parque { width: 13%; }
+.service-cost-table .col-vladimir { width: 18%; }
+.service-cost-table .col-observaciones { width: 35%; }
 
 .service-cost-table .numeric-cell,
 .first-control-cost-table .numeric-cell {
@@ -123,13 +123,23 @@
   max-width: 30rem;
 }
 
+.first-control-cost-wrap {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.maintenance-repeat-wrap {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
 .first-control-cost-table,
 .maintenance-repeat-table {
   min-width: 0;
 }
 
 .maintenance-work-table {
-  min-width: 680px;
+  min-width: 640px;
 }
 
 .maintenance-work-table th:not(:first-child),
@@ -157,8 +167,30 @@
 .table-note {
   color: var(--text-muted);
   font-size: var(--type-sm);
-  line-height: 1.5;
-  margin: var(--space-2) 0 var(--space-3);
+  line-height: 1.45;
+  margin: var(--space-2) 0 var(--space-4);
+  padding-left: 1.15rem;
+}
+
+.table-note li + li {
+  margin-top: 0.25rem;
+}
+
+.first-control-cost-wrap + .table-note,
+.maintenance-repeat-wrap + .table-note {
+  margin-top: var(--space-2);
+}
+
+.workshops-source-status {
+  gap: 0.4rem 0.75rem;
+  margin-bottom: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+}
+
+.workshops-source-label,
+.workshops-checked {
+  line-height: 1.45;
 }
 
 .maintenance-repeat-note {
