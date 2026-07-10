@@ -2673,6 +2673,29 @@ a.action-link.secondary.whatsapp-link:hover,
   font-size: var(--type-sm);
   font-weight: 600;
 }
+.home-planner-warning {
+  margin: 0 0 0.85rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(146, 64, 14, 0.28);
+  border-radius: var(--radius-md);
+  background: #fff7ed;
+  color: var(--text-primary);
+}
+.home-planner-warning > strong {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--warn);
+}
+.home-planner-warning p {
+  margin: 0 0 0.6rem;
+}
+.home-planner-warning ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+}
+.home-planner-warning li + li {
+  margin-top: 0.25rem;
+}
 @media (max-width: 640px) {
   .calc-mode-options { display: grid; grid-template-columns: 1fr; }
   .calc-mode-options label { width: 100%; }
