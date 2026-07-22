@@ -5,16 +5,20 @@ from __future__ import annotations
 
 import json
 import re
+import time
 import unicodedata
 from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 SOURCE = "https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5"
 HOME_SOURCE = "https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2"
 OUTPUT = Path(__file__).resolve().parents[1] / "data" / "ute-tarifas.json"
 VAT_RATE = 0.22
+FETCH_TIMEOUT_SECONDS = 45
+FETCH_RETRY_DELAYS_SECONDS = (15, 30, 60)
 
 
 def normalize(value: str) -> str:
@@ -88,8 +92,23 @@ def tariff_table(tables: list[list[list[str]]], heading: str) -> dict[str, float
 
 def fetch(source: str) -> str:
     request = Request(source, headers={"User-Agent": "AION-V-UY tariff updater/1.0"})
-    with urlopen(request, timeout=30) as response:
-        return response.read().decode("utf-8")
+    attempts = len(FETCH_RETRY_DELAYS_SECONDS) + 1
+    for attempt in range(1, attempts + 1):
+        try:
+            with urlopen(request, timeout=FETCH_TIMEOUT_SECONDS) as response:
+                return response.read().decode("utf-8")
+        except (TimeoutError, URLError, OSError) as exc:
+            if attempt == attempts:
+                raise
+            delay = FETCH_RETRY_DELAYS_SECONDS[attempt - 1]
+            print(
+                f"UTE fetch failed for {source} "
+                f"(attempt {attempt}/{attempts}: {exc}). "
+                f"Retrying in {delay}s..."
+            )
+            time.sleep(delay)
+
+    raise RuntimeError(f"UTE fetch failed for {source}")
 
 
 def home_tariff(html: str, previous: dict) -> dict[str, object]:
