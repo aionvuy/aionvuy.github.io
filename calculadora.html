@@ -79,6 +79,7 @@
 <nav class="calc-jump-nav" aria-label="Herramientas de cálculo">
   <a href="#carga-publica" class="active">⚡ Carga pública</a>
   <a href="#carga-casa">🏠 Carga en casa</a>
+  <a href="#ute-carga-casa">🏠 UTE y carga en casa</a>
   <a href="#potencia-instantanea">🔌 Cálculo de potencia de carga</a>
   <a href="#consumo-viaje">📊 Consumo de viaje</a>
 </nav>
@@ -147,7 +148,7 @@
       <div class="field home-field-finish"><label for="home-start-time">Hora de comienzo</label><input type="time" id="home-start-time" aria-describedby="home-start-time-help home-start-time-error"/><p class="form-help" id="home-start-time-help">Podés cambiarla si vas a cargar a otra hora.</p><p class="field-error" id="home-start-time-error" role="alert"></p></div>
       <div class="field home-field-deadline"><label for="home-deadline-date">Fecha en que necesitás el auto</label><input type="date" id="home-deadline-date" aria-describedby="home-deadline-date-help home-deadline-date-error"/><p class="form-help" id="home-deadline-date-help">Por defecto se usa hoy. Podés modificarla si necesitás planificar para otra fecha.</p><p class="field-error" id="home-deadline-date-error" role="alert"></p></div>
       <div class="field home-field-deadline"><label for="home-deadline-time">Hora límite</label><input type="time" id="home-deadline-time" aria-describedby="home-deadline-time-help home-deadline-time-error"/><p class="form-help" id="home-deadline-time-help">Indicá a qué hora querés que el auto ya esté cargado.</p><p class="field-error" id="home-deadline-time-error" role="alert"></p></div>
-      <div class="field"><label for="peak-start">Inicio de horario Punta</label><select id="peak-start"><option value="" selected>Seleccioná según tu contrato</option><option value="17">17:00</option><option value="18">18:00</option><option value="19">19:00</option></select></div>
+      <div class="field"><label for="peak-start">Horario Punta</label><select id="peak-start" aria-describedby="peak-start-help"><option value="17">17:00 a 21:00</option><option value="18" selected>18:00 a 22:00</option><option value="19">19:00 a 23:00</option></select><p class="form-help" id="peak-start-help">UTE asigna 18:00 a 22:00 por defecto, pero podés cambiarlo si elegiste otro horario Punta.</p></div>
     </div>
     <p class="calc-context-line" id="home-power-context">Seleccioná el amperaje para ver la potencia estimada.</p>
     <p class="calc-empty-state" id="home-empty">Completá los datos de batería, seleccioná amperaje y hora de inicio para estimar costo y duración.</p>
@@ -164,6 +165,87 @@
       </div>
       <p class="calc-context-line"><span class="calc-line-break">Estimación basada en 230 V, amperaje seleccionado y tarifas configuradas.</span><span class="calc-line-break">No incluye pérdidas de carga ni variaciones de la instalación.</span><span class="calc-line-break">El consumo facturado real puede ser mayor.</span></p>
     </div>
+  </section>
+
+  <section class="home-calc-section ute-home-charging-section" id="ute-carga-casa" aria-labelledby="ute-home-charging-title">
+    <h2 id="ute-home-charging-title">🏠 Cargar en casa con UTE Triple Horario</h2>
+    <div class="section-copy compact copy-stack">
+      <p>Si cargás el AION V en casa y tenés UTE Triple Horario, el costo de la carga depende de la franja horaria en la que consumas la energía.</p>
+      <p>Para cargar el auto, el horario más conveniente suele ser el Valle, entre las 00:00 y las 07:00, porque es la franja más barata. El horario Punta es el más caro y conviene evitarlo cuando sea posible.</p>
+    </div>
+    <div class="responsive-table">
+      <table class="simple-table compact-table ute-home-charging-table">
+        <caption class="sr-only">Franjas de UTE Triple Horario para carga domiciliaria</caption>
+        <thead>
+          <tr>
+            <th scope="col">Franja</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Para cargar el auto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Valle</strong></td>
+            <td class="mono">00:00 a 07:00</td>
+            <td>Ideal para cargar al menor costo.</td>
+          </tr>
+          <tr>
+            <td><strong>Llano</strong></td>
+            <td>Resto del día fuera de Punta</td>
+            <td>Útil si no alcanza el horario Valle.</td>
+          </tr>
+          <tr>
+            <td><strong>Punta</strong></td>
+            <td>4 horas consecutivas en días hábiles</td>
+            <td>Conviene evitarlo salvo necesidad.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="data-note">ℹ️ Los sábados, domingos y feriados no tienen horario Punta. En esos días, el tramo que normalmente sería Punta se cobra como Llano.</p>
+
+    <div class="section-subgroup">
+      <h3 class="section-subgroup-title">Horario Punta por defecto</h3>
+      <p class="section-copy compact">Con medidor inteligente conectado, UTE permite elegir el Horario Punta entre tres opciones:</p>
+      <ul class="bullet-list">
+        <li>17:00 a 21:00</li>
+        <li>18:00 a 22:00</li>
+        <li>19:00 a 23:00</li>
+      </ul>
+      <p class="section-copy compact">Por defecto, UTE asigna el horario Punta de 18:00 a 22:00.</p>
+    </div>
+
+    <div class="section-subgroup">
+      <h3 class="section-subgroup-title">Cómo usa esto la calculadora</h3>
+      <div class="section-copy compact copy-stack">
+        <p>La calculadora de carga domiciliaria usa estas franjas para estimar el costo de cargar en casa y para sugerir horarios de carga cuando se usa el modo “Menor costo antes de una hora”.</p>
+        <p>En el modo “Menor costo antes de una hora”, la calculadora prioriza cargar en Valle. Si no alcanza, completa en Llano y deja Punta como última opción.</p>
+      </div>
+      <div class="info-box copy-stack">
+        <p><strong>ℹ️ Cargar en horario Punta</strong></p>
+        <p>Cargar en horario Punta no tiene ningún problema técnico para el vehículo, pero suele ser la opción más cara.</p>
+        <p>Si no hay urgencia, conviene programar la carga fuera de Punta.</p>
+      </div>
+    </div>
+
+    <div class="section-subgroup">
+      <h3 class="section-subgroup-title">Cambio de Horario Punta</h3>
+      <div class="section-copy compact copy-stack">
+        <p>Si tenés Plan Inteligente, podés solicitar el cambio de Horario Punta para elegir el tramo que mejor se adapte a tu rutina.</p>
+        <p>Para carga domiciliaria, puede convenir elegir un horario Punta que interfiera lo menos posible con los horarios en los que normalmente necesitás cargar el auto.</p>
+      </div>
+      <div class="action-links">
+        <a class="action-link secondary" href="https://www.ute.com.uy/clientes/tramites-y-servicios/solicitudes/cambio-de-horario-punta-del-plan-inteligente#tab-1252-1" target="_blank" rel="noopener noreferrer">🔗 Ver trámite de cambio de Horario Punta en UTE <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+      </div>
+    </div>
+
+    <footer class="source-footer">
+      <p>Fuentes oficiales: Plan Inteligente Hogares de UTE y trámite de Cambio de Horario Punta del Plan Inteligente.</p>
+      <div class="action-links">
+        <a class="action-link secondary" href="https://portal.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/plan-inteligente-hogares?tab=5#tab-323-1" target="_blank" rel="noopener noreferrer">🔗 Plan Inteligente Hogares de UTE <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+        <a class="action-link secondary" href="https://www.ute.com.uy/clientes/tramites-y-servicios/solicitudes/cambio-de-horario-punta-del-plan-inteligente#tab-1252-1" target="_blank" rel="noopener noreferrer">🔗 Cambio de Horario Punta del Plan Inteligente <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+      </div>
+    </footer>
   </section>
 
   <section class="calc-subsection" id="potencia-instantanea" aria-labelledby="instant-power-title">
@@ -308,7 +390,11 @@ function calcular({silent=false}={}){
   lastPublicSummary=`AION V ${getVersionLabel(data.version)} · ${data.s}% → ${data.e}%\nEnergía estimada: ${fmtKwh(data.kwh)} kWh\nOpción más barata: ${cheapest.name} — ${fmtP(cheapest.cost)}\nTiempo aproximado: ${timeEst(data.kwh,cheapest)}\nTarifas consultadas: UTE ${document.querySelector('[data-ute-year]')?.textContent||'2026'}\nhttps://aionvuy.github.io/calculadora.html`;
   setVisible('dc-empty',false);setVisible('calc-result',true);if(!silent)showUpdated();return rows;
 }
-const HOME_HOLIDAYS = [];
+const HOME_HOLIDAYS = [
+  '2026-01-01','2026-01-06','2026-02-16','2026-02-17','2026-04-02','2026-04-03',
+  '2026-04-19','2026-05-01','2026-05-18','2026-06-19','2026-07-18','2026-08-25',
+  '2026-10-12','2026-11-02','2026-12-25'
+];
 function homeMode(){return document.querySelector('input[name="home-mode"]:checked')?.value||'finish';}
 function todayMidnight(){const d=new Date();d.setHours(0,0,0,0);return d;}
 function localDateKey(date){return `${date.getFullYear()}-${pad2(date.getMonth()+1)}-${pad2(date.getDate())}`;}
@@ -393,7 +479,8 @@ function setDirty(){calcDirty=true;autoCalculate();}
 function currentTimeValue(){const now=new Date(),minutes=Math.ceil(now.getMinutes()/5)*5,rounded=new Date(now);rounded.setMinutes(minutes,0,0);return `${pad2(rounded.getHours())}:${pad2(rounded.getMinutes())}`;}
 function initHomeStartTime(){const input=$('home-start-time');if(input&&!input.value)input.value=currentTimeValue();}
 function initHomeDeadlineDefaults(){const date=$('home-deadline-date');if(date&&!date.value)date.value=dateValue(0);updateDeadlineConstraints();}
-function resetCalc(){const hasResults=['calc-result','home-result','trip-result','power-result'].some(id=>$(id).classList.contains('visible'));if(calcDirty&&hasResults&&!confirm('¿Restablecer todos los valores de la calculadora?'))return;['version','pct-start','pct-end','charger-power-preset','charger-power','home-current','home-start-time','home-deadline-date','home-deadline-time','peak-start','avg-consumption','trip-km','amps-now','volts-now'].forEach(id=>{$(id).value='';});document.querySelector('input[name="home-mode"][value="finish"]').checked=true;initHomeStartTime();initHomeDeadlineDefaults();setHomeModeClass();clearFieldErrors();['calc-result','home-result','trip-result','power-result'].forEach(id=>setVisible(id,false));['dc-empty','home-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));lastPublicSummary='';lastHomeSummary='';lastTripSummary='';$('calc-update-status').textContent='';calcDirty=false;updateContext();updateDcPowerContext();updateHomePowerContext();}
+function initPeakStartDefault(){const input=$('peak-start');if(input&&!input.value)input.value='18';}
+function resetCalc(){const hasResults=['calc-result','home-result','trip-result','power-result'].some(id=>$(id).classList.contains('visible'));if(calcDirty&&hasResults&&!confirm('¿Restablecer todos los valores de la calculadora?'))return;['version','pct-start','pct-end','charger-power-preset','charger-power','home-current','home-start-time','home-deadline-date','home-deadline-time','peak-start','avg-consumption','trip-km','amps-now','volts-now'].forEach(id=>{$(id).value='';});document.querySelector('input[name="home-mode"][value="finish"]').checked=true;initHomeStartTime();initHomeDeadlineDefaults();initPeakStartDefault();setHomeModeClass();clearFieldErrors();['calc-result','home-result','trip-result','power-result'].forEach(id=>setVisible(id,false));['dc-empty','home-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));lastPublicSummary='';lastHomeSummary='';lastTripSummary='';$('calc-update-status').textContent='';calcDirty=false;updateContext();updateDcPowerContext();updateHomePowerContext();}
 async function copyText(text,feedbackId){if(!text)return;try{await navigator.clipboard.writeText(text);$(feedbackId).textContent='Resumen copiado';}catch{const area=document.createElement('textarea');area.value=text;area.className='copy-fallback';document.body.appendChild(area);area.select();$(feedbackId).textContent='Copiá el texto seleccionado';}setTimeout(()=>{$(feedbackId).textContent='';document.querySelectorAll('.copy-fallback').forEach(el=>el.remove());},2500);}
 document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',()=>{const type=btn.dataset.copy;if(type==='public')copyText(lastPublicSummary,'copy-public-feedback');if(type==='home')copyText(lastHomeSummary,'copy-home-feedback');if(type==='trip')copyText(lastTripSummary,'copy-trip-feedback');}));
 $('reset-calc').addEventListener('click',resetCalc);
@@ -404,12 +491,13 @@ const jumpLinks=[...document.querySelectorAll('.calc-jump-nav a')],sectionVisibi
 function setActiveJump(id){if(!id||id===activeSectionId)return;activeSectionId=id;jumpLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${id}`));}
 jumpLinks.forEach(link=>link.addEventListener('click',()=>setActiveJump(link.getAttribute('href').slice(1))));
 const sectionObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>sectionVisibility.set(entry.target.id,entry.isIntersecting?entry.intersectionRect.height:0));const ranked=[...sectionVisibility.entries()].sort((a,b)=>b[1]-a[1]);if(!ranked.length||ranked[0][1]===0)return;const currentVisible=sectionVisibility.get(activeSectionId)||0;if(ranked[0][0]!==activeSectionId&&ranked[0][1]>=currentVisible+32)setActiveJump(ranked[0][0]);},{threshold:[0,0.15,0.3,0.45,0.6,0.75,0.9],rootMargin:'-12% 0px -35% 0px'});
-['carga-publica','carga-casa','potencia-instantanea','consumo-viaje'].forEach(id=>sectionObserver.observe($(id)));
+['carga-publica','carga-casa','ute-carga-casa','potencia-instantanea','consumo-viaje'].forEach(id=>sectionObserver.observe($(id)));
 function applyTariffs(data){CHARGERS=CHARGERS.map(c=>{if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};if(c.id==='ute-dc')return {...c,fixed:data.dc.base,rate:data.dc.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};return c;});applyHomeTariffs(data.home);renderUteTariffs(data);renderPublicTariffSources();autoCalculate();}
 ['dc-empty','home-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));
 renderPublicTariffSources();
 initHomeStartTime();
 initHomeDeadlineDefaults();
+initPeakStartDefault();
 setHomeModeClass();
 updateContext();updateDcPowerContext();updateHomePowerContext();
 </script>
