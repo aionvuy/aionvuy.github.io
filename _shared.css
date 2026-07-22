@@ -1094,6 +1094,8 @@ code {
 .nav-card-icon { font-size: 1.3rem; margin-bottom: 0.2rem; }
 .nav-card-title { font-weight: 600; font-size: 0.92rem; }
 .nav-card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+.calculator-index-grid { grid-template-columns: repeat(4,minmax(0,1fr)); margin-bottom: 1.5rem; }
+@media (max-width: 1180px) { .calculator-index-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 
 /* TYPOGRAPHY SYSTEM */
 html, body, button, input, select, textarea, table { font-family: var(--font-main); }
