@@ -9,9 +9,11 @@ Páginas revisadas:
 - `index.html`
 - `specs.html`
 - `comparativa.html`
+- `especificaciones-versiones.html`
 - `seguridad.html`
-- `cargadores.html`
-- `calculadora.html`
+- `carga-publica.html`
+- `ute-carga-casa.html`
+- `gestiones-ute.html`
 - `red.html`
 - `mantenimiento-postventa.html`
 - `costos.html`

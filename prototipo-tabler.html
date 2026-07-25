@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Prototipo Tabler adaptado · AION V UY</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/vendor/tabler/tabler.min.css">
+  <link rel="stylesheet" href="assets/vendor/mdi/css/materialdesignicons.min.css">
+  <style>
+    :root {
+      --tblr-primary: #0770d1;
+      --tblr-primary-rgb: 7, 112, 209;
+      --tblr-link-color: #0770d1;
+      --tblr-link-hover-color: #055dac;
+      --aion-ink: #182433;
+      --aion-muted: #667382;
+      --aion-border: #dce1e7;
+      --aion-bg: #f6f8fb;
+      --aion-soft: #edf6fd;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--tblr-font-sans-serif);
+      color: var(--aion-ink);
+      background: var(--aion-bg);
+      font-size: 0.875rem;
+    }
+
+    .visually-hidden-focusable:focus-visible {
+      position: fixed;
+      z-index: 1100;
+      top: 0.5rem;
+      left: 0.5rem;
+      width: auto;
+      height: auto;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--tblr-border-radius);
+      color: #ffffff;
+      background: #055dac;
+    }
+
+    .navbar-vertical {
+      --tblr-navbar-border-color: var(--aion-border);
+      width: 17rem;
+    }
+
+    .navbar-brand {
+      justify-content: flex-start;
+      min-height: auto;
+      padding: 1.15rem 1rem 0.25rem;
+      color: #0770d1;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-subtitle {
+      padding: 0 1rem 1rem;
+      color: var(--aion-muted);
+      font-size: 0.75rem;
+    }
+
+    .navbar-vertical .navbar-nav {
+      gap: 0.1rem;
+      padding: 0.5rem 0.65rem;
+    }
+
+    .navbar-vertical .nav-link {
+      min-height: 2.75rem;
+      border-radius: 0.45rem;
+      padding: 0.55rem 0.75rem;
+      color: #334155;
+    }
+
+    .navbar-vertical .nav-link.active {
+      color: #0770d1;
+      background: var(--aion-soft);
+      font-weight: 600;
+    }
+
+    .navbar-vertical .nav-link-icon {
+      color: #98a2b3;
+    }
+
+    .navbar-vertical .nav-link.active .nav-link-icon {
+      color: currentColor;
+    }
+
+    .sidebar-community {
+      display: grid;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding: 0.85rem;
+      border-top: 1px solid var(--aion-border);
+    }
+
+    .page-wrapper {
+      background: var(--aion-bg);
+    }
+
+    .content-container {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 90rem;
+      margin: 0 auto 0 0;
+      padding: 0 var(--tblr-page-padding);
+    }
+
+    .page-description {
+      max-width: 52rem;
+      margin: 0;
+    }
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: var(--tblr-spacer-2);
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .btn .mdi {
+      margin-right: 0.4rem;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .btn-primary {
+      --tblr-btn-color: #ffffff;
+      --tblr-btn-bg: #0770d1;
+      --tblr-btn-border-color: #0770d1;
+      --tblr-btn-hover-color: #ffffff;
+      --tblr-btn-hover-bg: #0668c4;
+      --tblr-btn-hover-border-color: #0668c4;
+      --tblr-btn-active-color: #ffffff;
+      --tblr-btn-active-bg: #055eb3;
+      --tblr-btn-active-border-color: #055eb3;
+    }
+
+    .btn-outline-primary {
+      --tblr-btn-color: #0770d1;
+      --tblr-btn-border-color: #0770d1;
+      --tblr-btn-hover-color: #055dac;
+      --tblr-btn-hover-bg: #e5f2fc;
+      --tblr-btn-hover-border-color: #0770d1;
+      --tblr-btn-active-color: #055dac;
+      --tblr-btn-active-bg: #d6eafb;
+      --tblr-btn-active-border-color: #0770d1;
+    }
+
+    .btn-outline-success {
+      --tblr-btn-color: #0d7a35;
+      --tblr-btn-border-color: #0d7a35;
+      --tblr-btn-hover-color: #ffffff;
+      --tblr-btn-hover-bg: #0d7a35;
+      --tblr-btn-hover-border-color: #0d7a35;
+      --tblr-btn-active-color: #ffffff;
+      --tblr-btn-active-bg: #09652b;
+      --tblr-btn-active-border-color: #09652b;
+    }
+
+    :where(a, button, input, select, [tabindex]):focus-visible {
+      outline: 3px solid #055dac !important;
+      outline-offset: 2px;
+    }
+
+    .form-control,
+    .form-select,
+    .input-group-text {
+      border-color: #7c8a9a;
+    }
+
+    .form-control::placeholder {
+      color: #5b6878;
+      opacity: 1;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: var(--tblr-spacer-2);
+      margin: var(--tblr-spacer-4) 0 var(--tblr-spacer-3);
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .section-heading .mdi,
+    .page-title .mdi {
+      color: var(--tblr-secondary);
+    }
+
+    .page-title .mdi {
+      font-size: 1.35rem;
+    }
+
+    .section-heading .mdi {
+      font-size: 1.1rem;
+    }
+
+    .alert-title {
+      margin-bottom: var(--tblr-spacer-1);
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .version-alert {
+      align-items: center;
+      border-left: 4px solid #d99a00;
+    }
+
+    .version-alert .alert-icon {
+      align-self: center;
+      margin-top: 0;
+    }
+
+    .version-alert .alert-icon .mdi {
+      font-size: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .metric-title {
+      margin: 0 0 var(--tblr-spacer-1);
+      color: var(--aion-ink);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .section-nav {
+      overflow-x: auto;
+    }
+
+    .section-nav .nav {
+      min-width: max-content;
+      gap: var(--tblr-spacer-1);
+    }
+
+    .card {
+      box-shadow: none;
+    }
+
+    .table-card {
+      overflow: hidden;
+      border-radius: var(--tblr-card-border-radius, var(--tblr-border-radius));
+      box-shadow: 0 1px 3px rgba(24, 36, 51, 0.08);
+    }
+
+    .table-card > .table-responsive {
+      border-radius: inherit;
+    }
+
+    .result-preview {
+      border-color: rgba(var(--tblr-primary-rgb), 0.24);
+      color: #055dac;
+    }
+
+    .result-preview .datagrid-title,
+    .result-preview .form-hint {
+      color: #526273;
+    }
+
+    .result-preview .datagrid-content {
+      color: #055dac;
+    }
+
+    .result-preview .datagrid {
+      margin: 0;
+    }
+
+    .result-preview dd {
+      margin-bottom: 0;
+    }
+
+    .table-responsive[tabindex]:focus-visible {
+      outline: 3px solid rgba(var(--tblr-primary-rgb), 0.35);
+      outline-offset: 2px;
+    }
+
+    .table-scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: var(--tblr-spacer-1);
+      margin: var(--tblr-spacer-2) 0 0;
+      color: var(--aion-muted);
+      font-size: 0.75rem;
+    }
+
+    .operator-table .operator-summary-row > * {
+      background: #ffffff;
+      transition: background-color 0.15s ease;
+    }
+
+    .operator-table .operator-summary-row:hover > * {
+      background: #f8fafc;
+    }
+
+    .operator-table .operator-summary-row:has(.operator-toggle-button[aria-expanded="true"]) > * {
+      background: var(--aion-soft);
+    }
+
+    .operator-table .badge {
+      color: var(--aion-ink) !important;
+    }
+
+    .operator-section-meta {
+      margin: var(--tblr-spacer-1) 0 0;
+      color: var(--aion-muted);
+      font-size: 0.75rem;
+    }
+
+    .operator-cell {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .operator-logo {
+      width: 26px;
+      height: 26px;
+      flex: 0 0 26px;
+      margin-right: var(--tblr-spacer-2);
+      border: 1px solid var(--aion-border);
+      border-radius: 6px;
+      background: #ffffff;
+      object-fit: cover;
+    }
+
+    .operator-toggle-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--tblr-spacer-1);
+      min-height: 2.75rem;
+      padding: 0.4rem 0.6rem;
+      border: 0;
+      border-radius: var(--tblr-border-radius);
+      color: #055dac;
+      background: transparent;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .operator-toggle-button:hover {
+      background: rgba(var(--tblr-primary-rgb), 0.08);
+    }
+
+    .operator-toggle-button .mdi {
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .operator-toggle-button[aria-expanded="true"] .ti {
+      transform: rotate(180deg);
+    }
+
+    .operator-toggle-close,
+    .operator-toggle-button[aria-expanded="true"] .operator-toggle-open {
+      display: none;
+    }
+
+    .operator-toggle-button[aria-expanded="true"] .operator-toggle-close {
+      display: inline;
+    }
+
+    .operator-detail-row > td {
+      padding: 0 !important;
+      background: #ffffff;
+    }
+
+    .operator-detail-panel {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--tblr-spacer-4);
+      padding: var(--tblr-spacer-3) var(--tblr-spacer-4);
+      border-top: 1px solid var(--aion-border);
+    }
+
+    .operator-detail-copy {
+      max-width: 52rem;
+    }
+
+    .operator-description {
+      margin: 0;
+      color: var(--aion-muted);
+    }
+
+    .operator-detail-list {
+      display: grid;
+      gap: var(--tblr-spacer-1);
+      margin: var(--tblr-spacer-2) 0 0;
+      padding-left: 1.1rem;
+      color: var(--aion-ink);
+    }
+
+    .operator-detail-list strong {
+      font-weight: 600;
+    }
+
+    .operator-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      flex: 0 0 auto;
+      gap: var(--tblr-spacer-2);
+    }
+
+    .operator-mobile-facts {
+      display: none;
+    }
+
+    .field-error {
+      display: none;
+      margin-top: 0.35rem;
+      color: var(--tblr-danger);
+      font-size: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .field-error:not(:empty) {
+      display: block;
+    }
+
+    .limit-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--tblr-spacer-3);
+      margin: var(--tblr-spacer-3) 0 0;
+    }
+
+    .limit-spec-label {
+      margin-bottom: 0.2rem;
+      color: var(--aion-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .limit-spec-value {
+      margin: 0;
+      color: var(--aion-text);
+      font-size: 1rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .calc-quick-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.55rem;
+    }
+
+    .power-preset {
+      min-height: 2.25rem;
+    }
+
+    .power-preset[aria-pressed="true"] {
+      color: #ffffff;
+      background: #0770d1;
+      border-color: #0770d1;
+    }
+
+    .calc-quick-label {
+      flex: 0 0 100%;
+      color: var(--aion-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .calculator-card {
+      width: 100%;
+      max-width: 58rem;
+    }
+
+    .calc-flow-step + .calc-flow-step {
+      margin-top: 1.5rem;
+    }
+
+    .calc-actions {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--aion-border);
+    }
+
+    .calc-status {
+      display: none;
+      margin-top: var(--tblr-spacer-2);
+      color: var(--aion-muted);
+      font-size: 0.8125rem;
+    }
+
+    .calc-status:not(:empty) {
+      display: block;
+    }
+
+    .result-preview .subheader {
+      color: var(--aion-ink);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .result-context {
+      margin: 0 0 var(--tblr-spacer-3);
+      color: #526273;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    @media (min-width: 992px) {
+      .navbar-expand-lg.navbar-vertical ~ .page-wrapper {
+        margin-left: 17rem;
+      }
+    }
+
+    @media (max-width: 991.98px) {
+      .page {
+        display: block;
+      }
+
+      .page,
+      .page-wrapper,
+      .content-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .page-wrapper main,
+      .page-wrapper section,
+      .page-wrapper .card {
+        min-width: 0;
+      }
+
+      .navbar-vertical {
+        width: 100%;
+        flex: none;
+      }
+
+      .navbar-brand {
+        width: auto;
+        margin-right: auto;
+        padding: 0.8rem 1rem;
+      }
+
+      .navbar-toggler {
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-left: auto;
+      }
+
+      .brand-subtitle {
+        display: none;
+      }
+
+      .sidebar-community {
+        display: grid;
+        margin-top: var(--tblr-spacer-2);
+      }
+
+      .content-container {
+        padding-top: 0;
+      }
+
+      .operator-detail-panel {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: var(--tblr-spacer-3);
+      }
+    }
+
+    @media (max-width: 479.98px) {
+      .operator-toggle-open,
+      .operator-toggle-close {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 679.98px) {
+      .operator-table {
+        width: 100%;
+        min-width: 0;
+        margin-right: 0;
+        margin-left: 0;
+        table-layout: fixed;
+      }
+
+      .operator-table colgroup,
+      .operator-table .operator-secondary-column {
+        display: none;
+      }
+
+      .operator-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .operator-table tbody {
+        display: block;
+        width: 100%;
+      }
+
+      .operator-table .operator-summary-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 3.75rem;
+        width: 100%;
+      }
+
+      .operator-table .operator-summary-row > td:first-child {
+        grid-column: 1;
+      }
+
+      .operator-table .operator-detail-column {
+        display: block;
+        grid-column: 2;
+        width: 3.75rem;
+        padding-right: var(--tblr-spacer-2);
+        padding-left: var(--tblr-spacer-1);
+        text-align: right;
+      }
+
+      .operator-table .operator-logo {
+        margin-right: var(--tblr-spacer-2);
+      }
+
+      .operator-table .operator-toggle-button {
+        min-width: 2.75rem;
+        padding-right: var(--tblr-spacer-2);
+        padding-left: var(--tblr-spacer-2);
+      }
+
+      .operator-table .operator-toggle-open,
+      .operator-table .operator-toggle-close {
+        display: none !important;
+      }
+
+      .operator-detail-panel {
+        width: 100%;
+      }
+
+      .operator-table .operator-detail-row.show {
+        display: block;
+        width: 100%;
+      }
+
+      .operator-table .operator-detail-row > td {
+        display: block;
+        width: 100%;
+      }
+
+      .operator-mobile-facts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--tblr-spacer-3);
+        margin: var(--tblr-spacer-3) 0 0;
+      }
+
+      .operator-mobile-facts dt {
+        margin-bottom: var(--tblr-spacer-1);
+        color: var(--aion-muted);
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .operator-mobile-facts dd {
+        margin: 0;
+        color: var(--aion-ink);
+        font-weight: 600;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="visually-hidden-focusable" href="#contenido">Saltar al contenido</a>
+
+  <div class="page">
+  <nav class="navbar navbar-vertical navbar-expand-lg navbar-light" aria-label="Navegación principal">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">AION V · UY</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false" aria-label="Abrir navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="brand-subtitle">Recurso comunitario</div>
+
+      <div class="collapse navbar-collapse" id="menu-principal">
+        <ul class="navbar-nav pt-lg-2">
+          <li><span class="dropdown-header">Vehículo</span></li>
+          <li class="nav-item"><a class="nav-link" href="index.html"><span class="nav-link-icon"><i class="mdi mdi-home-outline" aria-hidden="true"></i></span><span class="nav-link-title">Inicio</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="specs.html"><span class="nav-link-icon"><i class="mdi mdi-car-outline" aria-hidden="true"></i></span><span class="nav-link-title">Especificaciones</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="comparativa.html"><span class="nav-link-icon"><i class="mdi mdi-scale-balance" aria-hidden="true"></i></span><span class="nav-link-title">Comparativa</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="seguridad.html"><span class="nav-link-icon"><i class="mdi mdi-shield-check-outline" aria-hidden="true"></i></span><span class="nav-link-title">Seguridad</span></a></li>
+
+          <li><span class="dropdown-header mt-3">Carga</span></li>
+          <li class="nav-item"><a class="nav-link active" href="carga-publica.html" aria-current="page"><span class="nav-link-icon"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i></span><span class="nav-link-title">Cargadores</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="apps.html"><span class="nav-link-icon"><i class="mdi mdi-cellphone" aria-hidden="true"></i></span><span class="nav-link-title">Apps</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="ute-carga-casa.html"><span class="nav-link-icon"><i class="mdi mdi-home-outline-bolt" aria-hidden="true"></i></span><span class="nav-link-title">En casa</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="gestiones-ute.html"><span class="nav-link-icon"><i class="mdi mdi-file-document-check-outline" aria-hidden="true"></i></span><span class="nav-link-title">Gestiones UTE</span></a></li>
+
+          <li><span class="dropdown-header mt-3">Propiedad</span></li>
+          <li class="nav-item"><a class="nav-link" href="red.html"><span class="nav-link-icon"><i class="mdi mdi-map-marker-outline" aria-hidden="true"></i></span><span class="nav-link-title">Red GAC</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="mantenimiento-postventa.html"><span class="nav-link-icon"><i class="mdi mdi-tools" aria-hidden="true"></i></span><span class="nav-link-title">Mantenimiento y postventa</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="costos.html"><span class="nav-link-icon"><i class="mdi mdi-credit-card-outline" aria-hidden="true"></i></span><span class="nav-link-title">Costos</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="comandos.html"><span class="nav-link-icon"><i class="mdi mdi-microphone-outline" aria-hidden="true"></i></span><span class="nav-link-title">Comandos de voz</span></a></li>
+
+          <li><span class="dropdown-header mt-3">Comunidad</span></li>
+          <li class="nav-item"><a class="nav-link" href="videos.html"><span class="nav-link-icon"><i class="mdi mdi-video-outline" aria-hidden="true"></i></span><span class="nav-link-title">Videos y experiencias</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="problemas.html"><span class="nav-link-icon"><i class="mdi mdi-alert-outline" aria-hidden="true"></i></span><span class="nav-link-title">Problemas conocidos</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="faq.html"><span class="nav-link-icon"><i class="mdi mdi-help-circle-outline" aria-hidden="true"></i></span><span class="nav-link-title">FAQ</span></a></li>
+        </ul>
+
+        <div class="sidebar-community">
+          <a class="btn btn-outline-success btn-sm" href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-whatsapp" aria-hidden="true"></i>Grupo de WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <header class="page-header d-print-none">
+      <div class="container-fluid content-container">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h1 class="page-title"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i>Cargadores y carga pública</h1>
+            <p class="page-description text-secondary mt-2">Redes públicas, conectores y herramientas para cargar el AION V.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-body" id="contenido">
+      <div class="container-fluid content-container">
+        <div class="alert alert-warning version-alert" role="note" aria-labelledby="version-alert-title">
+          <div class="alert-icon"><i class="mdi mdi-alert-outline" aria-hidden="true"></i></div>
+          <div>
+            <h2 class="alert-title" id="version-alert-title">Información importante sobre las versiones</h2>
+            <div class="text-secondary">Las configuraciones de AION V Max y Plus pueden variar en la próxima partida. Confirmá los datos de carga cuando lleguen las nuevas unidades.</div>
+          </div>
+        </div>
+
+        <nav class="card card-sm section-nav mb-4" aria-label="Secciones del prototipo">
+          <div class="card-body py-2">
+            <div class="nav nav-pills flex-nowrap">
+              <a class="nav-link active" href="#limites-carga" aria-current="location">Límites</a>
+              <a class="nav-link" href="#redes-publicas">Operadores</a>
+              <a class="nav-link" href="#calculadora">Calculadora</a>
+            </div>
+          </div>
+        </nav>
+
+        <section id="limites-carga" aria-labelledby="limites-carga-titulo">
+          <h2 class="section-heading" id="limites-carga-titulo"><i class="mdi mdi-battery-40" aria-hidden="true"></i>Capacidad y límites de carga</h2>
+          <div class="row row-cards">
+            <div class="col-md-6">
+              <article class="card h-100">
+                <div class="card-body">
+                  <h3 class="subheader metric-title">AION V y AION V Max</h3>
+                  <dl class="limit-spec-grid">
+                    <div><dt class="limit-spec-label">Batería</dt><dd class="limit-spec-value">75,26 kWh</dd></div>
+                    <div><dt class="limit-spec-label">Carga AC máxima</dt><dd class="limit-spec-value">6,6 kW</dd></div>
+                    <div><dt class="limit-spec-label">Carga DC máxima</dt><dd class="limit-spec-value">180 kW</dd></div>
+                  </dl>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6">
+              <article class="card h-100">
+                <div class="card-body">
+                  <h3 class="subheader metric-title">AION V Plus</h3>
+                  <dl class="limit-spec-grid">
+                    <div><dt class="limit-spec-label">Batería</dt><dd class="limit-spec-value">64,5 kWh</dd></div>
+                    <div><dt class="limit-spec-label">Carga AC máxima</dt><dd class="limit-spec-value">6,6 kW</dd></div>
+                    <div><dt class="limit-spec-label">Carga DC máxima</dt><dd class="limit-spec-value">150 kW</dd></div>
+                  </dl>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="redes-publicas" aria-labelledby="redes-publicas-titulo">
+          <div>
+            <h2 class="section-heading mb-0" id="redes-publicas-titulo"><i class="mdi mdi-ev-station" aria-hidden="true"></i>Operadores de carga</h2>
+            <p class="operator-section-meta">Fuentes: aplicaciones y sitios oficiales enlazados · Última revisión de la maqueta: 22/7/2026.</p>
+          </div>
+          <p class="table-scroll-hint" id="operadores-scroll-hint" hidden><i class="mdi mdi-arrow-left-right" aria-hidden="true"></i>Deslizá horizontalmente para ver todas las columnas.</p>
+          <span class="visually-hidden" id="operadores-desplazamiento">Cada operador dispone de un botón para mostrar u ocultar sus detalles.</span>
+          <div class="card table-card mt-3">
+            <div class="table-responsive" role="region" aria-labelledby="redes-publicas-titulo" aria-describedby="operadores-desplazamiento">
+              <table class="table table-vcenter card-table operator-table">
+                <caption class="visually-hidden">Operadores y plataformas de carga, tipos, potencias, conectores, tarifas y detalles expandibles</caption>
+                <colgroup><col class="operator-col-name" style="width:20%"><col class="operator-secondary-column" style="width:9%"><col class="operator-secondary-column" style="width:17%"><col class="operator-secondary-column" style="width:16%"><col class="operator-secondary-column" style="width:20%"><col class="operator-col-detail" style="width:18%"></colgroup>
+                <thead><tr><th scope="col">Operador</th><th class="operator-secondary-column" scope="col">Tipo</th><th class="operator-secondary-column" scope="col">Potencia</th><th class="operator-secondary-column" scope="col">Conectores</th><th class="operator-secondary-column" scope="col">Tarifas</th><th class="operator-detail-column" scope="col">Detalle</th></tr></thead>
+                <tbody id="operator-table-body">
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/dmcmobility.png" alt="" width="26" height="26" loading="lazy"><strong>DMC Mobility</strong></span></td>
+                    <td class="operator-secondary-column"><span class="badge bg-azure-lt text-azure">DC</span></td><td class="operator-secondary-column">120 kW</td><td class="operator-secondary-column">CCS2</td><td class="operator-secondary-column">$15 a $18/kWh · según horario</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-dmc" aria-expanded="false" aria-controls="operador-dmc"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-dmc" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">La información dinámica de DMC Mobility se concentra en su aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa informada:</strong> $15/kWh de 00:00 a 07:00; $16/kWh de 07:00 a 18:00 y de 22:00 a 24:00; $18/kWh de 18:00 a 22:00.</li><li><strong>Consulta:</strong> mapa, disponibilidad, reservas, inicio o detención de la carga y pago.</li><li><strong>Verificación:</strong> los precios provienen de la app y de un aporte comunitario del 30/6/2026; confirmá allí si existen otros cargos.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>120 kW</dd></div><div><dt>Conector</dt><dd>CCS2</dd></div><div><dt>Tarifa</dt><dd>$15 a $18/kWh</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://landing.dmcmobility.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                  </tr>
+
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/eone-ev.png" alt="" width="26" height="26" loading="lazy"><strong>eOne</strong></span></td>
+                    <td class="operator-secondary-column"><span class="badge bg-azure-lt text-azure">DC</span></td><td class="operator-secondary-column">180 kW o más</td><td class="operator-secondary-column">CCS2</td><td class="operator-secondary-column">$18,30 o $23,85/kWh · según horario</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-eone" aria-expanded="false" aria-controls="operador-eone"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-eone" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">eOne publica sus ubicaciones, pero la disponibilidad, la potencia exacta y el precio de cada carga se consultan en la aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa informada:</strong> $18,30/kWh de 00:00 a 18:00 y de 22:00 a 24:00; $23,85/kWh de 18:00 a 22:00.</li><li><strong>Acceso:</strong> requiere registro para iniciar la carga, pagar y emitir factura.</li><li><strong>Estado:</strong> la app muestra disponibilidad, consumo y costo en tiempo real; verificá allí el valor vigente.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>180 kW o más</dd></div><div><dt>Conector</dt><dd>CCS2</dd></div><div><dt>Tarifa</dt><dd>$18,30 o $23,85/kWh</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://eone.eco/puntos-de-carga/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-map-marker-outline" aria-hidden="true"></i>Ver puntos<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
+                  </tr>
+
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/eosvolt.png" alt="" width="26" height="26" loading="lazy"><strong>EOSVOLT</strong></span></td>
+                    <td class="operator-secondary-column">Según punto</td><td class="operator-secondary-column">Según punto</td><td class="operator-secondary-column">Confirmar en app</td><td class="operator-secondary-column">En app</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-eosvolt" aria-expanded="false" aria-controls="operador-eosvolt"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-eosvolt" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">EOSVOLT es una plataforma de gestión utilizada por redes de carga; también proporciona la tecnología de eOne.</p><ul class="operator-detail-list"><li><strong>Consulta:</strong> estaciones, conectores, potencia, disponibilidad y costos desde la app.</li><li><strong>Pago:</strong> admite distintos medios según la red y la ubicación.</li><li><strong>Alcance:</strong> no se encontró un listado público que distinga estaciones propias de las gestionadas para otros operadores.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>Según punto</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>En app</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://eosvolt.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                  </tr>
+
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/eve.png" alt="" width="26" height="26" loading="lazy"><strong>eve / EVE-MOVE</strong></span></td>
+                    <td class="operator-secondary-column text-nowrap"><span class="badge bg-green-lt text-green">AC</span> <span class="badge bg-azure-lt text-azure">DC</span></td><td class="operator-secondary-column">Según punto</td><td class="operator-secondary-column">Confirmar en app</td><td class="operator-secondary-column">Según ubicación · en app</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-eve" aria-expanded="false" aria-controls="operador-eve"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-eve" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">EVE-MOVE gestiona cargadores públicos y privados; eve también muestra información básica de puntos pertenecientes a otras redes.</p><ul class="operator-detail-list"><li><strong>Consulta:</strong> ubicación, precio, disponibilidad, potencia y conectores.</li><li><strong>Funciones:</strong> pago, seguimiento de la sesión y reserva en puntos compatibles.</li><li><strong>Tarifa:</strong> depende de la ubicación y debe verificarse en la aplicación.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>Según ubicación</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://mobility.uy/mobility-recharge/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Red asociada<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                  </tr>
+
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/evergo.png" alt="" width="26" height="26" loading="lazy"><strong>Evergo</strong></span></td>
+                    <td class="operator-secondary-column text-nowrap"><span class="badge bg-green-lt text-green">AC</span> <span class="badge bg-azure-lt text-azure">DC</span></td><td class="operator-secondary-column">Según punto</td><td class="operator-secondary-column">Confirmar en app</td><td class="operator-secondary-column">Sin costo actualmente · confirmar en app</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-evergo" aria-expanded="false" aria-controls="operador-evergo"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-evergo" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">Evergo tiene presencia local, pero las características y condiciones de cada punto se consultan en su aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa:</strong> el sitio de Evergo indica que su red en Uruguay es gratuita actualmente y está migrando a un esquema de cobro; confirmá el estado vigente en la app.</li><li><strong>Acceso:</strong> aplicación, billetera virtual o tarjeta RFID, según el punto.</li><li><strong>Funciones:</strong> disponibilidad, ocupación, reserva, precio e instrucciones; pueden existir cargos por ocupación.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>Sin costo actualmente</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://evergo.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                  </tr>
+
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/umt-ev-charge.png" alt="" width="26" height="26" loading="lazy"><strong>UMT EV Charge</strong></span></td>
+                    <td class="operator-secondary-column"><span class="badge bg-azure-lt text-azure">DC</span></td><td class="operator-secondary-column">Según estación</td><td class="operator-secondary-column">Confirmar en app</td><td class="operator-secondary-column">$15,25 o $21,96/kWh + extras</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-umt" aria-expanded="false" aria-controls="operador-umt"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-umt" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">UMT publica tarifas para carga rápida DC; la ubicación, el conector y la velocidad de cada estación se consultan en UMT EV Charge.</p><ul class="operator-detail-list"><li><strong>Energía:</strong> $15,25/kWh de 00:00 a 18:00 y de 22:00 a 24:00; $21,96/kWh de 18:00 a 22:00.</li><li><strong>Cargos:</strong> sin cargo base; $6,10 por minuto de estacionamiento después de 30 minutos sin recibir energía; reserva de 10 minutos por $36,60.</li><li><strong>Acceso:</strong> permite verificar disponibilidad, reservar, pagar con tarjeta de crédito y consultar el historial.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>Según estación</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>$15,25 o $21,96/kWh + extras</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://www.umt.com.uy/tarifas/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-currency-usd" aria-hidden="true"></i>Consultar tarifas<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
+                  </tr>
+
+                  <tr class="operator-summary-row">
+                    <td><span class="operator-cell"><img class="operator-logo" src="assets/apps/ute-mueve.png" alt="" width="26" height="26" loading="lazy"><strong>UTE</strong></span></td>
+                    <td class="operator-secondary-column text-nowrap"><span class="badge bg-green-lt text-green">AC</span> <span class="badge bg-azure-lt text-azure">DC</span></td><td class="operator-secondary-column">Según punto</td><td class="operator-secondary-column text-nowrap">Tipo 2 / CCS2</td><td class="operator-secondary-column">Cargo base + energía + inactividad</td>
+                    <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-ute" aria-expanded="false" aria-controls="operador-ute"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr id="operador-ute" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">UTE publica el tarifario general; la potencia, disponibilidad y posibles cargos de cada ubicación se consultan en UTE Mueve.</p><ul class="operator-detail-list"><li><strong>AC:</strong> cargo base $54,80 + energía $10,40/kWh; inactividad $9,60/min después de 20 minutos de tolerancia.</li><li><strong>DC:</strong> cargo base $132,90 + energía $11,80/kWh; inactividad $12,30/min después de 20 minutos de tolerancia.</li><li><strong>Otros cargos:</strong> algunos predios privados pueden aplicar un importe adicional.</li><li><strong>Pago:</strong> tarjeta de crédito o débito en UTE Mueve, o facturación mensual con tarjeta de carga asociada.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Tipo 2 / CCS2</dd></div><div><dt>Tarifa</dt><dd>Publicada por UTE</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Consultar tarifas<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="calculadora-titulo" id="calculadora">
+          <h2 class="section-heading" id="calculadora-titulo"><i class="mdi mdi-calculator-variant-outline" aria-hidden="true"></i>Calculadora de carga pública</h2>
+          <div class="card calculator-card">
+            <div class="card-body">
+              <form id="calc-form" novalidate>
+                <div class="calc-flow-step">
+                  <label class="form-label" for="version">Modelo y batería</label>
+                  <select class="form-select" id="version" required aria-describedby="version-error">
+                    <option value="" selected disabled>Elegí el modelo y la batería</option>
+                    <option value="75.26" data-limit="180" data-model="AION V y AION V Max">AION V y AION V Max · 75,26 kWh</option>
+                    <option value="64.5" data-limit="150" data-model="AION V Plus">AION V Plus · 64,5 kWh</option>
+                  </select>
+                  <div class="field-error" id="version-error"></div>
+                </div>
+
+                <div class="calc-flow-step">
+                  <div class="row g-3">
+                    <div class="col-6">
+                      <label class="form-label" for="inicial">Batería inicial</label>
+                      <div class="input-group"><input class="form-control" id="inicial" type="number" min="0" max="99" step="1" placeholder="Ej. 20" required aria-describedby="inicial-error"><span class="input-group-text">%</span></div>
+                      <div class="field-error" id="inicial-error"></div>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label" for="final">Batería final</label>
+                      <div class="input-group"><input class="form-control" id="final" type="number" min="1" max="100" step="1" placeholder="Ej. 80" required aria-describedby="final-error"><span class="input-group-text">%</span></div>
+                      <div class="field-error" id="final-error"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="calc-flow-step">
+                  <label class="form-label" for="potencia">Potencia del cargador</label>
+                  <div class="input-group"><input class="form-control" id="potencia" type="number" min="0.1" max="500" step="0.1" placeholder="Ej. 180" required aria-describedby="potencia-error"><span class="input-group-text">kW</span></div>
+                  <div class="field-error" id="potencia-error"></div>
+                  <div class="calc-quick-options" aria-label="Potencias frecuentes">
+                    <span class="calc-quick-label">Potencias frecuentes</span>
+                    <button class="btn btn-outline-primary btn-sm power-preset" type="button" data-power="30" aria-pressed="false">30 kW</button>
+                    <button class="btn btn-outline-primary btn-sm power-preset" type="button" data-power="60" aria-pressed="false">60 kW</button>
+                    <button class="btn btn-outline-primary btn-sm power-preset" type="button" data-power="120" aria-pressed="false">120 kW</button>
+                    <button class="btn btn-outline-primary btn-sm power-preset" type="button" data-power="180" aria-pressed="false">180 kW</button>
+                  </div>
+                </div>
+
+                <div class="calc-actions">
+                  <div class="calc-status" id="calc-status" aria-live="polite"></div>
+                  <div class="visually-hidden" id="calc-announcement" aria-live="polite" aria-atomic="true"></div>
+                  <div class="btn-list">
+                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i>Calcular carga</button>
+                    <button class="btn btn-outline-primary" type="reset"><i class="mdi mdi-refresh" aria-hidden="true"></i>Restablecer valores</button>
+                  </div>
+                </div>
+              </form>
+              <div class="card bg-primary-lt result-preview mt-3" id="calc-result" role="region" aria-labelledby="resultado-titulo" hidden>
+                <div class="card-body">
+                  <h3 class="subheader mb-2" id="resultado-titulo">Resultado estimado</h3>
+                  <p class="result-context" id="resultado-contexto"></p>
+                  <dl class="datagrid">
+                    <div class="datagrid-item"><dt class="datagrid-title">Energía</dt><dd class="datagrid-content" id="resultado-energia">—</dd></div>
+                    <div class="datagrid-item"><dt class="datagrid-title">Tiempo mínimo estimado</dt><dd class="datagrid-content" id="resultado-tiempo">—</dd></div>
+                    <div class="datagrid-item"><dt class="datagrid-title">Potencia efectiva</dt><dd class="datagrid-content" id="resultado-potencia">—</dd></div>
+                  </dl>
+                  <p class="form-hint mt-3 mb-0" id="resultado-limite" hidden></p>
+                  <p class="form-hint mt-1 mb-0">La potencia real puede variar durante la carga.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+  </div>
+  </div>
+
+  <script src="assets/vendor/tabler/tabler.min.js"></script>
+  <script>
+    (() => {
+      const form = document.getElementById('calc-form');
+      const version = document.getElementById('version');
+      const initial = document.getElementById('inicial');
+      const final = document.getElementById('final');
+      const power = document.getElementById('potencia');
+      const status = document.getElementById('calc-status');
+      const announcement = document.getElementById('calc-announcement');
+      const result = document.getElementById('calc-result');
+      const resultLimit = document.getElementById('resultado-limite');
+      const fields = [version, initial, final, power];
+      const numericFields = [initial, final, power];
+      const powerPresets = [...document.querySelectorAll('.power-preset')];
+      let hasCalculated = false;
+
+      const errorFor = (field) => document.getElementById(`${field.id}-error`);
+
+      const clearError = (field) => {
+        field.classList.remove('is-invalid');
+        field.removeAttribute('aria-invalid');
+        errorFor(field).textContent = '';
+      };
+
+      const setError = (field, message) => {
+        field.classList.add('is-invalid');
+        field.setAttribute('aria-invalid', 'true');
+        errorFor(field).textContent = message;
+      };
+
+      const formatNumber = (value, digits = 1) => new Intl.NumberFormat('es-UY', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      }).format(value);
+
+      const formatDuration = (hours) => {
+        const totalMinutes = Math.max(1, Math.round(hours * 60));
+        const hh = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
+        const mm = String(totalMinutes % 60).padStart(2, '0');
+        return `${hh}:${mm}`;
+      };
+
+      const markValuesChanged = () => {
+        result.hidden = true;
+        announcement.textContent = '';
+        status.textContent = hasCalculated
+          ? 'Valores modificados. Seleccioná “Calcular carga” para actualizar el resultado.'
+          : '';
+        status.style.color = '';
+      };
+
+      numericFields.forEach((field) => {
+        field.addEventListener('input', () => {
+          clearError(field);
+          if (field === power) {
+            powerPresets.forEach((button) => button.setAttribute('aria-pressed', 'false'));
+          }
+          markValuesChanged();
+        });
+      });
+      version.addEventListener('change', () => {
+        clearError(version);
+        markValuesChanged();
+      });
+
+      powerPresets.forEach((button) => {
+        button.addEventListener('click', () => {
+          power.value = button.dataset.power;
+          powerPresets.forEach((preset) => preset.setAttribute('aria-pressed', String(preset === button)));
+          clearError(power);
+          markValuesChanged();
+        });
+      });
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        fields.forEach(clearError);
+
+        const initialValue = Number(initial.value);
+        const finalValue = Number(final.value);
+        const powerValue = Number(power.value);
+        let firstInvalid = null;
+
+        if (!version.value) {
+          setError(version, 'Elegí el modelo y la batería.');
+          firstInvalid ??= version;
+        }
+        if (initial.value === '' || !Number.isFinite(initialValue) || initialValue < 0 || initialValue > 99) {
+          setError(initial, 'Ingresá un porcentaje entre 0 y 99.');
+          firstInvalid ??= initial;
+        }
+        if (final.value === '' || !Number.isFinite(finalValue) || finalValue < 1 || finalValue > 100) {
+          setError(final, 'Ingresá un porcentaje entre 1 y 100.');
+          firstInvalid ??= final;
+        } else if (Number.isFinite(initialValue) && finalValue <= initialValue) {
+          setError(final, 'El porcentaje final debe ser mayor que el inicial.');
+          firstInvalid ??= final;
+        }
+        if (power.value === '' || !Number.isFinite(powerValue) || powerValue < 0.1 || powerValue > 500) {
+          setError(power, 'Ingresá una potencia entre 0,1 y 500 kW.');
+          firstInvalid ??= power;
+        }
+
+        if (firstInvalid) {
+          result.hidden = true;
+          announcement.textContent = '';
+          status.textContent = 'Corregí los campos indicados para obtener el resultado.';
+          status.style.color = 'var(--tblr-danger)';
+          firstInvalid.focus();
+          return;
+        }
+
+        const option = version.selectedOptions[0];
+        const capacity = Number(option.value);
+        const vehicleLimit = Number(option.dataset.limit);
+        const effectivePower = Math.min(powerValue, vehicleLimit);
+        const energy = capacity * (finalValue - initialValue) / 100;
+        const hours = energy / effectivePower;
+
+        const energyText = `${formatNumber(energy, 2)} kWh`;
+        const durationText = formatDuration(hours);
+        const powerText = `${formatNumber(effectivePower, 2)} kW`;
+        const contextText = `${option.dataset.model} · ${formatNumber(initialValue, 0)} % → ${formatNumber(finalValue, 0)} %`;
+
+        document.getElementById('resultado-contexto').textContent = contextText;
+        document.getElementById('resultado-energia').textContent = energyText;
+        document.getElementById('resultado-tiempo').textContent = durationText;
+        document.getElementById('resultado-potencia').textContent = powerText;
+        const exceedsVehicleLimit = powerValue > vehicleLimit;
+        resultLimit.textContent = exceedsVehicleLimit
+          ? (vehicleLimit === 180
+              ? 'AION V y AION V Max admiten hasta 180 kW en carga DC.'
+              : 'AION V Plus admite hasta 150 kW en carga DC.')
+          : '';
+        resultLimit.hidden = !exceedsVehicleLimit;
+        result.hidden = false;
+        hasCalculated = true;
+        status.textContent = '';
+        status.style.color = '';
+        announcement.textContent = `Resultado calculado para ${contextText}. Energía: ${energyText}. Tiempo mínimo estimado: ${durationText}. Potencia efectiva: ${powerText}.`;
+      });
+
+      form.addEventListener('reset', () => {
+        window.requestAnimationFrame(() => {
+          fields.forEach(clearError);
+          powerPresets.forEach((button) => button.setAttribute('aria-pressed', 'false'));
+          result.hidden = true;
+          hasCalculated = false;
+          announcement.textContent = '';
+          status.textContent = 'Valores restablecidos.';
+          status.style.color = '';
+        });
+      });
+
+      const sectionLinks = [...document.querySelectorAll('.section-nav a[href^="#"]')];
+      const sections = sectionLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+      const activateSection = (id) => {
+        sectionLinks.forEach((link) => {
+          const active = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      };
+
+      let scrollUpdatePending = false;
+      let sectionLockUntil = 0;
+      const updateActiveSection = () => {
+        const marker = window.scrollY + Math.min(96, window.innerHeight * 0.15);
+        let current = sections[0];
+
+        sections.forEach((section) => {
+          if (section.offsetTop <= marker) current = section;
+        });
+
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 96) {
+          current = sections.at(-1);
+        }
+
+        if (current) activateSection(current.id);
+        scrollUpdatePending = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (scrollUpdatePending) return;
+        scrollUpdatePending = true;
+        window.requestAnimationFrame(() => {
+          if (performance.now() >= sectionLockUntil) updateActiveSection();
+          else scrollUpdatePending = false;
+        });
+      }, { passive: true });
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        const target = sections.find((section) => `#${section.id}` === link.getAttribute('href'));
+        if (!target) return;
+        link.addEventListener('click', () => {
+          sectionLockUntil = performance.now() + 600;
+          activateSection(target.id);
+        });
+      });
+
+      const tableRegion = document.querySelector('.table-responsive');
+      const tableScrollHint = document.getElementById('operadores-scroll-hint');
+      const updateTableScrollability = () => {
+        const canScroll = tableRegion.scrollWidth > tableRegion.clientWidth + 1;
+        tableScrollHint.hidden = !canScroll;
+        if (canScroll) tableRegion.setAttribute('tabindex', '0');
+        else tableRegion.removeAttribute('tabindex');
+      };
+
+      const menuToggle = document.querySelector('.navbar-toggler');
+      const mobileMenu = document.getElementById('menu-principal');
+      mobileMenu.addEventListener('shown.bs.collapse', () => menuToggle.setAttribute('aria-label', 'Cerrar navegación'));
+      mobileMenu.addEventListener('hidden.bs.collapse', () => menuToggle.setAttribute('aria-label', 'Abrir navegación'));
+
+      document.querySelectorAll('.operator-detail-row').forEach((panel) => {
+        const button = document.querySelector(`[aria-controls="${panel.id}"]`);
+        const operatorName = button.closest('.operator-summary-row').querySelector('strong').textContent.trim();
+        const updateOperatorLabel = (expanded) => {
+          button.setAttribute('aria-label', `${expanded ? 'Ocultar' : 'Ver'} detalle de ${operatorName}`);
+        };
+
+        updateOperatorLabel(false);
+        panel.addEventListener('shown.bs.collapse', () => updateOperatorLabel(true));
+        panel.addEventListener('hidden.bs.collapse', () => updateOperatorLabel(false));
+      });
+
+      window.addEventListener('resize', updateTableScrollability);
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(updateTableScrollability).observe(tableRegion);
+      }
+      updateActiveSection();
+      updateTableScrollability();
+    })();
+  </script>
+</body>
+</html>

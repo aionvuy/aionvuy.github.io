@@ -2,11 +2,196 @@
   const MOBILE_QUERY = '(max-width: 720px)';
   const NAV_GROUPS = [
     { label: null, links: ['index.html'] },
-    { label: 'Vehículo', links: ['specs.html', 'comparativa.html', 'seguridad.html'] },
-    { label: 'Carga', links: ['cargadores.html', 'calculadora.html', 'costos.html'] },
-    { label: 'Propiedad', links: ['red.html', 'mantenimiento-postventa.html', 'comandos.html'] },
+    { label: 'Vehículo', links: ['especificaciones-versiones.html', 'specs.html', 'comparativa.html', 'seguridad.html', 'comandos.html'] },
+    { label: 'Carga', links: ['carga-publica.html', 'ute-carga-casa.html', 'apps.html', 'gestiones-ute.html'] },
+    { label: 'Propiedad', links: ['red.html', 'mantenimiento-postventa.html', 'costos.html'] },
     { label: 'Comunidad', links: ['videos.html', 'problemas.html', 'faq.html'] },
   ];
+
+  const NAV_LABELS = {
+    'index.html': 'Inicio',
+    'especificaciones-versiones.html': 'Versiones',
+    'specs.html': 'Especificaciones',
+    'comparativa.html': 'Comparativa',
+    'seguridad.html': 'Seguridad',
+    'comandos.html': 'Comandos de voz',
+    'carga-publica.html': 'Pública',
+    'ute-carga-casa.html': 'En casa',
+    'apps.html': 'Apps',
+    'gestiones-ute.html': 'Gestiones UTE',
+    'red.html': 'Red GAC',
+    'mantenimiento-postventa.html': 'Mantenimiento y postventa',
+    'costos.html': 'Costos',
+    'videos.html': 'Videos, reseñas y experiencias',
+    'problemas.html': 'Problemas conocidos',
+    'faq.html': 'FAQ',
+  };
+
+  const NAV_ICONS = {
+    'index.html': 'mdi-home-outline',
+    'specs.html': 'mdi-car-outline',
+    'comparativa.html': 'mdi-scale-balance',
+    'especificaciones-versiones.html': 'mdi-file-table-outline',
+    'seguridad.html': 'mdi-shield-check-outline',
+    'carga-publica.html': 'mdi-ev-station',
+    'apps.html': 'mdi-cellphone',
+    'ute-carga-casa.html': 'mdi-home-lightning-bolt-outline',
+    'gestiones-ute.html': 'mdi-file-document-check-outline',
+    'red.html': 'mdi-map-marker-outline',
+    'mantenimiento-postventa.html': 'mdi-tools',
+    'costos.html': 'mdi-credit-card-outline',
+    'comandos.html': 'mdi-microphone-outline',
+    'videos.html': 'mdi-video-outline',
+    'problemas.html': 'mdi-alert-outline',
+    'faq.html': 'mdi-help-circle-outline',
+  };
+
+  const PAGE_ICONS = {
+    'index.html': 'mdi-car-outline',
+    'apps.html': 'mdi-cellphone',
+    'calculadora-casa.html': 'mdi-home-lightning-bolt-outline',
+    'calculadora-publica.html': 'mdi-calculator-variant-outline',
+    'calculadora.html': 'mdi-calculator-variant-outline',
+    'carga-publica.html': 'mdi-ev-station',
+    'comandos.html': 'mdi-microphone-outline',
+    'comparativa.html': 'mdi-scale-balance',
+    'especificaciones-versiones.html': 'mdi-file-table-outline',
+    'costos.html': 'mdi-credit-card-outline',
+    'faq.html': 'mdi-help-circle-outline',
+    'mantenimiento-postventa.html': 'mdi-tools',
+    'problemas.html': 'mdi-alert-outline',
+    'red.html': 'mdi-map-marker-outline',
+    'seguridad.html': 'mdi-shield-check-outline',
+    'specs.html': 'mdi-car-outline',
+    'ute-carga-casa.html': 'mdi-home-lightning-bolt-outline',
+    'gestiones-ute.html': 'mdi-file-document-check-outline',
+    'videos.html': 'mdi-video-outline',
+  };
+
+  const EMOJI_ICON_MAP = new Map([
+    ['⚡', 'mdi-lightning-bolt-outline'], ['🔌', 'mdi-power-plug-outline'], ['🔋', 'mdi-battery-outline'],
+    ['🏠', 'mdi-home-outline'], ['📱', 'mdi-cellphone'], ['🧮', 'mdi-calculator-variant-outline'],
+    ['📊', 'mdi-chart-bar'], ['📚', 'mdi-bookshelf'], ['🛡️', 'mdi-shield-check-outline'],
+    ['🧾', 'mdi-receipt-text-outline'], ['🚘', 'mdi-car-outline'], ['🚙', 'mdi-car-outline'],
+    ['🔧', 'mdi-wrench-outline'], ['🧰', 'mdi-toolbox-outline'], ['🛞', 'mdi-tire'],
+    ['🔁', 'mdi-repeat'], ['✅', 'mdi-check'], ['📍', 'mdi-map-marker-outline'],
+    ['🎙️', 'mdi-microphone-outline'], ['🎥', 'mdi-video-outline'], ['🧪', 'mdi-flask-outline'],
+    ['🎵', 'mdi-music-note-outline'], ['⚙️', 'mdi-cog-outline'], ['⚠️', 'mdi-alert-outline'],
+    ['📐', 'mdi-ruler-square'], ['✨', 'mdi-shimmer'], ['🔗', 'mdi-link-variant'],
+    ['🧭', 'mdi-compass-outline'], ['🎨', 'mdi-palette-outline'], ['🚒', 'mdi-fire-truck'],
+    ['❓', 'mdi-help-circle-outline'], ['ℹ️', 'mdi-information-outline'], ['🌡️', 'mdi-thermometer'],
+    ['⚖️', 'mdi-scale-balance'], ['🕒', 'mdi-clock-outline'], ['⏱️', 'mdi-timer-outline'],
+    ['💰', 'mdi-cash'], ['💲', 'mdi-currency-usd'], ['💳', 'mdi-credit-card-outline'],
+    ['📋', 'mdi-content-copy'], ['↺', 'mdi-refresh'],
+  ]);
+
+  const pageName = () => window.location.pathname.split('/').pop() || 'index.html';
+  const activeNavPage = () => ({
+    'calculadora-casa.html': 'ute-carga-casa.html',
+    'calculadora-publica.html': 'carga-publica.html',
+  }[pageName()] || pageName());
+
+  const mdiIcon = (name, extraClass = '') => {
+    const icon = document.createElement('i');
+    icon.className = `mdi ${name}${extraClass ? ` ${extraClass}` : ''}`;
+    icon.setAttribute('aria-hidden', 'true');
+    return icon;
+  };
+
+  const replaceLeadingEmoji = (element, fallbackIcon) => {
+    if (!element || element.dataset.iconEnhanced === 'true') return;
+    const firstTextNode = [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+    let iconName = fallbackIcon;
+    if (firstTextNode) {
+      const value = firstTextNode.textContent.trimStart();
+      for (const [emoji, mappedIcon] of EMOJI_ICON_MAP) {
+        if (value.startsWith(emoji)) {
+          firstTextNode.textContent = firstTextNode.textContent.replace(emoji, '').replace(/^\s+/, '');
+          iconName = mappedIcon;
+          break;
+        }
+      }
+    }
+    if (iconName) element.prepend(mdiIcon(iconName, 'heading-icon'));
+    element.dataset.iconEnhanced = 'true';
+  };
+
+  const enhanceNavigation = () => {
+    document.querySelectorAll('.sidebar-form').forEach((item) => item.remove());
+    const desktopNav = document.getElementById('sidebar-nav');
+    if (!desktopNav) return;
+    const currentPage = activeNavPage();
+    desktopNav.replaceChildren();
+
+    NAV_GROUPS.forEach((group) => {
+      if (group.label) {
+        const label = document.createElement('div');
+        label.className = 'nav-group-label';
+        label.textContent = group.label;
+        desktopNav.append(label);
+      }
+
+      group.links.forEach((href) => {
+        const link = document.createElement('a');
+        link.href = href;
+        if (href === currentPage) {
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+        }
+
+        const iconSlot = document.createElement('span');
+        iconSlot.className = 'nav-icon';
+        iconSlot.setAttribute('aria-hidden', 'true');
+        iconSlot.append(mdiIcon(NAV_ICONS[href]));
+        link.append(iconSlot, document.createTextNode(` ${NAV_LABELS[href]}`));
+        desktopNav.append(link);
+      });
+    });
+  };
+
+  const enhanceHeadings = () => {
+    replaceLeadingEmoji(document.querySelector('h1.page-title'), PAGE_ICONS[pageName()]);
+    document.querySelectorAll('h2.section-title, h2.calc-section-title, .home-calc-section h2, h3.section-title').forEach((heading) => {
+      replaceLeadingEmoji(heading);
+    });
+    document.querySelectorAll('.nav-card-icon').forEach((slot) => {
+      const text = slot.textContent.trim();
+      const iconName = EMOJI_ICON_MAP.get(text) || 'mdi-arrow-right';
+      slot.replaceChildren(mdiIcon(iconName));
+    });
+  };
+
+  const enhanceActions = () => {
+    document.querySelectorAll('a.action-link, a.primary, a.secondary, button.calc-btn, button.calc-secondary-btn, button.faq-copy-button, .section-jump-nav a, .calc-jump-nav a, .specs-jump-nav a, .comparison-jump-nav a, .home-version-actions a').forEach((control) => {
+      if (control.classList.contains('whatsapp-link')) return;
+      const href = control.getAttribute('href') || '';
+      if (control.classList.contains('youtube-link') || /play\.google\.com|apps\.apple\.com/.test(href)) return;
+      const text = control.textContent.replace(/\s+/g, ' ').trim();
+      let iconName = 'mdi-link-variant';
+      const firstTextNode = [...control.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+      if (firstTextNode) {
+        const value = firstTextNode.textContent.trimStart();
+        for (const [emoji, mappedIcon] of EMOJI_ICON_MAP) {
+          if (value.startsWith(emoji)) {
+            firstTextNode.textContent = firstTextNode.textContent.replace(emoji, '').replace(/^\s+/, '');
+            iconName = mappedIcon;
+            break;
+          }
+        }
+      }
+      if (/youtube|video|reseña|crash/i.test(text) || /youtu\.be|youtube\.com/.test(href)) iconName = 'mdi-play';
+      else if (/calcul/i.test(text)) iconName = 'mdi-calculator-variant-outline';
+      else if (/restablecer/i.test(text)) iconName = 'mdi-refresh';
+      else if (/cargar en casa/i.test(text)) iconName = 'mdi-home-lightning-bolt-outline';
+      else if (/app/i.test(text)) iconName = 'mdi-cellphone';
+      if (control.querySelector('.mdi, svg')) return;
+      control.prepend(mdiIcon(iconName));
+    });
+
+    document.querySelectorAll('.version-arrival-title, .info-box > strong:first-child, .warning-box > strong:first-child, .callout-title').forEach((label) => {
+      replaceLeadingEmoji(label);
+    });
+  };
 
   const ready = (callback) => {
     if (document.readyState === 'loading') {
@@ -60,7 +245,7 @@
     const copyButton = document.createElement('button');
     copyButton.type = 'button';
     copyButton.className = 'faq-copy-button';
-    copyButton.innerHTML = '<span aria-hidden="true">📋</span> Copiar para WhatsApp';
+    copyButton.innerHTML = '<i class="mdi mdi-content-copy" aria-hidden="true"></i> Copiar para WhatsApp';
     copyButton.setAttribute('aria-label', `Copiar pregunta y respuesta: ${summary.textContent.trim()}`);
     copyButton.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -69,7 +254,7 @@
       const text = `${summary.textContent.trim()}\n\n${answer}\n\nMás info: https://aionvuy.github.io/faq.html#${faqItem.id}`;
       try {
         await navigator.clipboard.writeText(text);
-        copyButton.innerHTML = '<span aria-hidden="true">✅</span> Copiado';
+        copyButton.innerHTML = '<i class="mdi mdi-check" aria-hidden="true"></i> Copiado';
       } catch (error) {
         const area = document.createElement('textarea');
         area.value = text;
@@ -80,10 +265,10 @@
         area.select();
         document.execCommand('copy');
         area.remove();
-        copyButton.innerHTML = '<span aria-hidden="true">✅</span> Copiado';
+        copyButton.innerHTML = '<i class="mdi mdi-check" aria-hidden="true"></i> Copiado';
       }
       window.setTimeout(() => {
-        copyButton.innerHTML = '<span aria-hidden="true">📋</span> Copiar para WhatsApp';
+        copyButton.innerHTML = '<i class="mdi mdi-content-copy" aria-hidden="true"></i> Copiar para WhatsApp';
       }, 1800);
     });
     actions.append(copyButton);
@@ -97,6 +282,9 @@
 
   ready(() => {
     addAppInformation();
+    enhanceNavigation();
+    enhanceHeadings();
+    enhanceActions();
 
     const sidebar = document.querySelector('.sidebar');
     const desktopNav = document.getElementById('sidebar-nav');

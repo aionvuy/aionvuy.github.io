@@ -2,3 +2,6 @@ __pycache__/
 *.py[cod]
 
 backups/
+
+# Capturas locales generadas durante la validación visual del prototipo.
+prototipo-tabler-*.png
