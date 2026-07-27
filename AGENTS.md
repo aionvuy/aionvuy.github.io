@@ -29,6 +29,8 @@ La guía define de forma obligatoria:
 - No sustituir datos verificados por ejemplos del prototipo.
 - No inventar información técnica, precios, disponibilidad ni resultados.
 - Mantener los textos en español de Uruguay y usar párrafos breves.
+- Aplicar en todas las páginas públicas la terminología, los estados canónicos y las etiquetas de actualización definidos en la sección `30` de `docs/sistema-diseno-tabler.md`; no crear variantes locales para conceptos equivalentes.
+- Aplicar transversalmente las reglas de copiado y contenido compartido de la sección `30` de la guía. Las reglas, textos, orden y emojis documentados dentro de una página concreta solo se reutilizan fuera de ella cuando la guía los identifica expresamente como globales.
 - Usar Material Design Icons (MDI) monocromáticos para elementos estructurales de interfaz.
 - No usar emojis dentro de botones ni como sustituto inconsistente de iconos del sistema.
 - Los logos de empresas y aplicaciones deben ser archivos locales oficiales.

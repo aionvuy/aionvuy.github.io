@@ -27,6 +27,7 @@
       color: var(--aion-ink);
       background: var(--aion-bg);
       font-size: 0.875rem;
+      line-height: 1.55;
     }
 
     .visually-hidden-focusable:focus-visible {
@@ -48,9 +49,11 @@
     }
 
     .navbar-brand {
+      align-items: flex-start;
+      flex-direction: column;
       justify-content: flex-start;
-      min-height: auto;
-      padding: 1.15rem 1rem 0.25rem;
+      min-height: 44px;
+      padding: 1.15rem 1rem 1rem;
       color: #0770d1;
       font-size: 1rem;
       font-weight: 700;
@@ -58,9 +61,12 @@
     }
 
     .brand-subtitle {
-      padding: 0 1rem 1rem;
+      margin-top: 0.2rem;
+      padding: 0;
       color: var(--aion-muted);
       font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0;
     }
 
     .navbar-vertical .navbar-nav {
@@ -155,12 +161,14 @@
     .btn-outline-success {
       --tblr-btn-color: #0d7a35;
       --tblr-btn-border-color: #0d7a35;
-      --tblr-btn-hover-color: #ffffff;
-      --tblr-btn-hover-bg: #0d7a35;
-      --tblr-btn-hover-border-color: #0d7a35;
-      --tblr-btn-active-color: #ffffff;
-      --tblr-btn-active-bg: #09652b;
-      --tblr-btn-active-border-color: #09652b;
+      --tblr-btn-bg: #e9f7ee;
+      --tblr-btn-hover-color: #075e54;
+      --tblr-btn-hover-bg: #ccebd7;
+      --tblr-btn-hover-border-color: #075e54;
+      --tblr-btn-active-color: #075e54;
+      --tblr-btn-active-bg: #bfe3cc;
+      --tblr-btn-active-border-color: #075e54;
+      font-weight: 600;
     }
 
     :where(a, button, input, select, [tabindex]):focus-visible {
@@ -234,8 +242,17 @@
       color: var(--aion-ink);
       font-size: 0.875rem;
       font-weight: 600;
+      line-height: 1.35;
       letter-spacing: normal;
       text-transform: none;
+    }
+
+    .table {
+      line-height: 1.45;
+    }
+
+    table.table th {
+      line-height: 1.35;
     }
 
     .section-nav {
@@ -395,6 +412,7 @@
     .operator-description {
       margin: 0;
       color: var(--aion-muted);
+      line-height: 1.55;
     }
 
     .operator-detail-list {
@@ -697,36 +715,37 @@
   <div class="page">
   <nav class="navbar navbar-vertical navbar-expand-lg navbar-light" aria-label="Navegación principal">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">AION V · UY</a>
+      <a class="navbar-brand" href="index.html" aria-label="Ir al inicio de GAC AION V Uruguay">
+        <span>GAC AION V Uruguay</span>
+        <span class="brand-subtitle">Guía comunitaria no oficial</span>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false" aria-label="Abrir navegación">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="brand-subtitle">Recurso comunitario</div>
 
       <div class="collapse navbar-collapse" id="menu-principal">
         <ul class="navbar-nav pt-lg-2">
-          <li><span class="dropdown-header">Vehículo</span></li>
           <li class="nav-item"><a class="nav-link" href="index.html"><span class="nav-link-icon"><i class="mdi mdi-home-outline" aria-hidden="true"></i></span><span class="nav-link-title">Inicio</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="specs.html"><span class="nav-link-icon"><i class="mdi mdi-car-outline" aria-hidden="true"></i></span><span class="nav-link-title">Especificaciones</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="comparativa.html"><span class="nav-link-icon"><i class="mdi mdi-scale-balance" aria-hidden="true"></i></span><span class="nav-link-title">Comparativa</span></a></li>
+          <li><span class="dropdown-header mt-3">Vehículo</span></li>
+          <li class="nav-item"><a class="nav-link" href="especificaciones-versiones.html"><span class="nav-link-icon"><i class="mdi mdi-file-table-outline" aria-hidden="true"></i></span><span class="nav-link-title">Versiones</span></a></li>
           <li class="nav-item"><a class="nav-link" href="seguridad.html"><span class="nav-link-icon"><i class="mdi mdi-shield-check-outline" aria-hidden="true"></i></span><span class="nav-link-title">Seguridad</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="comandos.html"><span class="nav-link-icon"><i class="mdi mdi-microphone-outline" aria-hidden="true"></i></span><span class="nav-link-title">Comandos de voz</span></a></li>
 
           <li><span class="dropdown-header mt-3">Carga</span></li>
-          <li class="nav-item"><a class="nav-link active" href="carga-publica.html" aria-current="page"><span class="nav-link-icon"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i></span><span class="nav-link-title">Cargadores</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="apps.html"><span class="nav-link-icon"><i class="mdi mdi-cellphone" aria-hidden="true"></i></span><span class="nav-link-title">Apps</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="ute-carga-casa.html"><span class="nav-link-icon"><i class="mdi mdi-home-outline-bolt" aria-hidden="true"></i></span><span class="nav-link-title">En casa</span></a></li>
+          <li class="nav-item"><a class="nav-link active" href="carga-publica.html" aria-current="page" aria-label="Carga pública"><span class="nav-link-icon"><i class="mdi mdi-ev-station" aria-hidden="true"></i></span><span class="nav-link-title">Pública</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="carga-casa.html" aria-label="Carga en casa"><span class="nav-link-icon"><i class="mdi mdi-home-lightning-bolt-outline" aria-hidden="true"></i></span><span class="nav-link-title">En casa</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="aplicaciones.html"><span class="nav-link-icon"><i class="mdi mdi-cellphone" aria-hidden="true"></i></span><span class="nav-link-title">Apps</span></a></li>
           <li class="nav-item"><a class="nav-link" href="gestiones-ute.html"><span class="nav-link-icon"><i class="mdi mdi-file-document-check-outline" aria-hidden="true"></i></span><span class="nav-link-title">Gestiones UTE</span></a></li>
 
           <li><span class="dropdown-header mt-3">Propiedad</span></li>
           <li class="nav-item"><a class="nav-link" href="red.html"><span class="nav-link-icon"><i class="mdi mdi-map-marker-outline" aria-hidden="true"></i></span><span class="nav-link-title">Red GAC</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="mantenimiento-postventa.html"><span class="nav-link-icon"><i class="mdi mdi-tools" aria-hidden="true"></i></span><span class="nav-link-title">Mantenimiento y postventa</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="mantenimiento-postventa.html"><span class="nav-link-icon"><i class="mdi mdi-tools" aria-hidden="true"></i></span><span class="nav-link-title">Mantenimiento</span></a></li>
           <li class="nav-item"><a class="nav-link" href="costos.html"><span class="nav-link-icon"><i class="mdi mdi-credit-card-outline" aria-hidden="true"></i></span><span class="nav-link-title">Costos</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="comandos.html"><span class="nav-link-icon"><i class="mdi mdi-microphone-outline" aria-hidden="true"></i></span><span class="nav-link-title">Comandos de voz</span></a></li>
 
           <li><span class="dropdown-header mt-3">Comunidad</span></li>
           <li class="nav-item"><a class="nav-link" href="videos.html"><span class="nav-link-icon"><i class="mdi mdi-video-outline" aria-hidden="true"></i></span><span class="nav-link-title">Videos y experiencias</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="problemas.html"><span class="nav-link-icon"><i class="mdi mdi-alert-outline" aria-hidden="true"></i></span><span class="nav-link-title">Problemas conocidos</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="faq.html"><span class="nav-link-icon"><i class="mdi mdi-help-circle-outline" aria-hidden="true"></i></span><span class="nav-link-title">FAQ</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="problemas.html"><span class="nav-link-icon"><i class="mdi mdi-alert-outline" aria-hidden="true"></i></span><span class="nav-link-title">Problemas</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="preguntas.html"><span class="nav-link-icon"><i class="mdi mdi-help-circle-outline" aria-hidden="true"></i></span><span class="nav-link-title">Preguntas</span></a></li>
         </ul>
 
         <div class="sidebar-community">
@@ -741,7 +760,7 @@
       <div class="container-fluid content-container">
         <div class="row g-2 align-items-center">
           <div class="col">
-            <h1 class="page-title"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i>Cargadores y carga pública</h1>
+            <h1 class="page-title"><i class="mdi mdi-ev-station" aria-hidden="true"></i>Carga pública</h1>
             <p class="page-description text-secondary mt-2">Redes públicas, conectores y herramientas para cargar el AION V.</p>
           </div>
         </div>
@@ -818,7 +837,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-dmc" aria-expanded="false" aria-controls="operador-dmc"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-dmc" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">La información dinámica de DMC Mobility se concentra en su aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa informada:</strong> $15/kWh de 00:00 a 07:00; $16/kWh de 07:00 a 18:00 y de 22:00 a 24:00; $18/kWh de 18:00 a 22:00.</li><li><strong>Consulta:</strong> mapa, disponibilidad, reservas, inicio o detención de la carga y pago.</li><li><strong>Verificación:</strong> los precios provienen de la app y de un aporte comunitario del 30/6/2026; confirmá allí si existen otros cargos.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>120 kW</dd></div><div><dt>Conector</dt><dd>CCS2</dd></div><div><dt>Tarifa</dt><dd>$15 a $18/kWh</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://landing.dmcmobility.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">La información dinámica de DMC Mobility se concentra en su aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa informada:</strong> $15/kWh de 00:00 a 07:00; $16/kWh de 07:00 a 18:00 y de 22:00 a 24:00; $18/kWh de 18:00 a 22:00.</li><li><strong>Consulta:</strong> mapa, disponibilidad, reservas, inicio o detención de la carga y pago.</li><li><strong>Verificación:</strong> los precios provienen de la app y de un aporte comunitario del 30/6/2026; confirmá allí si existen otros cargos.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>120 kW</dd></div><div><dt>Conector</dt><dd>CCS2</dd></div><div><dt>Tarifa</dt><dd>$15 a $18/kWh</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://landing.dmcmobility.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
                   </tr>
 
                   <tr class="operator-summary-row">
@@ -827,7 +846,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-eone" aria-expanded="false" aria-controls="operador-eone"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-eone" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">eOne publica sus ubicaciones, pero la disponibilidad, la potencia exacta y el precio de cada carga se consultan en la aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa informada:</strong> $18,30/kWh de 00:00 a 18:00 y de 22:00 a 24:00; $23,85/kWh de 18:00 a 22:00.</li><li><strong>Acceso:</strong> requiere registro para iniciar la carga, pagar y emitir factura.</li><li><strong>Estado:</strong> la app muestra disponibilidad, consumo y costo en tiempo real; verificá allí el valor vigente.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>180 kW o más</dd></div><div><dt>Conector</dt><dd>CCS2</dd></div><div><dt>Tarifa</dt><dd>$18,30 o $23,85/kWh</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://eone.eco/puntos-de-carga/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-map-marker-outline" aria-hidden="true"></i>Ver puntos<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">eOne publica sus ubicaciones, pero la disponibilidad, la potencia exacta y el precio de cada carga se consultan en la aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa informada:</strong> $18,30/kWh de 00:00 a 18:00 y de 22:00 a 24:00; $23,85/kWh de 18:00 a 22:00.</li><li><strong>Acceso:</strong> requiere registro para iniciar la carga, pagar y emitir factura.</li><li><strong>Estado:</strong> la app muestra disponibilidad, consumo y costo en tiempo real; verificá allí el valor vigente.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>180 kW o más</dd></div><div><dt>Conector</dt><dd>CCS2</dd></div><div><dt>Tarifa</dt><dd>$18,30 o $23,85/kWh</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://eone.eco/puntos-de-carga/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-map-marker-outline" aria-hidden="true"></i>Ver puntos<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
                   </tr>
 
                   <tr class="operator-summary-row">
@@ -836,7 +855,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-eosvolt" aria-expanded="false" aria-controls="operador-eosvolt"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-eosvolt" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">EOSVOLT es una plataforma de gestión utilizada por redes de carga; también proporciona la tecnología de eOne.</p><ul class="operator-detail-list"><li><strong>Consulta:</strong> estaciones, conectores, potencia, disponibilidad y costos desde la app.</li><li><strong>Pago:</strong> admite distintos medios según la red y la ubicación.</li><li><strong>Alcance:</strong> no se encontró un listado público que distinga estaciones propias de las gestionadas para otros operadores.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>Según punto</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>En app</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://eosvolt.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">EOSVOLT es una plataforma de gestión utilizada por redes de carga; también proporciona la tecnología de eOne.</p><ul class="operator-detail-list"><li><strong>Consulta:</strong> estaciones, conectores, potencia, disponibilidad y costos desde la app.</li><li><strong>Pago:</strong> admite distintos medios según la red y la ubicación.</li><li><strong>Alcance:</strong> no se encontró un listado público que distinga estaciones propias de las gestionadas para otros operadores.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>Según punto</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>En app</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://eosvolt.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
                   </tr>
 
                   <tr class="operator-summary-row">
@@ -845,7 +864,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-eve" aria-expanded="false" aria-controls="operador-eve"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-eve" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">EVE-MOVE gestiona cargadores públicos y privados; eve también muestra información básica de puntos pertenecientes a otras redes.</p><ul class="operator-detail-list"><li><strong>Consulta:</strong> ubicación, precio, disponibilidad, potencia y conectores.</li><li><strong>Funciones:</strong> pago, seguimiento de la sesión y reserva en puntos compatibles.</li><li><strong>Tarifa:</strong> depende de la ubicación y debe verificarse en la aplicación.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>Según ubicación</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://mobility.uy/mobility-recharge/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Red asociada<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">EVE-MOVE gestiona cargadores públicos y privados; eve también muestra información básica de puntos pertenecientes a otras redes.</p><ul class="operator-detail-list"><li><strong>Consulta:</strong> ubicación, precio, disponibilidad, potencia y conectores.</li><li><strong>Funciones:</strong> pago, seguimiento de la sesión y reserva en puntos compatibles.</li><li><strong>Tarifa:</strong> depende de la ubicación y debe verificarse en la aplicación.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>Según ubicación</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://mobility.uy/mobility-recharge/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Red asociada<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
                   </tr>
 
                   <tr class="operator-summary-row">
@@ -854,7 +873,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-evergo" aria-expanded="false" aria-controls="operador-evergo"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-evergo" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">Evergo tiene presencia local, pero las características y condiciones de cada punto se consultan en su aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa:</strong> el sitio de Evergo indica que su red en Uruguay es gratuita actualmente y está migrando a un esquema de cobro; confirmá el estado vigente en la app.</li><li><strong>Acceso:</strong> aplicación, billetera virtual o tarjeta RFID, según el punto.</li><li><strong>Funciones:</strong> disponibilidad, ocupación, reserva, precio e instrucciones; pueden existir cargos por ocupación.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>Sin costo actualmente</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://evergo.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">Evergo tiene presencia local, pero las características y condiciones de cada punto se consultan en su aplicación.</p><ul class="operator-detail-list"><li><strong>Tarifa:</strong> el sitio de Evergo indica que su red en Uruguay es gratuita actualmente y está migrando a un esquema de cobro; confirmá el estado vigente en la app.</li><li><strong>Acceso:</strong> aplicación, billetera virtual o tarjeta RFID, según el punto.</li><li><strong>Funciones:</strong> disponibilidad, ocupación, reserva, precio e instrucciones; pueden existir cargos por ocupación.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>Sin costo actualmente</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a><a class="btn btn-outline-primary btn-sm" href="https://evergo.com/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Sitio oficial<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></div></div></td>
                   </tr>
 
                   <tr class="operator-summary-row">
@@ -863,7 +882,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-umt" aria-expanded="false" aria-controls="operador-umt"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-umt" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">UMT publica tarifas para carga rápida DC; la ubicación, el conector y la velocidad de cada estación se consultan en UMT EV Charge.</p><ul class="operator-detail-list"><li><strong>Energía:</strong> $15,25/kWh de 00:00 a 18:00 y de 22:00 a 24:00; $21,96/kWh de 18:00 a 22:00.</li><li><strong>Cargos:</strong> sin cargo base; $6,10 por minuto de estacionamiento después de 30 minutos sin recibir energía; reserva de 10 minutos por $36,60.</li><li><strong>Acceso:</strong> permite verificar disponibilidad, reservar, pagar con tarjeta de crédito y consultar el historial.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>Según estación</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>$15,25 o $21,96/kWh + extras</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://www.umt.com.uy/tarifas/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-currency-usd" aria-hidden="true"></i>Consultar tarifas<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">UMT publica tarifas para carga rápida DC; la ubicación, el conector y la velocidad de cada estación se consultan en UMT EV Charge.</p><ul class="operator-detail-list"><li><strong>Energía:</strong> $15,25/kWh de 00:00 a 18:00 y de 22:00 a 24:00; $21,96/kWh de 18:00 a 22:00.</li><li><strong>Cargos:</strong> sin cargo base; $6,10 por minuto de estacionamiento después de 30 minutos sin recibir energía; reserva de 10 minutos por $36,60.</li><li><strong>Acceso:</strong> permite verificar disponibilidad, reservar, pagar con tarjeta de crédito y consultar el historial.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>DC</dd></div><div><dt>Potencia</dt><dd>Según estación</dd></div><div><dt>Conector</dt><dd>Confirmar en app</dd></div><div><dt>Tarifa</dt><dd>$15,25 o $21,96/kWh + extras</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://www.umt.com.uy/tarifas/" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-currency-usd" aria-hidden="true"></i>Consultar tarifas<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
                   </tr>
 
                   <tr class="operator-summary-row">
@@ -872,7 +891,7 @@
                     <td class="operator-detail-column"><button class="operator-toggle-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#operador-ute" aria-expanded="false" aria-controls="operador-ute"><span class="operator-toggle-open">Ver detalle</span><span class="operator-toggle-close">Ocultar detalle</span><i class="mdi mdi-chevron-down" aria-hidden="true"></i></button></td>
                   </tr>
                   <tr id="operador-ute" class="collapse operator-detail-row" data-bs-parent="#operator-table-body">
-                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">UTE publica el tarifario general; la potencia, disponibilidad y posibles cargos de cada ubicación se consultan en UTE Mueve.</p><ul class="operator-detail-list"><li><strong>AC:</strong> cargo base $54,80 + energía $10,40/kWh; inactividad $9,60/min después de 20 minutos de tolerancia.</li><li><strong>DC:</strong> cargo base $132,90 + energía $11,80/kWh; inactividad $12,30/min después de 20 minutos de tolerancia.</li><li><strong>Otros cargos:</strong> algunos predios privados pueden aplicar un importe adicional.</li><li><strong>Pago:</strong> tarjeta de crédito o débito en UTE Mueve, o facturación mensual con tarjeta de carga asociada.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Tipo 2 / CCS2</dd></div><div><dt>Tarifa</dt><dd>Publicada por UTE</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Consultar tarifas<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="apps.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
+                    <td colspan="6"><div class="operator-detail-panel"><div class="operator-detail-copy"><p class="operator-description">UTE publica el tarifario general; la potencia, disponibilidad y posibles cargos de cada ubicación se consultan en UTE Mueve.</p><ul class="operator-detail-list"><li><strong>AC:</strong> cargo base $54,80 + energía $10,40/kWh; inactividad $9,60/min después de 20 minutos de tolerancia.</li><li><strong>DC:</strong> cargo base $132,90 + energía $11,80/kWh; inactividad $12,30/min después de 20 minutos de tolerancia.</li><li><strong>Otros cargos:</strong> algunos predios privados pueden aplicar un importe adicional.</li><li><strong>Pago:</strong> tarjeta de crédito o débito en UTE Mueve, o facturación mensual con tarjeta de carga asociada.</li></ul><dl class="operator-mobile-facts"><div><dt>Tipo</dt><dd>AC y DC</dd></div><div><dt>Potencia</dt><dd>Según punto</dd></div><div><dt>Conector</dt><dd>Tipo 2 / CCS2</dd></div><div><dt>Tarifa</dt><dd>Publicada por UTE</dd></div></dl></div><div class="operator-actions"><a class="btn btn-outline-primary btn-sm" href="https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Consultar tarifas<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a><a class="btn btn-outline-primary btn-sm" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver aplicación</a></div></div></td>
                   </tr>
                 </tbody>
               </table>

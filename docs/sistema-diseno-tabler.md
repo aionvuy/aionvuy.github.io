@@ -4,6 +4,10 @@ Esta guía es la referencia visual permanente del sitio. Su objetivo es mantener
 
 Referencia visual viva: `prototipo-tabler.html`.
 
+Última actualización de esta especificación: **25/07/2026**.
+
+Estado: **consolidado con la implementación vigente del repositorio**. Las reglas globales se aplican a todas las páginas públicas, incluidas las páginas heredadas o de compatibilidad. Las excepciones documentadas bajo una página concreta no se trasladan automáticamente a otras secciones.
+
 ## 0. Alcance, obligatoriedad y criterio de revisión total
 
 Esta guía es normativa para **todas las páginas, secciones, componentes, estados y tamaños de pantalla** del sitio. No es una colección de sugerencias opcionales.
@@ -97,15 +101,17 @@ El azul `#0770d1` es el azul más claro adoptado para los controles principales 
 
 Mantener la escala compacta de Tabler:
 
-| Elemento | Tamaño orientativo | Peso |
-|---|---:|---:|
-| Texto general | `0.875rem` / 14 px | 400 |
-| Pretítulo | `0.75rem` / 12 px | 500, mayúsculas |
-| Título de página | `1.5rem` / 24 px | 600 |
-| Título de sección | `1.125rem` / 18 px | 600 |
-| Título de tarjeta o subsección | `1rem` / 16 px | 500–600 |
-| Etiqueta de campo o tabla | `0.75rem`–`0.875rem` | 500–600 |
-| Ayuda y metadatos | `0.75rem`–`0.8125rem` | 400 |
+| Elemento | Tamaño orientativo | Peso | Interlineado |
+|---|---:|---:|---:|
+| Texto general | `0.875rem` / 14 px | 400 | `1.55` |
+| Texto compacto de tarjetas y acordeones | `0.8125rem`–`0.875rem` | 400 | `1.5` |
+| Pretítulo | `0.75rem` / 12 px | 500, mayúsculas | `1.35` |
+| Título de página | `1.5rem` / 24 px | 600 | `1.2`–`1.25` |
+| Título de sección | `1.125rem` / 18 px | 600 | `1.3`–`1.35` |
+| Título de tarjeta o subsección | `1rem` / 16 px | 500–600 | `1.4`–`1.45` |
+| Etiqueta o encabezado de tabla | `0.75rem`–`0.875rem` | 500–600 | `1.35` |
+| Celdas de tabla | `0.8125rem`–`0.875rem` | 400 | `1.4`–`1.45` |
+| Ayuda y metadatos | `0.75rem`–`0.8125rem` | 400 | `1.45` |
 
 Reglas:
 
@@ -115,6 +121,13 @@ Reglas:
 - Evitar títulos gigantes y exceso de negrita.
 - Usar párrafos cortos y punto y aparte cuando haya dos ideas completas.
 - El texto secundario usa el color muted, no un tamaño ilegible.
+- No aplicar un único interlineado a todo el sitio. La escala anterior es transversal y diferencia lectura continua, contenido compacto, tablas, ayudas y títulos.
+- El texto general, las alertas, notas, listas, descripciones extensas y contenido expandido usan `1.55` como valor canónico.
+- Las tarjetas con texto breve pueden usar `1.5`; no bajar de ese valor para párrafos destinados a lectura continua.
+- Las tablas usan `1.4`–`1.45` para conservar densidad sin comprometer legibilidad. Los encabezados pueden usar `1.35`.
+- Las ayudas, fuentes y metadatos usan `1.45`. No aumentar su interlineado para compensar un tamaño excesivamente pequeño.
+- Los títulos conservan su propia escala entre `1.2` y `1.45`; no deben heredar el `1.55` del texto general.
+- La separación entre ideas se resuelve con párrafos independientes y márgenes consistentes, no inflando el interlineado.
 
 ## 4. Espaciado
 
@@ -137,6 +150,8 @@ Reglas:
 - Menú lateral de escritorio: `17rem`.
 - Contenido: ancho máximo `90rem`.
 - El contenido queda alineado a la izquierda después del menú, no centrado de forma aislada.
+- El borde de lectura de todas las páginas usa exactamente el mismo padding horizontal: `32 px` por encima de `1024 px`, `24 px` entre `721 px` y `1024 px`, y `16 px` hasta `720 px`. Ninguna página o clase temática puede agregar margen o padding izquierdo propio al contenedor `.page`.
+- Mientras el menú lateral está visible, el contenedor principal comienza inmediatamente después de sus `17rem` y el `h1` queda separado por el padding canónico anterior. Al pasar a navegación móvil, se elimina el desplazamiento del menú, pero se conserva el padding correspondiente al ancho de pantalla.
 - Fondo general gris muy claro y superficies blancas.
 - En móvil, el menú pasa a encabezado colapsable y el contenido ocupa todo el ancho disponible.
 - Entre `992px` y `1200px`, mantener el menú lateral de escritorio pero apilar las acciones del encabezado debajo del título para evitar columnas de texto demasiado angostas.
@@ -151,17 +166,30 @@ Reglas:
 - En móvil debe existir un botón de menú con nombre accesible.
 - El nombre accesible del botón móvil cambia entre `Abrir navegación` y `Cerrar navegación` según el estado.
 - El acceso comunitario a WhatsApp permanece disponible dentro del menú colapsable móvil; no debe desaparecer al ocultar elementos secundarios del lateral.
-- La navegación interna de una página usa `nav-pills` compactas y desplazables horizontalmente cuando sea necesario.
-- La navegación interna debe reflejar la sección realmente visible. Observar las secciones completas, no solo títulos de poca altura, y verificar también los accesos directos mediante hash.
+- La navegación interna es opcional y debe responder al criterio de la sección `Navegación interna`; no se agrega únicamente porque una página tenga varios títulos.
+- Cuando está justificada, usa `nav-pills` compactas y desplazables horizontalmente cuando sea necesario.
+- Debe reflejar la sección realmente visible. Observar las secciones completas, no solo títulos de poca altura, y verificar también los accesos directos mediante hash.
 - Las etiquetas del menú deben ser breves, idealmente de una a tres palabras.
-- El título de la página puede ampliar la etiqueta del menú, pero debe conservar su concepto principal y una redacción reconocible. Ejemplo: `Cargadores` en el menú y `Cargadores y carga pública` como título.
+- El título de la página puede ampliar la etiqueta del menú, pero debe conservar su concepto principal y una redacción reconocible. Ejemplo: `Pública` en el menú, con nombre accesible `Carga pública`, y `Carga pública y cargadores` como título.
 - Evitar que menú y título usen expresiones diferentes para una misma sección.
 
 ### Contexto geográfico
 
-- La identidad global `AION V · UY` ya establece que el sitio corresponde a Uruguay.
+- La identidad global usa `GAC AION V Uruguay` y el descriptor `Guía comunitaria no oficial`.
+- Todo el bloque de identidad enlaza a Inicio, usa el nombre accesible `Ir al inicio de GAC AION V Uruguay` y mantiene un área interactiva mínima de 44 px.
 - No repetir `Uruguay` en pretítulo, título, descripción y pie de una misma página si no agrega información.
 - Sí mencionar el país cuando sea necesario para diferenciar cobertura, disponibilidad, normativa, tarifas, fuentes o mercados.
+
+### Nombres de páginas y URLs
+
+- Todos los archivos HTML públicos usan nombres en español, descriptivos, breves y escritos en minúsculas.
+- `index.html` es la única excepción admitida por ser el documento inicial convencional del sitio.
+- Separar palabras mediante guiones, sin espacios, guiones bajos, tildes, eñes ni caracteres especiales.
+- El nombre debe describir el destino con palabras reconocibles para la persona: `aplicaciones.html`, `preguntas.html`, `especificaciones.html` y `carga-casa.html`.
+- No usar abreviaturas o términos ingleses como `apps`, `faq`, `specs`, `home`, `services` o equivalentes en nombres nuevos.
+- Al renombrar una página, actualizar en la misma tarea enlaces internos, navegación global e interna, URL canónica, Open Graph, scripts, anclas compartidas, documentación y cualquier referencia generada.
+- Antes de cerrar la migración, comprobar que no queden referencias a la ruta anterior ni enlaces internos rotos.
+- Las clases CSS, IDs técnicos, nombres de funciones y archivos de recursos no forman parte de esta regla, aunque los IDs visibles en la URL deben ser comprensibles y preferentemente estar en español.
 
 ## 7. Iconos, emojis y logos
 
@@ -177,8 +205,12 @@ Reglas:
 
 - Acción principal: `btn btn-primary` con fondo `#0770d1` y texto blanco.
 - Acciones secundarias: `btn btn-outline-primary`.
-- WhatsApp puede conservar `btn-outline-success` y el icono oficial.
-- El verde de WhatsApp sobre superficies claras usa como mínimo `#0d7a35`; no usar el verde nativo claro de Tabler para texto o borde porque no alcanza contraste AA.
+- WhatsApp usa el icono oficial y una variante propia coherente en escritorio y móvil.
+- Estado normal de WhatsApp: fondo `#e9f7ee`, texto e icono `#0d7a35`, borde `#0d7a35` y peso 600.
+- Hover y foco de WhatsApp: fondo verde suave `#ccebd7`, con texto, icono y borde `#075e54`.
+- El peso permanece en 600 en todos los estados para evitar desplazamientos o cambios aparentes de tamaño durante la interacción.
+- No usar el verde brillante de marca como fondo del control: compite visualmente con el sistema sobrio de Tabler.
+- El foco conserva además el contorno global visible; el color no es la única señal del estado.
 - Dentro de una misma fila, todos los botones equivalentes deben compartir color, tamaño y altura.
 - No usar un color diferente sin una diferencia semántica real.
 - En teléfonos angostos, los botones pueden apilarse; no deben desbordar la pantalla.
@@ -379,10 +411,10 @@ El orden recomendado es:
 
 1. enlace `Saltar al contenido`;
 2. navegación principal;
-3. encabezado con un único `h1` e icono Tabler;
+3. encabezado con un único `h1` e icono MDI monocromático;
 4. descripción breve, idealmente uno o dos párrafos;
 5. alerta crítica, solo cuando sea necesaria;
-6. navegación interna, si existen al menos tres destinos útiles;
+6. navegación interna, solo cuando existan al menos tres destinos útiles y se cumplan los criterios funcionales definidos en esta guía;
 7. secciones principales en orden de tarea o decisión;
 8. fuentes, procedencia y fechas al final del contenido al que aplican;
 9. acceso al grupo de WhatsApp en la navegación, no repetido arriba y abajo del contenido.
@@ -501,14 +533,71 @@ No sumar margen inferior de un componente y margen superior del siguiente sin co
 - El logo/nombre del sitio enlaza a Inicio.
 - Los iconos tienen ancho visual uniforme y no dependen de color.
 - En móvil, el botón del menú mantiene label dinámico y foco visible.
+- La transición entre el lateral y el encabezado móvil ocurre en `992px`: lateral desde `992px` y menú colapsable hasta `991px`.
+- En escritorio, la marca y WhatsApp permanecen visibles; la lista central es la única zona desplazable.
+- Al cargar una página, la opción activa debe quedar visible dentro del área desplazable.
+- `Pública` y `En casa` conservan esos textos visuales dentro del grupo `Carga`, pero sus nombres accesibles completos son `Carga pública` y `Carga en casa`.
+
+Estructura canónica:
+
+```text
+Inicio
+
+Vehículo
+  Versiones
+  Seguridad
+  Comandos de voz
+
+Carga
+  Pública
+  En casa
+  Apps
+  Gestiones UTE
+
+Propiedad
+  Red GAC
+  Mantenimiento
+  Costos
+
+Comunidad
+  Videos y experiencias
+  Problemas
+  Preguntas
+```
+
+- `especificaciones.html` y `comparativa.html` son páginas heredadas: mientras sigan disponibles, deben marcar `Versiones` como opción activa y no reaparecer como destinos principales.
+- `calculadora-publica.html` y la calculadora heredada marcan `Pública`; `calculadora-casa.html` marca `En casa`.
 
 ### Navegación interna
 
-- Usarla solo cuando reduzca desplazamiento o ayude a comprender una página larga.
-- Las etiquetas coinciden con los `h2`, aunque pueden abreviarse sin cambiar el concepto.
-- El destino debe recibir foco o quedar visible sin ocultarse detrás de encabezados persistentes.
-- La opción activa se actualiza según la sección visible.
-- Debe poder desplazarse horizontalmente sin producir scroll de toda la página.
+- Su incorporación requiere una decisión editorial y de UX; no es un componente obligatorio ni decorativo.
+- El mínimo de tres destinos útiles es una condición necesaria, pero no suficiente. No crear secciones artificiales ni elevar subtítulos menores a `h2` solamente para alcanzar ese número.
+- Agregarla únicamente cuando se cumplan **todas** estas condiciones:
+  1. existen al menos tres secciones principales, estables y de jerarquía equivalente;
+  2. cada destino responde una pregunta, tarea o categoría reconocible por sí misma;
+  3. las etiquetas pueden ser breves, distintas entre sí y coherentes con sus `h2`;
+  4. saltar directamente entre secciones reduce desplazamiento, retroceso o carga de memoria;
+  5. el componente no duplica de forma inmediata el menú lateral, las acciones del encabezado ni otro selector existente.
+- Además, debe existir al menos una señal concreta de utilidad:
+  - la página supera claramente una pantalla de lectura y las secciones importantes quedan alejadas entre sí;
+  - es razonable que una persona consulte las secciones en un orden diferente al publicado;
+  - existen enlaces directos externos o internos que necesitan destinos estables mediante hash;
+  - la persona vuelve con frecuencia a comparar bloques pares de una misma página.
+- No agregar navegación interna cuando:
+  - hay una o dos secciones principales;
+  - la página es breve y todos los destinos se reconocen con poco desplazamiento;
+  - el contenido forma un recorrido secuencial que conviene completar en orden, como un formulario o planificador;
+  - una tabla de contenido repetiría categorías ya visibles en acordeones, pestañas, filtros o tarjetas;
+  - los destinos serían notas, fuentes, alertas, resultados temporales o subtítulos secundarios;
+  - el único motivo es lograr simetría con otra página.
+- Antes de implementarla, revisar la página a 1440 × 900 px y a 390 × 844 px. Si el beneficio no es evidente en al menos uno de esos contextos, omitirla.
+- Las etiquetas coinciden conceptualmente con los `h2`, aunque pueden abreviarse sin cambiar el significado.
+- Usar un `<nav>` con nombre accesible, enlaces reales a IDs estables y comprensibles, y foco visible.
+- El destino debe quedar visible sin ocultarse detrás de encabezados persistentes.
+- La opción activa se actualiza según la sección realmente visible, el enlace seleccionado y el hash inicial. No comunicar el estado activo solo mediante color.
+- En móvil, permitir ajuste en varias filas o desplazamiento horizontal deliberado sin provocar desbordamiento de la página.
+- No hacerla fija durante el desplazamiento salvo que una prueba de uso demuestre que aporta más que el espacio que consume.
+- En la auditoría final, comprobar que quitarla empeoraría objetivamente la orientación o el acceso. Si no existe esa diferencia, debe eliminarse.
 - No repetir las mismas acciones como botones inmediatamente encima o debajo.
 
 ## 23. Botones, enlaces y acciones
@@ -526,7 +615,7 @@ Contenido:
 - evitar `Ver más` cuando puede nombrarse el destino;
 - no terminar botones con punto;
 - no usar emojis;
-- icono Tabler decorativo con `aria-hidden="true"`;
+- icono MDI decorativo con `aria-hidden="true"`;
 - enlaces externos incluyen indicación visual y texto accesible de nueva pestaña.
 
 Estados:
@@ -724,6 +813,48 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 - No repetir el nombre de la sección en un subtítulo inmediato.
 - No repetir `datos para el cálculo` si el título de la calculadora y los labels ya lo explican.
 
+### Terminología, estados y fechas canónicas
+
+Estas reglas son transversales y se aplican a todas las páginas públicas. Las reglas particulares de una sección pueden agregar contexto, pero no crear otra redacción para el mismo estado.
+
+- Para la fecha en que se modificó manualmente una página o un bloque, usar `Última actualización`.
+- Para la fecha propia del dato publicado por una fuente, usar `Información actualizada` o `Datos actualizados`, según la estructura ya existente.
+- Si una automatización obtiene y reemplaza el dato publicado, usar `Última actualización automática`.
+- Si una automatización solamente comprueba la fuente o confirma que el dato sigue vigente, usar `Última verificación automática`.
+- No usar en páginas públicas variantes internas como `revisión editorial`, `revisión general`, `última revisión`, `actualización de esta sección` o `actualización de esta recopilación`.
+- Las fechas completas visibles usan `dd/mm/aaaa` y, cuando estén escritas en HTML, se marcan preferentemente con `<time datetime="aaaa-mm-dd">`.
+- Si solo se conoce mes y año, no inventar un día.
+- No presentar una verificación manual como actualización automática.
+- No actualizar una fecha si no cambió ni se volvió a comprobar la información a la que corresponde.
+
+Estados canónicos:
+
+- Dato todavía no publicado o pendiente de comprobar: `A confirmar.`
+- Ausencia de información oficial: `No hay información oficial confirmada.`
+- Función o servicio cuya indisponibilidad local esté confirmada: `No disponible en Uruguay.`
+- Ausencia de una medida provisoria conocida: `No hay una alternativa temporal conocida.`
+- Ausencia de una solución definitiva confirmada: `No hay una solución oficial confirmada.`
+
+No alternar estos estados con expresiones equivalentes como `falta confirmar`, `sin datos`, `no hay solución actualmente`, `sin solución definitiva`, `no existe una corrección conocida` o `no hay una medida dentro del sistema`. Si hace falta explicar el motivo, conservar primero el texto canónico y agregar el contexto en un párrafo aparte.
+
+### Copiar y compartir contenido
+
+Estas reglas son **transversales** y se aplican a cualquier página que permita copiar contenido para compartirlo:
+
+- La interfaz conserva Material Design Icons (MDI) monocromáticos. Los emojis no sustituyen los iconos estructurales ni se muestran dentro del botón.
+- Como el portapapeles y WhatsApp reciben texto plano, el contenido copiado puede convertir los iconos de la interfaz en emojis semánticamente equivalentes para conservar jerarquía y facilitar el escaneo.
+- Los emojis usados en el texto compartido deben acompañar al texto, nunca reemplazar información necesaria. No depender del color, la forma ni el emoji para comunicar el significado.
+- Mantener una jerarquía breve y predecible: encabezado o título, contenido, datos operativos, advertencia si corresponde y enlace directo o fuente al final.
+- Conservar los saltos entre ideas y párrafos. No convertir una tarjeta legible en la página en un único renglón largo al copiarla.
+- Copiar solamente información visible o derivada directamente de ella. No incorporar afirmaciones, estados, fechas o alcances que la página no respalde.
+- Si el contenido tiene un destino identificable, incluir un enlace directo y estable. Cuando exista un ancla semántica, preferir la URL de esa ancla sobre la URL genérica de la página.
+- El botón debe describir la acción real. Usar `Copiar para WhatsApp` cuando copia texto pensado para compartir allí; no afirmar que abre o envía el mensaje si solamente escribe en el portapapeles.
+- Confirmar el éxito o error de la copia visualmente y mediante una región viva ya presente en el DOM. El cambio de icono o etiqueta es temporal y luego vuelve al estado inicial.
+- Mantener una alternativa de copiado cuando `navigator.clipboard` no esté disponible, sin degradar la estructura del texto.
+- Validar el texto final generado, no solamente el HTML visible: emojis, acentos, saltos, orden, URL y ausencia de contenido duplicado.
+
+Las correspondencias exactas de emojis, el orden de campos y los textos propios de cada tipo de contenido pertenecen a la regla específica de su página. No trasladar automáticamente el formato de Problemas a Preguntas, calculadoras, operadores u otras secciones.
+
 ## 31. Reglas por página y tipo de sección
 
 ### Inicio — `index.html`
@@ -734,7 +865,7 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 - Priorizar Seguridad, Especificaciones, Carga y Comunidad según relevancia.
 - Revisar que las tarjetas enlacen a destinos distintos y útiles.
 
-### Especificaciones — `specs.html`
+### Especificaciones — `especificaciones.html`
 
 - Separar datos compartidos de diferencias entre versiones.
 - Una sola tabla para diferencias principales cuando sea viable.
@@ -757,7 +888,7 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 - Tablas de puntuación con iconos monocromáticos y números neutrales.
 - No repetir fuentes en cada título; consolidarlas al final del bloque correspondiente.
 
-### Cargadores — `carga-publica.html`
+### Carga pública — `carga-publica.html`
 
 - Contiene la calculadora pública, consumo del viaje, redes, conectores, tarifas de referencia y acceso a apps.
 - Operadores en orden alfabético.
@@ -765,7 +896,7 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 - Mostrar únicamente Tipo 2 y CCS2; otros conectores no son relevantes para este sitio.
 - Tarifas finales, cargos adicionales y verificación en app cuando corresponda.
 
-### Aplicaciones — `apps.html`
+### Aplicaciones — `aplicaciones.html`
 
 - Orden alfabético dentro de cada grupo.
 - Icono oficial local 36 × 36 px, nombre visible y descripción de una línea.
@@ -776,12 +907,13 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 ### Calculadora pública — integrada en `carga-publica.html`
 
 - Flujo: modelo → batería inicial/final → potencia → cálculo.
+- Los botones `Copiar resumen` usan `mdi-content-copy` en la interfaz. El resumen copiado usa emojis solo en el texto plano: `⚡` para carga o energía, `🔋` para batería, `⏱️` para duración, `💰` para costo, `📅` para vigencia tarifaria y `🔗` para el enlace directo a la herramienta.
 - Sin valores preseleccionados que produzcan resultados involuntarios.
 - Presets junto a potencia.
 - Resultado accesible, contextual y sin notas irrelevantes.
 - El límite del modelo se informa solo cuando el cargador lo supera.
 
-### Calculadora domiciliaria — integrada en `ute-carga-casa.html`
+### Calculadora domiciliaria — integrada en `carga-casa.html`
 
 - Explicar AC y Tarifa Residencial Triple Horario.
 - Hora actual puede precargarse una vez y permanecer editable.
@@ -791,7 +923,7 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 - Duraciones en `HH:mm`.
 - Franjas, energía y costo en una tabla legible.
 
-### Carga en casa — `ute-carga-casa.html`
+### Carga en casa — `carga-casa.html`
 
 - Integrar planificación domiciliaria, cálculo de potencia y consumo del viaje antes de la guía informativa.
 - Explicar instalación, tarifa, franjas y recomendaciones de seguridad después de las herramientas.
@@ -842,24 +974,94 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 ### Videos — `videos.html`
 
 - Agrupar por tema: pruebas, autonomía, reseñas, multimedia y colores.
-- Botones o enlaces de video usan icono `play`.
+- Los videos de crash tests de ANCAP y Euro NCAP pertenecen exclusivamente a `seguridad.html`; no duplicarlos en esta página.
+- Los enlaces a videos de YouTube usan el icono MDI monocromático `mdi-youtube`.
+- Cada recurso usa una tarjeta liviana con título descriptivo y una única acción `Ver video en YouTube`.
+- Los títulos de página y sección usan MDI monocromáticos; no usar emojis estructurales ni imágenes externas del logo de YouTube.
+- No agregar una caja general de alcance si repite la introducción o el aviso de versiones.
+- Como existen cuatro categorías, incluir navegación interna hacia pruebas y autonomía, reseñas, multimedia y colores. El estado activo debe actualizarse al navegar y al desplazarse.
+- Al final del listado, identificar el origen general de los enlaces y mostrar `Última actualización` en la línea siguiente.
+- Después de los metadatos, usar un único bloque `También te puede servir` para enlazar Seguridad —donde permanecen los crash tests— y Versiones.
 - Títulos descriptivos y neutrales.
 - No introducir nombres de versiones que el contenido no respalde.
 
-### Problemas conocidos — `problemas.html`
+### Problemas reportados — `problemas.html`
+
+**Alcance:** todas las reglas de este apartado son exclusivas de `problemas.html`, salvo que otra sección de la guía las declare expresamente transversales. Complementan —y no reemplazan— las reglas globales de copiado, accesibilidad, redacción y componentes.
 
 - Diferenciar síntoma, alcance, verificación y solución conocida.
 - No presentar casos aislados como fallas universales.
 - Si la solución es llevarlo a service oficial, indicarlo directamente.
 - Evitar frases vagas como `sin solución definitiva` cuando existe un procedimiento recomendado.
+- Separar el relato del problema de dos datos operativos: `Qué podés hacer` y `Estado de la solución`. No usar `workaround` ni presentar una medida temporal como solución definitiva.
+- Las tarjetas de problemas usan el borde estándar del sitio, sin borde lateral de advertencia: son reportes, no alertas.
+- Consolidar alcance, versiones afectadas y grado de confirmación en una sola nota antes de los reportes. No repetir luego `reportado por varios dueños` ni `no afecta a todas las unidades` en cada tarjeta.
+- La nota general usa el patrón semántico de información: borde izquierdo azul, título visible e icono MDI `mdi-information-outline`.
+- El `h1`, la descripción y los títulos de los reportes no deben repetir expresiones equivalentes como `problemas reportados`, `casos informados` y `reportes de propietarios` en tres niveles consecutivos.
+- Cada tarjeta es un `<details class="issue-card">` identificado mediante `aria-labelledby`. Su `<summary>` contiene el icono, el título `h2`, la categoría y el indicador de expansión; el resto del contenido se agrupa en `.issue-card-content`.
+- Las tarjetas comienzan contraídas para facilitar el escaneo. Se pueden abrir varias simultáneamente: no imponer comportamiento de acordeón exclusivo.
+- Usar el control nativo `<summary>` para que Enter y Espacio funcionen sin JavaScript ni ARIA manual redundante. Mantener foco visible y un área interactiva de al menos 44 px de alto.
+- Mostrar un chevron inequívoco alineado a la derecha. El estado abierto invierte su orientación y agrega un divisor suave entre encabezado y contenido; no usar un símbolo `+` que se transforme en una `×`.
+- El encabezado puede usar un fondo gris muy suave en hover, sin mover, elevar ni cambiar el tamaño de la tarjeta.
+- Si la URL contiene el ancla de un problema, abrir automáticamente esa tarjeta y llevarla a la vista. Conservar esta conducta al cambiar el hash.
+- El título del problema es un `h2`; la categoría visual se coloca fuera del encabezado para que el nombre accesible no incluya etiquetas como `software`, `interior` o `service`.
+- El encabezado visual usa un icono MDI monocromático de 24 × 24 px, sin caja, fondo ni borde propios. El icono es decorativo, lleva `aria-hidden="true"` y acompaña al título sin sustituirlo.
+- La categoría usa un badge gris azulado, transparente y de borde suave. No usar naranja, rojo ni un color diferente por categoría: la categoría es metadato, no una advertencia ni un estado.
+- Los títulos describen el síntoma o la situación. Las acciones —por ejemplo, revisar el gas durante el service— pertenecen a `Qué podés hacer`, no al título.
+- Las categorías describen el área afectada (`software`, `conectividad`, `climatización`, `interior`, `suspensión`) y no el lugar donde se atiende el problema.
+- El relato principal contiene solamente el síntoma y su contexto. No repite la acción recomendada ni el estado de la solución.
+- Dentro de cada tarjeta, síntoma, contexto y consecuencia se escriben en párrafos separados cuando constituyen ideas completas. No resolverlo con `<br>` ni acumular oraciones mediante punto y seguido.
+- Si `Qué podés hacer` o `Estado de la solución` contienen más de una idea, cada una usa su propio `<p>` dentro del `<dd>`.
+- `Qué podés hacer` ofrece una acción concreta y prudente. Si implica modificar sellos, burletes, software o componentes, debe aclarar si es una experiencia comunitaria no confirmada y recomendar consultar antes con un service oficial.
+- `Estado de la solución` no repite literalmente la acción anterior: informa si existe confirmación oficial, si requiere diagnóstico o si la corrección fue reportada en un service.
+- `Qué podés hacer` aparece primero y `Estado de la solución` inmediatamente debajo, tanto en escritorio como en móvil. Son una secuencia de lectura, no datos para comparar en columnas.
+- Ambos bloques usan fondo transparente, sin bordes ni subtarjetas, y se distinguen mediante sus títulos e iconos. Mantener un espacio breve y uniforme entre ellos.
+- Aplicar los estados canónicos globales de la sección `30`: `No hay una alternativa temporal conocida.` y `No hay una solución oficial confirmada.`
+- Cuando corresponda acudir a postventa, enlazar `service oficial` o `services oficiales` con la página interna de la Red GAC.
+- Evitar sujetos ambiguos como `equipos` cuando podrían significar teléfonos, vehículos o sistemas multimedia.
+- El llamado para aportar un problema o una solución aparece una sola vez al final, en un bloque de ancho ajustado al contenido y alineado a la izquierda.
+- Después del aviso general de versiones y antes del listado se muestra una única caja `Sobre estos reportes`. Debe explicar cómo interpretar `Qué podés hacer` y `Estado de la solución`, además de aclarar que la aparición y el alcance pueden variar entre vehículos. No debe repetir el origen general ni la fecha publicados al final.
+- Ordenar los reportes por impacto y necesidad de acción, no por fecha ni alfabéticamente: primero comportamiento del vehículo y casos que conviene revisar en taller; después climatización e interior; al final conectividad y software. Mantener el mismo orden en escritorio, móvil, lectura asistida y tabulación.
+- El acceso contextual usa `Ir al grupo de WhatsApp`: identifica el destino real sin prometer que el mensaje se enviará automáticamente.
+- Cada problema usa un título semántico y un identificador estable para permitir enlaces directos.
+- Cada tarjeta ofrece `Copiar para WhatsApp`; copia título, descripción y enlace directo, y confirma el resultado de forma visible y mediante una región viva.
+- El texto copiado conserva los saltos entre párrafos y coloca la descripción de `Qué podés hacer` y `Estado de la solución` debajo de cada rótulo. No compactar nuevamente todo el contenido en una sola línea.
+- El mensaje copiado sigue este orden específico: `🚙 GAC AION V — problema reportado por la comunidad`, título con emoji contextual, descripción, `🔧 Qué podés hacer`, `ℹ️ Estado de la solución`, `⚠️ No todos los vehículos lo presentan` y `🔗 Más información` con enlace directo.
+- Para el título del problema, usar la correspondencia contextual definida en la implementación: `🕒` zona horaria, `📱` conectividad, `❄️` climatización, `🚪` puertas, `🚗` vehículo o interior y `🔧` service o intervención mecánica. Si se agrega otra categoría, elegir un emoji inequívoco y documentarlo aquí.
+- Los MDI permanecen en la interfaz; estos emojis se usan únicamente en el contenido compartido. No trasladar automáticamente este encabezado, esta advertencia ni esta correspondencia a otras páginas.
+- La acción de copiado se ubica inmediatamente después de `Estado de la solución` y alineada a la izquierda. El icono debe coincidir con el borde de lectura del contenido. Para conservar esa alineación y dar aire al estado hover, usar padding horizontal compensado con un margen izquierdo negativo equivalente; el fondo interactivo puede extenderse hacia la izquierda, pero el icono no debe desplazarse. No aislarla en la esquina inferior derecha ni obligar a recorrer todo el ancho de la tarjeta. Usa el icono MDI correspondiente, fondo transparente, borde transparente y un área interactiva de 40 px de alto; el hover puede usar azul muy suave. No usa emojis ni adopta el color de WhatsApp porque no abre esa aplicación directamente.
+- Las tarjetas no se elevan, desplazan ni cambian de sombra al pasar el puntero. Solo el `<summary>` comunica interacción mediante cursor, fondo sutil, chevron y foco.
+- Las tarjetas usan una sola superficie blanca, borde suave, sin sombra y padding contenido. No superponer tarjeta, caja de icono, subtarjetas operativas y botón delineado dentro del mismo componente.
+- El listado de problemas usa un ancho máximo de `62rem`, alineado a la izquierda. No estirar las tarjetas hasta todo el ancho disponible cuando eso genera líneas excesivamente largas y separa visualmente las acciones de su contenido.
+- Los rótulos `Qué podés hacer` y `Estado de la solución` usan texto secundario y peso 500. Deben distinguirse claramente del título principal sin perder legibilidad.
+- La página termina con el origen general de los reportes y, en la línea inmediatamente inferior, la fecha de la `Última actualización`. No presentar ambos metadatos en una misma línea ni inventar fechas o versiones individuales que la comunidad no haya documentado.
+- Antes de cerrar cualquier cambio, revisar las seis tarjetas completas para detectar redundancias, afirmaciones universales, recomendaciones sin confirmar, títulos que describan acciones y diferencias de estructura.
+- Validar que los badges no formen parte del texto de los encabezados, que los enlaces directos con ancla sigan funcionando y que el copiado conserve título, descripción, guía operativa, advertencia de alcance y URL canónica.
 
-### FAQ — `faq.html`
+### Preguntas frecuentes — `preguntas.html`
 
 - Preguntas redactadas como las formularía una persona.
 - Una respuesta principal directa en la primera oración.
 - Detalles en párrafos o bullets posteriores.
+- Después del aviso general de versiones y antes del primer grupo temático se muestra una única caja informativa `Sobre estas respuestas`. Explica que las preguntas se abren de forma independiente y recuerda verificar en la fuente enlazada los precios, tarifas, disponibilidad u otras condiciones variables.
+- Esta caja no repite el origen ni la fecha que aparecen al final de la página, no enumera nuevamente los temas y no sustituye las advertencias específicas que correspondan dentro de una respuesta.
+- Agrupar y ordenar las preguntas según el recorrido de la persona, no alfabéticamente: `Compra y versiones`, `Funciones y conectividad`, `Carga en casa`, `Carga pública y costos`, `Autonomía y consumo` y `Uso y comunidad`. Dentro de cada grupo, ubicar primero las preguntas más generales, preventivas o decisivas y después las operativas o de detalle.
+- Cada pregunta usa una tarjeta expandible nativa `<details class="faq-card">`. El `<summary>` contiene un icono MDI decorativo, un título semántico `h3` y un chevron; la respuesta y sus acciones quedan fuera del `<summary>`.
+- Las preguntas comienzan contraídas y se pueden abrir varias simultáneamente. No implementar un acordeón exclusivo.
+- Aplicar el mismo comportamiento ligero aprobado para las tarjetas de problemas: superficie blanca única, borde suave, sin sombra ni movimiento, hover gris solamente en el encabezado y divisor al abrir.
+- Usar un chevron que cambia de orientación. No usar `+` que se transforme en `×`.
+- Toda el área del `<summary>` es interactiva, conserva foco visible y una altura mínima de 44 px. El control nativo debe funcionar con Enter y Espacio sin ARIA manual redundante.
+- El título de cada pregunta es un `h3`, debajo del `h2` de su grupo temático. El icono de pregunta usa MDI monocromático, es decorativo y no sustituye al texto.
+- Cada pregunta tiene un identificador estable. Si la URL contiene su ancla, abrir la tarjeta y llevarla a la vista tanto al cargar como al cambiar el hash.
+- La acción de copiado se ubica al final de la respuesta, alineada con el borde de lectura. Usa el mismo tratamiento liviano y transparente de la acción equivalente en Problemas, sin color de WhatsApp porque copia texto y no abre la aplicación.
+- Cada acción `Copiar para WhatsApp` usa `mdi-content-copy` en la interfaz y una región viva asociada para confirmar éxito o error.
+- El texto compartido comienza con `❓`, conserva los párrafos, transforma las listas en bullets de texto sin duplicar el contenido de elementos anidados y termina con `🔗 Más información` más el ancla directa de la pregunta.
+- Las preguntas incorporadas dinámicamente deben usar la misma utilidad y el mismo formato que las preguntas presentes en el HTML; no mantener una segunda implementación de portapapeles.
 - Evitar duplicar secciones completas existentes; enlazarlas cuando corresponda.
 - Mantener datos prácticos concretos, como tornillería, herramientas o disponibilidad de apps, con fuentes cuando sean variables.
+- La página termina con un bloque compacto que identifica el origen general de las respuestas y, en la línea inmediatamente inferior, la fecha de la `Última actualización`.
+- Después de esos metadatos se ofrece una única invitación contextual para aportar otra pregunta o respuesta mediante `Ir al grupo de WhatsApp`. Mantenerla alineada a la izquierda, con ancho ajustado al contenido y el mismo patrón visual transversal usado para contribuciones comunitarias.
+- No repetir esta invitación entre grupos temáticos ni dentro de cada respuesta; el acceso final complementa al acceso persistente del menú sin competir con el contenido principal.
 
 ### Servicios heredado — `servicios.html`
 
@@ -991,3 +1193,225 @@ Una página queda aprobada solamente cuando se cumple todo lo siguiente:
 - Las excepciones deben estar justificadas por contenido, accesibilidad o funcionalidad; no por preferencia aislada.
 - Cada revisión global debe eliminar variantes obsoletas para evitar deuda visual.
 - No usar el prototipo como fuente de datos técnicos; solo como fuente de diseño y comportamiento.
+
+## 36. Estado consolidado de la implementación
+
+Este apartado funciona como inventario operativo de las decisiones ya adoptadas. No reemplaza las especificaciones detalladas anteriores: permite comprobar rápidamente que una modificación nueva no revierta acuerdos vigentes.
+
+### 36.1 Fuentes canónicas y responsabilidad de cada archivo
+
+| Archivo | Responsabilidad |
+|---|---|
+| `docs/sistema-diseno-tabler.md` | Reglas normativas de diseño, contenido, UX, accesibilidad y validación. |
+| `AGENTS.md` | Obliga a aplicar esta guía, revisar la página completa y no publicar sin pedido explícito. |
+| `prototipo-tabler.html` | Referencia visual y funcional viva de los componentes compartidos. |
+| `_shared.css` | Tokens, layout, tipografía, navegación, componentes y comportamiento responsive compartidos. |
+| `mobile-nav.js` | Navegación lateral/móvil, estado accesible y comportamiento común del menú. |
+| `copy-share.js` | Utilidad común para copiar contenido, anunciar el resultado y conservar una alternativa de compatibilidad. |
+| CSS o JavaScript de una página | Solo comportamiento o presentación que no tenga equivalente transversal reutilizable. |
+
+Reglas de mantenimiento:
+
+- Una decisión transversal se implementa primero en el componente compartido y se documenta aquí.
+- No duplicar en cada HTML una regla que pueda vivir en `_shared.css`, `mobile-nav.js` o `copy-share.js`.
+- El CSS local no puede redefinir el padding horizontal del contenido, la escala tipográfica global, el menú ni los estados comunes de botones.
+- Una excepción local debe indicar qué necesidad de contenido, accesibilidad o funcionalidad la justifica.
+- Si una regla documentada y la implementación difieren, reconciliarlas en la misma tarea; no conservar dos criterios vigentes.
+
+### 36.2 Páginas públicas y compatibilidad
+
+Páginas canónicas vigentes:
+
+```text
+index.html
+especificaciones-versiones.html
+seguridad.html
+comandos.html
+carga-publica.html
+carga-casa.html
+aplicaciones.html
+gestiones-ute.html
+red.html
+mantenimiento-postventa.html
+costos.html
+videos.html
+problemas.html
+preguntas.html
+```
+
+Páginas heredadas o de compatibilidad que también deben conservar coherencia visual y accesibilidad:
+
+```text
+especificaciones.html
+comparativa.html
+calculadora.html
+calculadora-publica.html
+calculadora-casa.html
+cargadores.html
+servicios.html
+```
+
+- Las páginas heredadas no reaparecen como destinos principales del menú.
+- Si redirigen a una página canónica, cargan `_shared.css`, usan una estructura semántica mínima y ofrecen un enlace accesible como alternativa.
+- No mantener dos copias divergentes del mismo contenido ni de la misma lógica.
+
+### 36.3 Layout y alineación comprobados
+
+- Barra lateral de escritorio: `17rem`.
+- Contenido máximo: `90rem`, alineado al comienzo del área útil.
+- Padding horizontal canónico del contenido:
+  - más de `1024 px`: `32 px`;
+  - de `721 px` a `1024 px`: `24 px`;
+  - hasta `720 px`: `16 px`.
+- La transición entre lateral y navegación móvil ocurre en `992 px`.
+- Ninguna página agrega un desplazamiento horizontal propio al contenedor `.page`.
+- El menú no queda aislado de un contenido centrado: el cuerpo comienza inmediatamente después del lateral.
+- Las líneas editoriales largas se limitan aproximadamente a `52rem`; formularios complejos, a `58rem`; tablas comparativas pueden usar el ancho disponible.
+- La comprobación de coherencia debe comparar como mínimo `1900`, `1440`, `1024`, `991`, `720`, `390` y `360 px`.
+- El contenido no puede producir desbordamiento horizontal global. Las tablas desplazables son la única excepción deliberada y deben identificarse de forma accesible.
+
+### 36.4 Tipografía e interlineado vigentes
+
+- Texto general, listas, alertas, notas y contenido expandido: `line-height: 1.55`.
+- Texto compacto de tarjetas y acordeones: `1.5`.
+- Celdas de tabla: `1.4`–`1.45`.
+- Encabezados de tabla: `1.35`.
+- Ayudas, fuentes y metadatos: `1.45`.
+- Los títulos conservan su escala propia entre `1.2` y `1.45` y nunca heredan el interlineado del cuerpo.
+- Una idea completa por párrafo. Las ideas consecutivas se separan mediante párrafos y márgenes, no mediante un interlineado excesivo ni `<br>`.
+- El texto común nunca supera visualmente al título que lo contiene.
+- Esta escala se audita en todas las páginas, no solamente en Preguntas o Problemas.
+
+### 36.5 Componentes transversales ya adoptados
+
+Navegación:
+
+- Identidad: `GAC AION V Uruguay` y `Guía comunitaria no oficial`.
+- Grupos: `Vehículo`, `Carga`, `Propiedad` y `Comunidad`.
+- Opción activa con `aria-current="page"`, texto e icono del mismo color y peso 600.
+- Hover de cada opción: texto e icono cambian juntos, sin movimiento ni cambio de tamaño.
+- WhatsApp permanece disponible en escritorio y dentro del menú móvil.
+- Las etiquetas breves del menú conservan correspondencia conceptual con el `h1`.
+
+Iconos y acciones:
+
+- MDI monocromáticos para navegación, títulos, botones, alertas y controles.
+- Logos oficiales locales para empresas y aplicaciones.
+- Sin emojis en botones ni como iconos estructurales.
+- Los emojis se permiten en texto plano copiado para WhatsApp cuando aportan jerarquía y siempre acompañan texto.
+- Hover, foco y estado activo no modifican dimensiones ni peso de manera que desplacen el contenido.
+
+Tarjetas:
+
+- Superficie blanca, borde estándar, radio consistente y sombra nula o muy sutil según el patrón.
+- No envolver cada párrafo en una tarjeta.
+- No elevar, mover ni escalar tarjetas en hover.
+- Los resúmenes horizontales ajustan su ancho al contenido en escritorio y usan el ancho disponible en móvil.
+
+Tablas:
+
+- Contenedor exterior con radio y `overflow: hidden` para conservar las cuatro esquinas.
+- Encabezados compactos, semánticos y con contraste AA.
+- Números comparables con cifras tabulares cuando ayuden al escaneo.
+- Tabla expandible cuando resumen y detalle pertenezcan al mismo conjunto.
+- La fila expandida agrega información; no repite toda la fila resumen.
+- En móvil, identificador y acción permanecen visibles sin exigir desplazamiento horizontal.
+
+Alertas y notas:
+
+- Borde izquierdo semántico de `4 px` y borde estándar en los demás lados.
+- Información azul, advertencia amarilla, error rojo y confirmación verde.
+- Icono MDI, título visible y texto breve; el color no comunica el estado por sí solo.
+- No repetir el mismo mensaje inmediatamente fuera de la caja.
+
+Formularios y calculadoras:
+
+- Labels visibles, controles blancos, bordes legibles, ayudas asociadas y unidades como sufijo.
+- Campos en el orden mental de la tarea.
+- Sin resultados válidos producidos por selecciones preestablecidas que requieren una decisión consciente.
+- Errores vacíos y estados vacíos no reservan altura.
+- Presets junto al campo que modifican y con `aria-pressed`.
+- Resultados semánticos con `dl`, `dt` y `dd`, contexto del cálculo y región viva.
+- `Restablecer valores` limpia campos, errores, presets y resultados.
+
+### 36.6 Patrón comunitario compartido
+
+Preguntas y Problemas comparten estos criterios:
+
+- tarjetas expandibles nativas con `<details>` y `<summary>`;
+- varias tarjetas pueden permanecer abiertas;
+- estado inicial contraído;
+- área interactiva mínima de 44 px;
+- foco visible, chevron inequívoco y divisor suave al abrir;
+- superficie blanca, borde suave, sin sombra ni desplazamiento;
+- anclas estables que abren la tarjeta correspondiente;
+- acción `Copiar para WhatsApp` alineada con el contenido;
+- región viva para confirmar éxito o error;
+- origen general al final y `Última actualización` en la línea siguiente;
+- una sola invitación contextual final para participar en el grupo;
+- acceso persistente a WhatsApp en el menú sin duplicar llamados dentro de cada tarjeta.
+
+El bloque informativo superior:
+
+- aparece una sola vez después del aviso general de versiones;
+- explica cómo interpretar o recorrer el contenido;
+- no repite origen, fecha ni todos los títulos de sección;
+- usa el patrón transversal de información con icono MDI y borde izquierdo azul.
+
+Estas reglas no hacen idéntico el contenido compartido:
+
+- Problemas usa `h2` por reporte, categoría visual fuera del nombre accesible, `Qué podés hacer` y `Estado de la solución`.
+- Preguntas usa `h2` para cada grupo y `h3` para cada pregunta.
+- El texto copiado de Problemas conserva síntoma, acción, estado y advertencia de alcance.
+- El texto copiado de Preguntas conserva pregunta, respuesta, listas y enlace directo.
+
+### 36.7 Orden editorial vigente
+
+Problemas:
+
+1. comportamiento del vehículo y casos que conviene revisar en taller;
+2. climatización e interior;
+3. conectividad y software.
+
+Preguntas:
+
+1. Compra y versiones.
+2. Funciones y conectividad.
+3. Carga en casa.
+4. Carga pública y costos.
+5. Autonomía y consumo.
+6. Uso y comunidad.
+
+En ambos casos, ordenar por necesidad de decisión y recorrido de la persona, no alfabéticamente ni por fecha.
+
+### 36.8 Metadatos, estados y llamados comunitarios
+
+- Usar `Última actualización` para cambios manuales de una página o bloque.
+- Mostrar `Origen` y, en la línea inmediatamente inferior, `Última actualización`.
+- Usar `Información actualizada`, `Última actualización automática` y `Última verificación automática` solamente con el significado definido en la sección `30`.
+- No usar `Última revisión editorial` ni variantes equivalentes.
+- Los estados pendientes o no confirmados usan las frases canónicas de la sección `30`.
+- La invitación contextual final debe describir el aporte concreto de esa página.
+- El botón que abre el grupo usa `Ir al grupo de WhatsApp`; no prometer envío automático.
+- El acceso contextual final se alinea a la izquierda y ajusta su ancho al contenido.
+
+### 36.9 Validación consolidada
+
+Para cualquier página modificada:
+
+1. revisar la página completa, no solamente el bloque solicitado;
+2. auditar redundancias y jerarquía de arriba abajo;
+3. comparar componentes equivalentes dentro de la página y con el sistema compartido;
+4. probar navegación, hover, foco, teclado, expansión, anclas, formularios y copiado según corresponda;
+5. comprobar escritorio, transición del menú y móvil;
+6. verificar un único `h1`, secuencia de títulos, labels, captions, nombres accesibles e IDs únicos;
+7. comprobar contraste WCAG 2.2 AA y ausencia de información comunicada solo por color;
+8. confirmar que `documentElement.scrollWidth` no supere el ancho visible;
+9. validar que elementos ocultos o vacíos no reserven espacio;
+10. revisar que tablas, alertas y tarjetas no queden pegadas y que sus esquinas se vean completas;
+11. ejecutar las validaciones de JavaScript o datos que correspondan;
+12. ejecutar `git diff --check`;
+13. informar archivos tocados, alcance y resultado;
+14. no publicar, hacer commit ni push salvo pedido explícito.
+
+La revisión de referencia debe cubrir las páginas canónicas, las páginas heredadas afectadas y `prototipo-tabler.html`. Una corrección global no se considera completa si solamente se comprueba una muestra visual.

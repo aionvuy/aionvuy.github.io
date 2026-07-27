@@ -1,41 +1,46 @@
 (function () {
-  const MOBILE_QUERY = '(max-width: 720px)';
+  const MOBILE_QUERY = '(max-width: 991px)';
   const NAV_GROUPS = [
     { label: null, links: ['index.html'] },
-    { label: 'Vehículo', links: ['especificaciones-versiones.html', 'specs.html', 'comparativa.html', 'seguridad.html', 'comandos.html'] },
-    { label: 'Carga', links: ['carga-publica.html', 'ute-carga-casa.html', 'apps.html', 'gestiones-ute.html'] },
+    { label: 'Vehículo', links: ['especificaciones-versiones.html', 'seguridad.html', 'comandos.html'] },
+    { label: 'Carga', links: ['carga-publica.html', 'carga-casa.html', 'aplicaciones.html', 'gestiones-ute.html'] },
     { label: 'Propiedad', links: ['red.html', 'mantenimiento-postventa.html', 'costos.html'] },
-    { label: 'Comunidad', links: ['videos.html', 'problemas.html', 'faq.html'] },
+    { label: 'Comunidad', links: ['videos.html', 'problemas.html', 'preguntas.html'] },
   ];
 
   const NAV_LABELS = {
     'index.html': 'Inicio',
     'especificaciones-versiones.html': 'Versiones',
-    'specs.html': 'Especificaciones',
+    'especificaciones.html': 'Especificaciones',
     'comparativa.html': 'Comparativa',
     'seguridad.html': 'Seguridad',
     'comandos.html': 'Comandos de voz',
     'carga-publica.html': 'Pública',
-    'ute-carga-casa.html': 'En casa',
-    'apps.html': 'Apps',
+    'carga-casa.html': 'En casa',
+    'aplicaciones.html': 'Apps',
     'gestiones-ute.html': 'Gestiones UTE',
     'red.html': 'Red GAC',
-    'mantenimiento-postventa.html': 'Mantenimiento y postventa',
+    'mantenimiento-postventa.html': 'Mantenimiento',
     'costos.html': 'Costos',
-    'videos.html': 'Videos, reseñas y experiencias',
-    'problemas.html': 'Problemas conocidos',
-    'faq.html': 'FAQ',
+    'videos.html': 'Videos y experiencias',
+    'problemas.html': 'Problemas',
+    'preguntas.html': 'Preguntas',
+  };
+
+  const NAV_ACCESSIBLE_LABELS = {
+    'carga-publica.html': 'Carga pública',
+    'carga-casa.html': 'Carga en casa',
   };
 
   const NAV_ICONS = {
     'index.html': 'mdi-home-outline',
-    'specs.html': 'mdi-car-outline',
+    'especificaciones.html': 'mdi-car-outline',
     'comparativa.html': 'mdi-scale-balance',
     'especificaciones-versiones.html': 'mdi-file-table-outline',
     'seguridad.html': 'mdi-shield-check-outline',
     'carga-publica.html': 'mdi-ev-station',
-    'apps.html': 'mdi-cellphone',
-    'ute-carga-casa.html': 'mdi-home-lightning-bolt-outline',
+    'aplicaciones.html': 'mdi-cellphone',
+    'carga-casa.html': 'mdi-home-lightning-bolt-outline',
     'gestiones-ute.html': 'mdi-file-document-check-outline',
     'red.html': 'mdi-map-marker-outline',
     'mantenimiento-postventa.html': 'mdi-tools',
@@ -43,12 +48,12 @@
     'comandos.html': 'mdi-microphone-outline',
     'videos.html': 'mdi-video-outline',
     'problemas.html': 'mdi-alert-outline',
-    'faq.html': 'mdi-help-circle-outline',
+    'preguntas.html': 'mdi-help-circle-outline',
   };
 
   const PAGE_ICONS = {
     'index.html': 'mdi-car-outline',
-    'apps.html': 'mdi-cellphone',
+    'aplicaciones.html': 'mdi-cellphone',
     'calculadora-casa.html': 'mdi-home-lightning-bolt-outline',
     'calculadora-publica.html': 'mdi-calculator-variant-outline',
     'calculadora.html': 'mdi-calculator-variant-outline',
@@ -57,13 +62,13 @@
     'comparativa.html': 'mdi-scale-balance',
     'especificaciones-versiones.html': 'mdi-file-table-outline',
     'costos.html': 'mdi-credit-card-outline',
-    'faq.html': 'mdi-help-circle-outline',
+    'preguntas.html': 'mdi-help-circle-outline',
     'mantenimiento-postventa.html': 'mdi-tools',
     'problemas.html': 'mdi-alert-outline',
     'red.html': 'mdi-map-marker-outline',
     'seguridad.html': 'mdi-shield-check-outline',
-    'specs.html': 'mdi-car-outline',
-    'ute-carga-casa.html': 'mdi-home-lightning-bolt-outline',
+    'especificaciones.html': 'mdi-car-outline',
+    'carga-casa.html': 'mdi-home-lightning-bolt-outline',
     'gestiones-ute.html': 'mdi-file-document-check-outline',
     'videos.html': 'mdi-video-outline',
   };
@@ -87,8 +92,11 @@
 
   const pageName = () => window.location.pathname.split('/').pop() || 'index.html';
   const activeNavPage = () => ({
-    'calculadora-casa.html': 'ute-carga-casa.html',
+    'calculadora-casa.html': 'carga-casa.html',
     'calculadora-publica.html': 'carga-publica.html',
+    'calculadora.html': 'carga-publica.html',
+    'especificaciones.html': 'especificaciones-versiones.html',
+    'comparativa.html': 'especificaciones-versiones.html',
   }[pageName()] || pageName());
 
   const mdiIcon = (name, extraClass = '') => {
@@ -138,6 +146,9 @@
           link.classList.add('active');
           link.setAttribute('aria-current', 'page');
         }
+        if (NAV_ACCESSIBLE_LABELS[href]) {
+          link.setAttribute('aria-label', NAV_ACCESSIBLE_LABELS[href]);
+        }
 
         const iconSlot = document.createElement('span');
         iconSlot.className = 'nav-icon';
@@ -146,6 +157,18 @@
         link.append(iconSlot, document.createTextNode(` ${NAV_LABELS[href]}`));
         desktopNav.append(link);
       });
+    });
+
+    window.requestAnimationFrame(() => {
+      const activeLink = desktopNav.querySelector('[aria-current="page"]');
+      if (!activeLink || window.matchMedia(MOBILE_QUERY).matches) return;
+      const navRect = desktopNav.getBoundingClientRect();
+      const activeRect = activeLink.getBoundingClientRect();
+      if (activeRect.top < navRect.top) {
+        desktopNav.scrollTop -= navRect.top - activeRect.top;
+      } else if (activeRect.bottom > navRect.bottom) {
+        desktopNav.scrollTop += activeRect.bottom - navRect.bottom;
+      }
     });
   };
 
@@ -183,7 +206,8 @@
       else if (/calcul/i.test(text)) iconName = 'mdi-calculator-variant-outline';
       else if (/restablecer/i.test(text)) iconName = 'mdi-refresh';
       else if (/cargar en casa/i.test(text)) iconName = 'mdi-home-lightning-bolt-outline';
-      else if (/app/i.test(text)) iconName = 'mdi-cellphone';
+      else if (control.classList.contains('faq-copy-button') || /copiar/i.test(text)) iconName = 'mdi-content-copy';
+      else if (/\bapps?\b/i.test(text)) iconName = 'mdi-cellphone';
       if (control.querySelector('.mdi, svg')) return;
       control.prepend(mdiIcon(iconName));
     });
@@ -220,64 +244,6 @@
       technologyGrid.append(appCard);
     }
 
-    const faqList = document.querySelector('#faq-versions .faq-list');
-    if (!faqList || document.getElementById('faq-aion-v-tiene-una-app')) return;
-
-    const faqItem = document.createElement('details');
-    faqItem.id = 'faq-aion-v-tiene-una-app';
-    faqItem.innerHTML = `
-      <summary>¿AION V tiene una app? ¿Está disponible en Uruguay?</summary>
-      <div class="faq-body">
-        <p>Sí, la AION V cuenta con una aplicación oficial en algunos mercados internacionales, desde la que se puede consultar información del vehículo y acceder a determinadas funciones remotas.</p>
-        <p>Actualmente, la aplicación no está disponible en Uruguay.</p>
-        <p>Tampoco hay información oficial que confirme que vaya a habilitarse en nuestro país en el futuro, ni una fecha anunciada para su posible llegada.</p>
-      </div>`;
-
-    const helpItem = [...faqList.querySelectorAll(':scope > details')].find((item) =>
-      item.querySelector('summary')?.textContent.includes('¿Cómo puedo ayudar')
-    );
-    faqList.insertBefore(faqItem, helpItem || null);
-
-    const body = faqItem.querySelector('.faq-body');
-    const summary = faqItem.querySelector('summary');
-    const actions = document.createElement('div');
-    actions.className = 'faq-item-actions';
-    const copyButton = document.createElement('button');
-    copyButton.type = 'button';
-    copyButton.className = 'faq-copy-button';
-    copyButton.innerHTML = '<i class="mdi mdi-content-copy" aria-hidden="true"></i> Copiar para WhatsApp';
-    copyButton.setAttribute('aria-label', `Copiar pregunta y respuesta: ${summary.textContent.trim()}`);
-    copyButton.addEventListener('click', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const answer = [...body.querySelectorAll('p')].map((node) => node.textContent.trim()).join('\n');
-      const text = `${summary.textContent.trim()}\n\n${answer}\n\nMás info: https://aionvuy.github.io/faq.html#${faqItem.id}`;
-      try {
-        await navigator.clipboard.writeText(text);
-        copyButton.innerHTML = '<i class="mdi mdi-check" aria-hidden="true"></i> Copiado';
-      } catch (error) {
-        const area = document.createElement('textarea');
-        area.value = text;
-        area.setAttribute('readonly', '');
-        area.style.position = 'fixed';
-        area.style.left = '-9999px';
-        document.body.append(area);
-        area.select();
-        document.execCommand('copy');
-        area.remove();
-        copyButton.innerHTML = '<i class="mdi mdi-check" aria-hidden="true"></i> Copiado';
-      }
-      window.setTimeout(() => {
-        copyButton.innerHTML = '<i class="mdi mdi-content-copy" aria-hidden="true"></i> Copiar para WhatsApp';
-      }, 1800);
-    });
-    actions.append(copyButton);
-    body.append(actions);
-
-    if (window.location.hash === `#${faqItem.id}`) {
-      faqItem.open = true;
-      faqItem.scrollIntoView({ block: 'start' });
-    }
   };
 
   ready(() => {
@@ -305,14 +271,15 @@
     const brand = document.createElement('a');
     brand.className = 'mobile-site-brand';
     brand.href = 'index.html';
-    brand.setAttribute('aria-label', 'Ir al inicio de AION V Uruguay');
-    brand.innerHTML = 'AION V <span aria-hidden="true">·</span> UY';
+    brand.setAttribute('aria-label', 'Ir al inicio de GAC AION V Uruguay');
+    brand.textContent = 'GAC AION V Uruguay';
 
     const toggle = document.createElement('button');
     toggle.className = 'mob-nav-toggle';
     toggle.type = 'button';
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-controls', 'mobile-primary-navigation');
+    toggle.setAttribute('aria-label', 'Abrir navegación');
     toggle.innerHTML = '<span class="mob-nav-toggle-label">Menú</span><span class="mob-nav-toggle-icon" aria-hidden="true"></span>';
 
     header.append(brand, toggle);
@@ -372,6 +339,7 @@
 
     const closeMenu = (returnFocus = false) => {
       toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir navegación');
       mobileNav.hidden = true;
       shell.classList.remove('mobile-menu-is-open');
       document.body.classList.remove('mobile-menu-open');
@@ -380,9 +348,15 @@
 
     const openMenu = () => {
       toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Cerrar navegación');
       mobileNav.hidden = false;
       shell.classList.add('mobile-menu-is-open');
       document.body.classList.add('mobile-menu-open');
+      mobileNav.scrollTop = 0;
+      window.requestAnimationFrame(() => {
+        const activeLink = mobileNav.querySelector('[aria-current="page"]');
+        if (activeLink) activeLink.scrollIntoView({ block: 'nearest' });
+      });
     };
 
     toggle.addEventListener('click', () => {
@@ -405,6 +379,11 @@
       if (event.key === 'Escape' && !mobileNav.hidden) {
         closeMenu(true);
       }
+    });
+
+    document.addEventListener('focusin', (event) => {
+      if (mobileNav.hidden || shell.contains(event.target)) return;
+      closeMenu(false);
     });
 
     const handleBreakpointChange = (event) => {

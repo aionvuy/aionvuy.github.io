@@ -7,12 +7,12 @@ Revisión inicial de accesibilidad del sitio público AION V Uruguay, tomando co
 Páginas revisadas:
 
 - `index.html`
-- `specs.html`
+- `especificaciones.html`
 - `comparativa.html`
 - `especificaciones-versiones.html`
 - `seguridad.html`
 - `carga-publica.html`
-- `ute-carga-casa.html`
+- `carga-casa.html`
 - `gestiones-ute.html`
 - `red.html`
 - `mantenimiento-postventa.html`
@@ -20,7 +20,7 @@ Páginas revisadas:
 - `comandos.html`
 - `videos.html`
 - `problemas.html`
-- `faq.html`
+- `preguntas.html`
 - `servicios.html`
 
 Archivos compartidos y dinámicos revisados:
@@ -51,8 +51,8 @@ Este documento no declara que el sitio cumple WCAG 2.2 AA. Registra correcciones
 | 1.4.3 Contraste mínimo / 1.4.11 Contraste no textual | Algunos textos secundarios, bordes y foco podían quedar débiles. | `_shared.css` | Se oscurecieron `--text-secondary`, `--text-muted`, `--border` y se agregó `--color-focus`. | Mejorado |
 | 1.4.13 / 2.3.3 Preferencias de movimiento | El sitio usaba `scroll-behavior: smooth` sin desactivarlo para usuarios con reducción de movimiento. | `_shared.css` | Se agregó `prefers-reduced-motion` para desactivar scroll suave y transiciones. | Corregido |
 | 2.5.8 Tamaño de objetivos | El botón de menú móvil requería garantía de alto mínimo. | `_shared.css` | Se agregó `min-height: 44px`. | Mejorado |
-| 4.1.3 Mensajes de estado | Botón de copiar en FAQ no diferenciaba de forma óptima estado visual/textual. | `faq.html`, `_shared.css` | Se mantiene texto visible “Copiado” y emoji decorativo oculto. | Mejorado |
-| 2.4.4 Propósito de enlaces | Cada FAQ necesitaba forma directa de compartir contenido con contexto. | `faq.html` | Se agregó botón “Copiar para WhatsApp” que copia pregunta, respuesta y enlace con ancla. | Corregido |
+| 4.1.3 Mensajes de estado | El botón de copiar en Preguntas no diferenciaba de forma óptima el estado visual y textual. | `preguntas.html`, `_shared.css` | Se mantiene el texto visible “Copiado” y el icono decorativo oculto. | Mejorado |
+| 2.4.4 Propósito de enlaces | Cada pregunta necesitaba una forma directa de compartir contenido con contexto. | `preguntas.html` | Se agregó el botón “Copiar para WhatsApp”, que copia la pregunta, la respuesta y el enlace con ancla. | Corregido |
 | 1.3.1 Información y relaciones | Varias tablas no tenían `caption`. | HTML con tablas | Se agregaron captions ocultos con `.sr-only` para describir cada tabla sin cambiar la interfaz visual. | Corregido |
 | 1.3.1 Información y relaciones | Encabezados de tablas no tenían `scope`. | HTML con tablas | Se agregó `scope` a encabezados de tabla existentes para mejorar la relación entre encabezados y celdas. | Mejorado |
 

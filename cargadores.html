@@ -6,14 +6,17 @@
   <meta name="robots" content="noindex">
   <meta http-equiv="refresh" content="0; url=carga-publica.html">
   <link rel="canonical" href="https://aionvuy.github.io/carga-publica.html">
+  <link rel="stylesheet" href="_shared.css">
   <title>Redirigiendo a Carga pública · AION V UY</title>
 </head>
-<body>
-  <p>La página se movió a <a href="carga-publica.html">Carga pública</a>.</p>
+<body class="redirect-page">
+  <main>
+    <p>La página se movió a <a href="carga-publica.html">Carga pública</a>.</p>
+  </main>
   <script>
     const legacyDestinations = {
-      '#aplicaciones-carga': 'apps.html#apps-carga',
-      '#carga-casa': 'ute-carga-casa.html'
+      '#aplicaciones-carga': 'aplicaciones.html#aplicaciones-carga',
+      '#carga-casa': 'carga-casa.html'
     };
     const destination = legacyDestinations[window.location.hash]
       || `carga-publica.html${window.location.search}${window.location.hash}`;
