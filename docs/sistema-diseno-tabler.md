@@ -1296,6 +1296,9 @@ Navegación:
 Iconos y acciones:
 
 - MDI monocromáticos para navegación, títulos, botones, alertas y controles.
+- Los iconos estructurales forman parte del HTML inicial. No guardar emojis visibles para sustituirlos por MDI después de `DOMContentLoaded`, porque produce destellos de contenido anterior y depende innecesariamente de JavaScript.
+- JavaScript puede agregar comportamiento o estados, pero no debe ser necesario para que el primer render muestre la tipografía, el texto y los iconos definitivos.
+- Al cambiar estilos o scripts compartidos que puedan permanecer en caché, versionar sus referencias mediante un parámetro estable de publicación y actualizarlo en todas las páginas afectadas.
 - Logos oficiales locales para empresas y aplicaciones.
 - Sin emojis en botones ni como iconos estructurales.
 - Los emojis se permiten en texto plano copiado para WhatsApp cuando aportan jerarquía y siempre acompañan texto.

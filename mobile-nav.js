@@ -108,6 +108,10 @@
 
   const replaceLeadingEmoji = (element, fallbackIcon) => {
     if (!element || element.dataset.iconEnhanced === 'true') return;
+    if (element.querySelector('.mdi, svg')) {
+      element.dataset.iconEnhanced = 'true';
+      return;
+    }
     const firstTextNode = [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
     let iconName = fallbackIcon;
     if (firstTextNode) {
@@ -178,6 +182,7 @@
       replaceLeadingEmoji(heading);
     });
     document.querySelectorAll('.nav-card-icon').forEach((slot) => {
+      if (slot.querySelector('.mdi, svg')) return;
       const text = slot.textContent.trim();
       const iconName = EMOJI_ICON_MAP.get(text) || 'mdi-arrow-right';
       slot.replaceChildren(mdiIcon(iconName));

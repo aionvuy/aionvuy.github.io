@@ -3315,6 +3315,14 @@ a.whatsapp-link .mdi,
   font-size: 1.1rem;
 }
 
+.inline-icon {
+  display: inline-block;
+  margin-right: var(--space-1);
+  color: var(--text-muted);
+  line-height: 1;
+  vertical-align: -0.08em;
+}
+
 h3,
 h3.section-title,
 .location-group-title {

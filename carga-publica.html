@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://aionvuy.github.io/social-preview.png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
   <meta property="og:image:alt" content="AION V Uruguay · Guía comunitaria del GAC AION V"/>
   <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://aionvuy.github.io/social-preview.png"/>
-  <link rel="stylesheet" href="_shared.css"/>
+  <link rel="stylesheet" href="_shared.css?v=20260727"/>
   <title>Carga pública · AION V UY</title>
 </head>
 <body>
@@ -47,7 +47,7 @@
 <main class="main" id="main-content">
   <div class="page">
     <header class="page-hero" aria-labelledby="chargers-title">
-      <h1 class="page-title" id="chargers-title">Carga pública</h1>
+      <h1 class="page-title" id="chargers-title"><i class="mdi mdi-ev-station heading-icon" aria-hidden="true"></i>Carga pública</h1>
       <div class="page-desc copy-stack">
         <p>Calculá costos y tiempos de carga, y estimá el consumo de un viaje.</p>
         <p>Consultá operadores, conectores, tarifas y límites para cargar el AION V.</p>
@@ -65,10 +65,10 @@
 </details>
 
     <nav class="section-jump-nav chargers-jump-nav" aria-label="Secciones de carga pública">
-      <a href="#carga-publica" class="active">Calculadora</a>
-      <a href="#consumo-viaje">Consumo y costo</a>
-      <a href="#limites-carga">Límites y conectores</a>
-      <a href="#redes-publicas">Operadores</a>
+      <a href="#carga-publica" class="active"><i class="mdi mdi-calculator-variant-outline" aria-hidden="true"></i>Calculadora</a>
+      <a href="#consumo-viaje"><i class="mdi mdi-chart-bar" aria-hidden="true"></i>Consumo y costo</a>
+      <a href="#limites-carga"><i class="mdi mdi-power-plug-outline" aria-hidden="true"></i>Límites y conectores</a>
+      <a href="#redes-publicas"><i class="mdi mdi-ev-station" aria-hidden="true"></i>Operadores</a>
     </nav>
 
 <div class="calc-card">
@@ -91,7 +91,7 @@
   </section>
 
   <section class="calc-subsection" id="carga-publica" aria-labelledby="dc-calc-title">
-    <h2 class="calc-section-title" id="dc-calc-title">⚡ Carga pública DC</h2>
+    <h2 class="calc-section-title" id="dc-calc-title"><i class="mdi mdi-lightning-bolt-outline heading-icon" aria-hidden="true"></i>Carga pública DC</h2>
     <div class="section-copy compact copy-stack"><p>Compará costos y tiempos estimados de carga pública.</p><p>La potencia efectiva se limita automáticamente según el modelo seleccionado.</p></div>
     <div class="calc-inputs">
       <div class="field"><label for="charger-power-preset">Potencia del cargador DC</label><select id="charger-power-preset" aria-describedby="dc-power-context"><option value="" selected>Seleccioná la potencia</option><option value="30">30 kW</option><option value="60">60 kW</option><option value="120">120 kW</option><option value="150">150 kW</option><option value="180">180 kW</option><option value="custom">Otra potencia</option></select></div>
@@ -107,7 +107,7 @@
       <div class="result-table-wrap result-table-public">
         <table class="result-table">
 <caption class="sr-only">Tabla 1 de Calculadora de carga</caption>
-          <thead><tr><th scope="col">Modalidad</th><th scope="col">Tipo</th><th scope="col"><span aria-hidden="true">⚡</span> Potencia</th><th scope="col" class="right"><span aria-hidden="true">🕒</span> Franja</th><th scope="col" class="right"><span aria-hidden="true">💰</span> Costo total</th><th scope="col" class="right"><span aria-hidden="true">⏱️</span> Tiempo aprox.</th></tr></thead>
+          <thead><tr><th scope="col">Modalidad</th><th scope="col">Tipo</th><th scope="col"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i> Potencia</th><th scope="col" class="right"><i class="mdi mdi-clock-outline" aria-hidden="true"></i> Franja</th><th scope="col" class="right"><i class="mdi mdi-cash" aria-hidden="true"></i> Costo total</th><th scope="col" class="right"><i class="mdi mdi-timer-outline" aria-hidden="true"></i> Tiempo aprox.</th></tr></thead>
           <tbody id="result-tbody"></tbody>
         </table>
       </div>
@@ -119,7 +119,7 @@
   </section>
 
   <section class="home-calc-section" id="carga-casa" aria-labelledby="home-calc-title" hidden>
-    <h2 id="home-calc-title">🏠 Carga domiciliaria AC</h2>
+    <h2 id="home-calc-title"><i class="mdi mdi-home-outline heading-icon" aria-hidden="true"></i>Carga domiciliaria AC</h2>
     <div class="section-copy compact copy-stack"><p>Estimá duración y costo con Tarifa Residencial Triple Horario.</p><p>La calculadora divide el consumo entre Valle, Llano y Punta según la duración de la carga.</p></div>
     <div class="calc-context calc-context-compact" aria-live="polite"><div><span class="calc-context-label">Datos usados</span><strong data-context-compact>Elegí los datos de batería arriba.</strong></div><a href="#battery-input-title">Modificar datos</a></div>
     <fieldset class="calc-mode-group" aria-describedby="home-mode-help">
@@ -147,7 +147,7 @@
       <div class="result-table-wrap">
         <table class="result-table">
 <caption class="sr-only">Tabla 2 de Calculadora de carga</caption>
-          <thead><tr><th scope="col">Franja</th><th scope="col"><span aria-hidden="true">🕒</span> Horario</th><th scope="col" class="right"><span aria-hidden="true">⏱️</span> Tiempo</th><th scope="col" class="right"><span aria-hidden="true">⚡</span> Energía</th><th scope="col" class="right"><span aria-hidden="true">💲</span> Precio/kWh</th><th scope="col" class="right"><span aria-hidden="true">💰</span> Subtotal</th></tr></thead>
+          <thead><tr><th scope="col">Franja</th><th scope="col"><i class="mdi mdi-clock-outline" aria-hidden="true"></i> Horario</th><th scope="col" class="right"><i class="mdi mdi-timer-outline" aria-hidden="true"></i> Tiempo</th><th scope="col" class="right"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i> Energía</th><th scope="col" class="right"><i class="mdi mdi-currency-usd" aria-hidden="true"></i> Precio/kWh</th><th scope="col" class="right"><i class="mdi mdi-cash" aria-hidden="true"></i> Subtotal</th></tr></thead>
           <tbody id="home-result-tbody"></tbody>
         </table>
       </div>
@@ -156,7 +156,7 @@
   </section>
 
   <section class="home-calc-section ute-home-charging-section" id="ute-carga-casa" aria-labelledby="ute-home-charging-title" hidden>
-    <h2 id="ute-home-charging-title">🏠 Cargar en casa con UTE Triple Horario</h2>
+    <h2 id="ute-home-charging-title"><i class="mdi mdi-home-outline heading-icon" aria-hidden="true"></i>Cargar en casa con UTE Triple Horario</h2>
     <div class="section-copy compact copy-stack">
       <p>Si cargás el AION V en casa y tenés UTE Triple Horario, el costo de la carga depende de la franja horaria en la que consumas la energía.</p>
       <p>Para cargar el auto, el horario más conveniente suele ser el Valle, entre las 00:00 y las 07:00, porque es la franja más barata. El horario Punta es el más caro y conviene evitarlo cuando sea posible.</p>
@@ -190,7 +190,7 @@
         </tbody>
       </table>
     </div>
-    <p class="data-note">ℹ️ Los sábados, domingos y feriados no tienen horario Punta. En esos días, el tramo que normalmente sería Punta se cobra como Llano.</p>
+    <p class="data-note"><i class="mdi mdi-information-outline inline-icon" aria-hidden="true"></i>Los sábados, domingos y feriados no tienen horario Punta. En esos días, el tramo que normalmente sería Punta se cobra como Llano.</p>
 
     <div class="section-subgroup">
       <h3 class="section-subgroup-title">Horario Punta por defecto</h3>
@@ -210,7 +210,7 @@
         <p>En el modo “Menor costo antes de una hora”, la calculadora prioriza cargar en Valle. Si no alcanza, completa en Llano y deja Punta como última opción.</p>
       </div>
       <div class="info-box copy-stack">
-        <p><strong>ℹ️ Cargar en horario Punta</strong></p>
+        <p><strong><i class="mdi mdi-information-outline heading-icon" aria-hidden="true"></i>Cargar en horario Punta</strong></p>
         <p>Cargar en horario Punta no tiene ningún problema técnico para el vehículo, pero suele ser la opción más cara.</p>
         <p>Si no hay urgencia, conviene programar la carga fuera de Punta.</p>
       </div>
@@ -223,21 +223,21 @@
         <p>Para carga domiciliaria, puede convenir elegir un horario Punta que interfiera lo menos posible con los horarios en los que normalmente necesitás cargar el auto.</p>
       </div>
       <div class="action-links">
-        <a class="action-link secondary" href="https://www.ute.com.uy/clientes/tramites-y-servicios/solicitudes/cambio-de-horario-punta-del-plan-inteligente#tab-1252-1" target="_blank" rel="noopener noreferrer">🔗 Ver trámite de cambio de Horario Punta en UTE <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+        <a class="action-link secondary" href="https://www.ute.com.uy/clientes/tramites-y-servicios/solicitudes/cambio-de-horario-punta-del-plan-inteligente#tab-1252-1" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-link-variant" aria-hidden="true"></i>Ver trámite de cambio de Horario Punta en UTE <span class="sr-only">(se abre en una pestaña nueva)</span></a>
       </div>
     </div>
 
     <footer class="source-footer">
       <p>Fuentes oficiales: Plan Inteligente Hogares de UTE y trámite de Cambio de Horario Punta del Plan Inteligente.</p>
       <div class="action-links">
-        <a class="action-link secondary" href="https://portal.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/plan-inteligente-hogares?tab=5#tab-323-1" target="_blank" rel="noopener noreferrer">🔗 Plan Inteligente Hogares de UTE <span class="sr-only">(se abre en una pestaña nueva)</span></a>
-        <a class="action-link secondary" href="https://www.ute.com.uy/clientes/tramites-y-servicios/solicitudes/cambio-de-horario-punta-del-plan-inteligente#tab-1252-1" target="_blank" rel="noopener noreferrer">🔗 Cambio de Horario Punta del Plan Inteligente <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+        <a class="action-link secondary" href="https://portal.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/plan-inteligente-hogares?tab=5#tab-323-1" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-link-variant" aria-hidden="true"></i>Plan Inteligente Hogares de UTE <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+        <a class="action-link secondary" href="https://www.ute.com.uy/clientes/tramites-y-servicios/solicitudes/cambio-de-horario-punta-del-plan-inteligente#tab-1252-1" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-link-variant" aria-hidden="true"></i>Cambio de Horario Punta del Plan Inteligente <span class="sr-only">(se abre en una pestaña nueva)</span></a>
       </div>
     </footer>
   </section>
 
   <section class="calc-subsection" id="potencia-instantanea" aria-labelledby="instant-power-title" hidden>
-    <h2 id="instant-power-title">🔌 Cálculo de potencia de carga</h2>
+    <h2 id="instant-power-title"><i class="mdi mdi-power-plug-outline heading-icon" aria-hidden="true"></i>Cálculo de potencia de carga</h2>
     <div class="section-copy compact copy-stack"><p>Podés obtener los valores de amperes y volts desde la pantalla principal durante la carga del vehículo.</p></div>
     <div class="calc-inputs">
       <div class="field"><label for="amps-now">Amperes (A)</label><input type="number" id="amps-now" min="0" step="0.1" placeholder="Ej. 16" aria-describedby="amps-now-error"/><p class="field-error" id="amps-now-error" role="alert"></p></div>
@@ -249,7 +249,7 @@
   </section>
 
   <section class="calc-subsection" id="consumo-viaje" aria-labelledby="trip-consumption-title">
-    <h2 id="trip-consumption-title">📊 Consumo del viaje y costo estimado</h2>
+    <h2 id="trip-consumption-title"><i class="mdi mdi-chart-bar heading-icon" aria-hidden="true"></i>Consumo del viaje y costo estimado</h2>
     <div class="section-copy compact copy-stack"><p>Ingresá el consumo promedio que muestra la computadora y los kilómetros recorridos.</p><p>El costo es una referencia teórica según el consumo ingresado y las tarifas seleccionadas.</p></div>
     <div class="calc-context calc-context-compact" aria-live="polite"><div><span class="calc-context-label">Versión y batería</span><strong id="trip-context-value">Elegí la versión del AION V para calcular el porcentaje equivalente de batería.</strong></div><a href="#battery-input-title">Modificar versión</a></div>
     <div class="calc-inputs">
@@ -401,8 +401,8 @@
     <section class="related-section" aria-labelledby="public-related-title">
       <h2 class="section-title" id="public-related-title">También te puede servir</h2>
       <div class="action-links">
-        <a class="action-link secondary" href="aplicaciones.html">Ver apps para cargar</a>
-        <a class="action-link secondary" href="carga-casa.html">Ver carga en casa</a>
+        <a class="action-link secondary" href="aplicaciones.html"><i class="mdi mdi-cellphone" aria-hidden="true"></i>Ver apps para cargar</a>
+        <a class="action-link secondary" href="carga-casa.html"><i class="mdi mdi-home-lightning-bolt-outline" aria-hidden="true"></i>Ver carga en casa</a>
       </div>
     </section>
   </div>
@@ -639,6 +639,6 @@ setHomeModeClass();
 updateContext();updateDcPowerContext();updateHomePowerContext();
 </script>
 <script>loadUteTariffs(applyTariffs);</script>
-<script src="mobile-nav.js" defer></script>
+<script src="mobile-nav.js?v=20260727" defer></script>
 </body>
 </html>
