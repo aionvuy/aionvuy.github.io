@@ -1,6 +1,8 @@
 {
-  "updated_at": "2026-06-18",
-  "checked_at": "2026-07-28",
+  "updated_at": "2026-07-29",
+  "checked_at": "2026-07-29",
+  "sales_updated_at": "2026-06-18",
+  "post_sales_updated_at": "2026-07-29",
   "sales_source": "https://www.gacmotor.uy/ventas",
   "post_sales_source": "https://www.gacmotor.uy/postventas",
   "sales": [
@@ -148,6 +150,16 @@
       "area": "interior",
       "details": [
         "Jose Batlle y Ordoñez 1285 – Maldonado Tel. 4222 3845 Cel. 092888878 Correo: puntamotors@puntamotors.com Horario: 9 a 13 y 14 a 18:30 Lunes a Viernes 9 a 13hs Sabados"
+      ]
+    }
+  ],
+  "community_post_sales": [
+    {
+      "name": "Werner Bernheim",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Av. 8 de Octubre 2767, Montevideo Cel.: 098 747 000"
       ]
     }
   ]

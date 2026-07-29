@@ -39,11 +39,27 @@
     fallbackCopy(value);
   };
 
+  const visibleText = (element) => {
+    const clone = element.cloneNode(true);
+    clone.querySelectorAll('.sr-only, .faq-item-actions').forEach((hidden) => hidden.remove());
+    return normalizeText(clone.textContent);
+  };
+
   const listText = (list) => Array.from(list.children)
     .filter((item) => item.tagName === 'LI')
     .map((item, index) => {
       const marker = list.tagName === 'OL' ? `${index + 1}.` : '•';
-      return `${marker} ${normalizeText(item.textContent)}`;
+      const clone = item.cloneNode(true);
+      clone.querySelectorAll('p, ul, ol, .sr-only, .faq-item-actions').forEach((nested) => nested.remove());
+      const heading = normalizeText(clone.textContent);
+      const paragraphs = Array.from(item.children)
+        .filter((child) => child.tagName === 'P')
+        .map(visibleText)
+        .filter(Boolean);
+      const firstLine = `${marker}${heading ? ` ${heading}` : ''}`;
+      return paragraphs.length
+        ? `${firstLine}\n${paragraphs.map((paragraph) => `  ${paragraph}`).join('\n')}`
+        : firstLine;
     })
     .filter(Boolean)
     .join('\n');
@@ -51,7 +67,7 @@
   const contentText = (container) => Array.from(container?.children || [])
     .filter((element) => !element.classList.contains('faq-item-actions'))
     .map((element) => {
-      if (element.matches('p')) return normalizeText(element.textContent);
+      if (element.matches('p')) return visibleText(element);
       if (element.matches('ul, ol')) return listText(element);
       if (element.matches('div, section, article')) return contentText(element);
       return '';

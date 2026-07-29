@@ -162,14 +162,30 @@ def write_if_changed(path: Path, values: dict[str, object], comparable_keys: tup
 
 def main() -> None:
     eone = {"source": SOURCES["eone"], "points": eone_points(fetch(SOURCES["eone"]))}
+    gac_path = ROOT / "data" / "gac-red.json"
+    previous_gac = json.loads(gac_path.read_text(encoding="utf-8")) if gac_path.exists() else {}
+    sales = gac_locations(fetch(SOURCES["sales"]))
+    post_sales = gac_locations(fetch(SOURCES["post_sales"]))
+    today = str(date.today())
     gac = {
+        "sales_updated_at": previous_gac.get("sales_updated_at", previous_gac.get("updated_at", today))
+        if previous_gac.get("sales") == sales
+        else today,
+        "post_sales_updated_at": previous_gac.get("post_sales_updated_at", previous_gac.get("updated_at", today))
+        if previous_gac.get("post_sales") == post_sales
+        else today,
         "sales_source": SOURCES["sales"],
         "post_sales_source": SOURCES["post_sales"],
-        "sales": gac_locations(fetch(SOURCES["sales"])),
-        "post_sales": gac_locations(fetch(SOURCES["post_sales"])),
+        "sales": sales,
+        "post_sales": post_sales,
+        "community_post_sales": previous_gac.get("community_post_sales", []),
     }
     write_if_changed(ROOT / "data" / "eone-puntos.json", eone, ("source", "points"))
-    write_if_changed(ROOT / "data" / "gac-red.json", gac, ("sales_source", "post_sales_source", "sales", "post_sales"))
+    write_if_changed(
+        gac_path,
+        gac,
+        ("sales_source", "post_sales_source", "sales", "post_sales", "community_post_sales"),
+    )
 
 
 if __name__ == "__main__":

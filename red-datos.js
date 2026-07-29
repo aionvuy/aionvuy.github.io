@@ -1,5 +1,14 @@
 function formatSourceDate(value) {
-  return new Date(value + 'T12:00:00').toLocaleDateString('es-UY');
+  const match = String(value || '').match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (!match) return 'No disponible';
+  return `${match[3].padStart(2, '0')}/${match[2].padStart(2, '0')}/${match[1]}`;
+}
+
+function setSourceDate(selector, value) {
+  document.querySelectorAll(selector).forEach(node => {
+    node.textContent = formatSourceDate(value);
+    if (node.tagName === 'TIME' && value) node.dateTime = value;
+  });
 }
 
 function cleanContactText(value) {
@@ -103,9 +112,10 @@ function makeLocationCard(item, mapLabel = '') {
   title.textContent = item.name;
   article.append(title);
   const contacts = parseLocationContacts(item);
-  if (item.area === 'montevideo') {
+  if (item.department) {
+    const escapedDepartment = item.department.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     contacts.address = contacts.address
-      .replace(/[\s,·–—-]*Montevideo\s*$/i, '')
+      .replace(new RegExp(`[\\s,·–—-]*${escapedDepartment}\\s*$`, 'i'), '')
       .replace(/[\s,·–—-]+$/, '')
       .trim();
   }
@@ -116,7 +126,7 @@ function makeLocationCard(item, mapLabel = '') {
     const link = document.createElement('a');
     link.href = `https://wa.me/${internationalPhone(value)}`;
     link.target = '_blank';
-    link.rel = 'noopener';
+    link.rel = 'noopener noreferrer';
     link.textContent = value;
     link.setAttribute('aria-label', `Abrir WhatsApp para ${value}`);
     return link;
@@ -134,15 +144,22 @@ function makeLocationCard(item, mapLabel = '') {
     return link;
   });
   const hours = scheduleListItem(item, contacts.hours);
-  [address, hours, mobiles, phones, emails].filter(Boolean).forEach(node => list.append(node));
+  [address, mobiles, phones, emails, hours].filter(Boolean).forEach(node => list.append(node));
   if (list.children.length) article.append(list);
   if (item.map) {
     const link = document.createElement('a');
     link.className = 'map-link';
     link.href = item.map;
     link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = mapLabel || '🗺️ Abrir en el mapa ↗';
+    link.rel = 'noopener noreferrer';
+    const icon = document.createElement('i');
+    icon.className = 'mdi mdi-map-marker-outline';
+    icon.setAttribute('aria-hidden', 'true');
+    link.append(icon, document.createTextNode(` ${mapLabel || 'Abrir en el mapa'}`));
+    const newTab = document.createElement('span');
+    newTab.className = 'sr-only';
+    newTab.textContent = ' (se abre en una pestaña nueva)';
+    link.append(newTab);
     article.append(link);
   }
   return article;
@@ -150,9 +167,14 @@ function makeLocationCard(item, mapLabel = '') {
 
 function renderGroupedLocations(container, items) {
   container.replaceChildren();
+  const collator = new Intl.Collator('es-UY', {sensitivity: 'base'});
+  const sortByName = locations => [...locations].sort((a, b) => {
+    const departmentOrder = collator.compare(a.department || '', b.department || '');
+    return departmentOrder || collator.compare(a.name || '', b.name || '');
+  });
   const groups = [
-    ['Montevideo', items.filter(item => item.area === 'montevideo')],
-    ['Interior del país', items.filter(item => item.area === 'interior')]
+    ['Montevideo', sortByName(items.filter(item => item.area === 'montevideo'))],
+    ['Interior del país', sortByName(items.filter(item => item.area === 'interior'))]
   ];
   groups.forEach(([label, locations]) => {
     if (!locations.length) return;
@@ -195,36 +217,48 @@ async function loadEonePoints() {
 
 async function loadGacNetwork() {
   const sales = document.querySelector('[data-gac-sales]');
+  const salesStatus = document.querySelector('[data-gac-sales-status]');
   const postSales = document.querySelector('[data-gac-post-sales]');
+  const postSalesStatus = document.querySelector('[data-gac-post-sales-status]');
   if (!sales && !postSales) return;
   try {
     const response = await fetch('data/gac-red.json', {cache: 'no-store'});
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
-    if (sales) renderGroupedLocations(sales, data.sales);
-    if (postSales) renderGroupedLocations(postSales, data.post_sales);
-    document.querySelectorAll('[data-gac-updated], [data-gac-date]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
-    const checkedDate = data.checked_at ? new Date(data.checked_at + 'T12:00:00') : null;
-    const checkedLabel = checkedDate && !Number.isNaN(checkedDate.getTime())
-      ? formatSourceDate(data.checked_at)
-      : 'No disponible';
-    document.querySelectorAll('[data-gac-checked]').forEach(node => node.textContent = checkedLabel);
+    if (sales) {
+      renderGroupedLocations(sales, data.sales);
+      sales.setAttribute('aria-busy', 'false');
+      if (salesStatus) salesStatus.textContent = 'Automotoras oficiales actualizadas.';
+    }
+    if (postSales) {
+      renderGroupedLocations(postSales, [...(data.post_sales || []), ...(data.community_post_sales || [])]);
+      postSales.setAttribute('aria-busy', 'false');
+      if (postSalesStatus) postSalesStatus.textContent = 'Talleres de postventa actualizados.';
+    }
+    setSourceDate('[data-gac-sales-updated]', data.sales_updated_at || data.updated_at);
+    setSourceDate('[data-gac-post-sales-updated], [data-gac-date]', data.post_sales_updated_at || data.updated_at);
+    setSourceDate('[data-gac-updated]', data.updated_at);
+    setSourceDate('[data-gac-checked]', data.checked_at);
   } catch (error) {
     if (sales) {
+      sales.setAttribute('aria-busy', 'false');
       sales.innerHTML = `
         <div class="network-load-error" role="status">
           <p>No fue posible cargar el listado de automotoras oficiales.</p>
-          <a href="https://www.gacmotor.uy/ventas" target="_blank" rel="noopener noreferrer">Consultar ventas GAC ↗</a>
+          <a href="https://www.gacmotor.uy/ventas" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-link-variant" aria-hidden="true"></i> Consultar ventas GAC <span class="sr-only">(se abre en una pestaña nueva)</span></a>
         </div>
       `;
+      if (salesStatus) salesStatus.textContent = 'No fue posible cargar el listado de automotoras oficiales.';
     }
     if (postSales) {
+      postSales.setAttribute('aria-busy', 'false');
       postSales.innerHTML = `
         <div class="network-load-error" role="status">
           <p>No fue posible cargar el listado de centros oficiales de postventa.</p>
-          <a href="https://www.gacmotor.uy/postventas" target="_blank" rel="noopener noreferrer">Consultar postventa GAC ↗</a>
+          <a href="https://www.gacmotor.uy/postventas" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-link-variant" aria-hidden="true"></i> Consultar postventa GAC <span class="sr-only">(se abre en una pestaña nueva)</span></a>
         </div>
       `;
+      if (postSalesStatus) postSalesStatus.textContent = 'No fue posible cargar el listado de centros oficiales de postventa.';
     }
   }
 }

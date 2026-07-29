@@ -285,7 +285,8 @@
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-controls', 'mobile-primary-navigation');
     toggle.setAttribute('aria-label', 'Abrir navegación');
-    toggle.innerHTML = '<span class="mob-nav-toggle-label">Menú</span><span class="mob-nav-toggle-icon" aria-hidden="true"></span>';
+    toggle.innerHTML = '<span class="mob-nav-toggle-label">Menú</span><span class="mob-nav-toggle-icon" aria-hidden="true"><i class="mdi mdi-menu"></i></span>';
+    const toggleIcon = toggle.querySelector('.mob-nav-toggle-icon .mdi');
 
     header.append(brand, toggle);
 
@@ -345,6 +346,7 @@
     const closeMenu = (returnFocus = false) => {
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Abrir navegación');
+      toggleIcon.className = 'mdi mdi-menu';
       mobileNav.hidden = true;
       shell.classList.remove('mobile-menu-is-open');
       document.body.classList.remove('mobile-menu-open');
@@ -354,6 +356,7 @@
     const openMenu = () => {
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Cerrar navegación');
+      toggleIcon.className = 'mdi mdi-close';
       mobileNav.hidden = false;
       shell.classList.add('mobile-menu-is-open');
       document.body.classList.add('mobile-menu-open');

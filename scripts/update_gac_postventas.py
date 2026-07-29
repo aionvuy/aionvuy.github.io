@@ -192,14 +192,22 @@ def main() -> int:
         "post_sales_source": SOURCE_URL,
         "post_sales": post_sales,
     }
+    today = date.today().isoformat()
     if comparable_current == comparable_new:
+        if current.get("checked_at") != today:
+            next_data = dict(current)
+            next_data["checked_at"] = today
+            if args.dry_run:
+                print(f"DRY RUN: checked_at would be updated to {today}.")
+                return 0
+            DATA_PATH.write_text(json.dumps(next_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"No real post-sales data changes found. Workshops checked: {len(post_sales)}.")
         return 0
 
     next_data = dict(current)
-    today = date.today().isoformat()
     next_data["post_sales_source"] = SOURCE_URL
     next_data["post_sales"] = post_sales
+    next_data["post_sales_updated_at"] = today
     next_data["updated_at"] = today
     next_data["checked_at"] = today
 
