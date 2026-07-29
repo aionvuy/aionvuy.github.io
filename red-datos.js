@@ -193,25 +193,33 @@ function renderGroupedLocations(container, items) {
 
 async function loadEonePoints() {
   const container = document.querySelector('[data-eone-points]');
-  if (!container) return;
+  const updatedNodes = document.querySelectorAll('[data-eone-updated]');
+  const checkedNodes = document.querySelectorAll('[data-eone-checked]');
+  if (!container && !updatedNodes.length && !checkedNodes.length) return;
   try {
     const response = await fetch('data/eone-puntos.json', {cache: 'no-store'});
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
-    container.replaceChildren(...data.points.map(point => makeLocationCard({...point, department: 'eOne'})));
-    document.querySelectorAll('[data-eone-updated]').forEach(node => node.textContent = formatSourceDate(data.updated_at));
+    if (container) {
+      container.replaceChildren(...data.points.map(point => makeLocationCard({...point, department: 'eOne'})));
+    }
+    updatedNodes.forEach(node => node.textContent = formatSourceDate(data.updated_at));
     const checkedDate = data.checked_at ? new Date(data.checked_at + 'T12:00:00') : null;
     const checkedLabel = checkedDate && !Number.isNaN(checkedDate.getTime())
       ? formatSourceDate(data.checked_at)
       : 'No disponible';
-    document.querySelectorAll('[data-eone-checked]').forEach(node => node.textContent = checkedLabel);
+    checkedNodes.forEach(node => node.textContent = checkedLabel);
   } catch (error) {
-    container.innerHTML = `
-      <div class="operator-load-error" role="status">
-        <p>No fue posible cargar el listado de puntos eOne.</p>
-        <a href="https://eone.eco/puntos-de-carga/" target="_blank" rel="noopener noreferrer">Consultar puntos eOne ↗</a>
-      </div>
-    `;
+    updatedNodes.forEach(node => node.textContent = 'No disponible');
+    checkedNodes.forEach(node => node.textContent = 'No disponible');
+    if (container) {
+      container.innerHTML = `
+        <div class="operator-load-error" role="status">
+          <p>No fue posible cargar el listado de puntos eOne.</p>
+          <a href="https://eone.eco/puntos-de-carga/" target="_blank" rel="noopener noreferrer">Consultar puntos eOne ↗</a>
+        </div>
+      `;
+    }
   }
 }
 

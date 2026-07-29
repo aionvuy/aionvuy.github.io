@@ -22,19 +22,25 @@ function formatUtePrice(value) {
   return '$' + Number(value).toLocaleString('es-UY', {maximumFractionDigits: 2});
 }
 
+function formatUteDate(value) {
+  const match = String(value || '').match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (!match) return 'No disponible';
+  return `${match[3].padStart(2, '0')}/${match[2].padStart(2, '0')}/${match[1]}`;
+}
+
 function renderUteTariffs(data, isFallback = false) {
-  const updatedLabel = new Date(data.updated_at + 'T12:00:00').toLocaleDateString('es-UY');
+  const updatedLabel = formatUteDate(data.updated_at);
   const checkedDate = data.checked_at ? new Date(data.checked_at + 'T12:00:00') : null;
   const checkedLabel = checkedDate && !Number.isNaN(checkedDate.getTime())
-    ? checkedDate.toLocaleDateString('es-UY')
+    ? formatUteDate(data.checked_at)
     : 'No disponible';
   const homeUpdatedDate = data.home?.updated_at ? new Date(data.home.updated_at + 'T12:00:00') : null;
   const homeCheckedDate = data.home?.checked_at ? new Date(data.home.checked_at + 'T12:00:00') : null;
   const homeUpdatedLabel = homeUpdatedDate && !Number.isNaN(homeUpdatedDate.getTime())
-    ? homeUpdatedDate.toLocaleDateString('es-UY')
+    ? formatUteDate(data.home.updated_at)
     : 'No disponible';
   const homeCheckedLabel = homeCheckedDate && !Number.isNaN(homeCheckedDate.getTime())
-    ? homeCheckedDate.toLocaleDateString('es-UY')
+    ? formatUteDate(data.home.checked_at)
     : 'No disponible';
   document.querySelectorAll('[data-ute]').forEach(element => {
     const [group, field] = element.dataset.ute.split('.');

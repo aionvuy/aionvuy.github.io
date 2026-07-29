@@ -121,6 +121,17 @@ Reglas:
 - Evitar títulos gigantes y exceso de negrita.
 - Usar párrafos cortos y punto y aparte cuando haya dos ideas completas.
 - El texto secundario usa el color muted, no un tamaño ilegible.
+- Los textos breves que describen formularios, herramientas, tarjetas o resultados usan el ancho disponible de su componente y ajustan sus líneas de forma natural. No aplicarles un `max-width` editorial genérico que los haga parecer cortados dentro de un contenedor ancho.
+- Reservar los límites de aproximadamente `72ch` para contenido de lectura continua identificado expresamente mediante `.page-desc`, `.reading-content`, `.lead`, `.readable-text`, `.section-intro` o una clase equivalente. `.section-copy` no limita el ancho por sí sola.
+- Las cajas semánticas `.info-box`, `.note-box`, `.callout` y `.warning-box` ajustan su ancho al contenido sin superar el ancho disponible. Sus párrafos y listas tampoco reciben un límite editorial automático: deben usar el ancho interior completo de la caja.
+- Cuando una caja semántica realmente necesite una medida de lectura reducida por su contexto, agregar explícitamente `.narrow-reading-width`. No limitar todas las cajas de forma global ni dejar una tarjeta angosta flotando dentro de una sección amplia.
+- El ancho visual de cajas semánticas, avisos desplegables y tablas auxiliares usa `width: fit-content` junto con `max-width: 100%`. En pantallas angostas, el componente se limita al ancho disponible y su contenido se repliega o desplaza dentro del contenedor previsto.
+- Usar `.content-fit` para una tarjeta o componente aislado que no necesita ocupar toda la fila. Usar `.content-fill` solamente cuando el ancho completo aporte estructura: formularios, resultados complejos, comparativas, navegación, tarjetas hermanas dentro de una grilla o bloques que deben alinear columnas.
+- Las tarjetas de una misma grilla conservan el ancho de su pista para mantener alineación y comparación visual. No hacer que cada tarjeta de una grilla tenga un ancho diferente según la longitud del texto.
+- Las tablas auxiliares se ajustan al contenido. Las tablas comparativas, de resultados u operadores pueden ocupar el ancho disponible cuando la alineación entre columnas y el escaneo horizontal lo justifiquen; la decisión debe ser consistente dentro de la página.
+- Esta política es global y se implementa en `_shared.css`: todas las páginas públicas deben cargar ese archivo y no recrear reglas locales incompatibles. Cajas, avisos, tarjetas aisladas y tablas auxiliares heredan el ancho intrínseco; grillas, formularios, comparativas, operadores y resultados heredan las excepciones estructurales compartidas.
+- Al crear un componente nuevo, decidir primero si es `contenido aislado` o `superficie estructural`. El primero usa ancho intrínseco; la segunda ocupa su pista o el ancho disponible. No dejar el ancho implícito al azar ni resolverlo página por página.
+- Ningún párrafo, ayuda o estado puede desbordar su componente. Los contenedores flex o grid que alojan texto deben admitir contracción con `min-width: 0`, y el texto debe poder envolver palabras extensas sin generar recorte ni desplazamiento horizontal.
 - No aplicar un único interlineado a todo el sitio. La escala anterior es transversal y diferencia lectura continua, contenido compacto, tablas, ayudas y títulos.
 - El texto general, las alertas, notas, listas, descripciones extensas y contenido expandido usan `1.55` como valor canónico.
 - Las tarjetas con texto breve pueden usar `1.5`; no bajar de ese valor para párrafos destinados a lectura continua.
@@ -131,6 +142,7 @@ Reglas:
 
 ## 4. Espaciado
 
+- Evitar la suma de márgenes verticales entre componentes consecutivos. Cuando el encabezado, un aviso y la navegación interna aparezcan seguidos, debe existir una sola separación del sistema entre cada bloque.
 Usar la escala de Tabler como base:
 
 - 4 px: separación mínima entre elementos relacionados.
@@ -141,9 +153,14 @@ Usar la escala de Tabler como base:
 Reglas:
 
 - No acumular márgenes de componentes consecutivos.
+- Las secciones principales hermanas usan una separación vertical canónica de `24 px` en escritorio y móvil. El margen pertenece al contenedor de la sección; su primer título no agrega otro margen superior.
+- Entre un título y la tarjeta, tabla o formulario que presenta inmediatamente se usan aproximadamente `12 px` a `16 px`, según la densidad del componente.
+- Los metadatos o fuentes vinculados al bloque anterior pueden comenzar a `16 px`; los enlaces relacionados que constituyen una sección nueva conservan `24 px`.
+- Medir la distancia visible entre los límites reales de componentes consecutivos. No considerar correcto el espaciado solo porque cada clase, por separado, tenga un margen válido.
 - Las tablas, alertas y acordeones no deben quedar pegados entre sí.
 - Los elementos vacíos no reservan altura.
 - En móvil se reduce el ancho, no la legibilidad.
+- Comprobar en escritorio que las ayudas breves no queden confinadas a una columna angosta cuando su tarjeta dispone de espacio libre; en móvil deben reajustarse al ancho interior sin truncado, elipsis ni corte visual.
 
 ## 5. Layout
 
@@ -240,7 +257,26 @@ Reglas:
 - Fondo blanco y bordes suaves.
 - El contenedor debe recortar correctamente el fondo de encabezados y filas: usar el radio estándar de la tarjeta, `overflow: hidden` en el contenedor exterior y heredar el radio en `table-responsive`. Las cuatro esquinas deben verse completas, nunca cuadradas, cortadas ni cubiertas por el fondo de la tabla.
 - Usar `font-variant-numeric: tabular-nums` cuando facilite comparar números.
-- Mantener alineaciones coherentes por columna.
+- Los encabezados de columna se centran para distinguirlos del cuerpo de la tabla. Los encabezados de fila permanecen alineados a la izquierda.
+- Los valores numéricos se alinean a la derecha y usan números tabulares; el texto, los estados y las descripciones se alinean a la izquierda.
+- La alineación depende del contenido real de cada celda, no solamente del tema general de la columna. Por ejemplo, un importe se alinea a la derecha, pero `A confirmar` se mantiene a la izquierda aunque aparezca en una columna de costos.
+- Los valores comparables que incluyen una unidad o un modificador breve —por ejemplo `75,26 kWh`, `Hasta 120 kW` o `180 kW o más`— se consideran numéricos y se alinean a la derecha.
+- Las celdas mixtas con explicación —por ejemplo `$15 a $18/kWh · según horario`— se consideran texto y se alinean a la izquierda. No forzar toda una columna a la derecha si contiene estados o descripciones.
+- Las columnas dedicadas exclusivamente a una acción o control breve, como `Detalle`, `Acción` o `Control`, se centran. Los enlaces que forman parte de un nombre, una fuente o una descripción permanecen alineados a la izquierda.
+- Los iconos, logos e insignias acompañan la alineación del contenido que identifican: icono + texto comienza a la izquierda; un control iconográfico aislado dentro de una columna de acción se centra.
+- Toda página que contenga tablas debe cargar `table-alignment.js`. El script también procesa filas generadas o actualizadas dinámicamente y aplica `.table-cell-numeric`, `.table-cell-text`, `.table-cell-center` y `.table-heading-cell`.
+- Para una excepción semántica que el contenido no permita inferir, usar `data-table-align="left"`, `data-table-align="center"` o `data-table-align="right"` en la celda. No resolverla con estilos `text-align` locales.
+- Una tabla de consulta o directorio puede justificar una excepción por columna cuando reúne identificadores visuales breves o mezcla valores cortos con estados y la alineación individual produce un zigzag que dificulta el escaneo. En ese caso, declarar `data-column-align="left"`, `data-column-align="center"` o `data-column-align="right"` en el `<th>` correspondiente para alinear semánticamente toda la columna.
+- No usar `data-column-align` en tablas analíticas cuando la alineación a la derecha ayuda a comparar magnitudes. En la tabla de operadores de carga, `Conectores` y `Potencia` se centran porque funcionan como referencias breves y la segunda combina valores publicados con estados como `Según punto`.
+- En tablas de horarios, alinear a la izquierda una columna que combine horas exactas con descripciones como `Resto del día fuera de Punta`; las horas no son magnitudes en ese contexto.
+- En tablas de procedencia y actualización, centrar las columnas breves de fecha o estado (`18/6/2026`, `No automatizada`) porque funcionan como metadatos y no como cantidades comparables.
+- En matrices por proveedor o taller, centrar las columnas que combinen importes puntuales con estados breves (`Sin costo`, `Incluido`, `A confirmar`) cuando la lectura principal sea identificar la condición aplicable en cada intersección. Conservar a la derecha los importes de tablas estrictamente analíticas.
+- Se considera **zigzag de alineación** cuando las celdas de una misma columna alternan entre izquierda, centro y derecha sin que esa diferencia ayude a comparar o comprender los datos. No se considera un error cuando una tabla analítica alterna texto y números por fila y la alineación numérica facilita comparar magnitudes equivalentes entre columnas.
+- La auditoría de una página con tablas debe revisar todas las columnas renderizadas, incluidas las filas creadas por JavaScript y los estados posteriores a una interacción. Ante una mezcla de alineaciones, evaluar en este orden: propósito de la tabla, función de la columna, comparabilidad de los valores y resultado visual.
+- Si la columna funciona como identificador, horario descriptivo, metadato, acción o matriz de estados, priorizar una alineación uniforme. Si contiene magnitudes comparables, conservar números a la derecha aunque otras filas incluyan estados textuales.
+- La corrección debe expresarse con `data-column-align` en el encabezado cuando aplique a toda la columna. Reservar `data-table-align` para una excepción real de una única celda. No duplicar estas decisiones con clases o reglas CSS locales.
+- Después de ajustar una alineación, validar como mínimo una vista de escritorio y otra móvil, comprobar que las continuaciones de línea mantengan un eje legible y confirmar que no aparezca desbordamiento horizontal.
+- Mantener alineaciones coherentes entre tablas equivalentes y no introducir centrados locales que contradigan este patrón.
 - No colorear toda una tabla sin una razón semántica.
 - En móvil, permitir desplazamiento de la tabla o adaptar filas según su complejidad; nunca comprimir el texto hasta volverlo ilegible.
 - Si la acción principal queda fuera del primer ancho visible, adaptar la tabla: conservar identificador y acción, y trasladar los datos secundarios al panel expandido.
@@ -289,6 +325,11 @@ Los acordeones equivalentes comienzan cerrados salvo que exista una razón edito
 - El color nunca es el único indicador: conservar título visible e icono MDI coherente con el mensaje.
 - Usar `mdi-information-outline` para información, `mdi-alert-outline` para advertencias, `mdi-alert-circle-outline` para errores y `mdi-check-circle-outline` para confirmaciones.
 - Los iconos semánticos son decorativos cuando el título ya comunica el estado; no duplicar su nombre en texto alternativo ni combinar MDI con emojis equivalentes.
+- Las cajas semánticas mantienen `12 px` de espacio efectivo tanto al inicio como al final del contenido. El borde no debe producir una diferencia visual entre ambos extremos.
+- La separación vertical entre los hijos directos de una caja semántica se controla con un único `gap` de `8 px`. El título, los párrafos, las listas y las acciones directas no agregan márgenes verticales propios que puedan acumularse.
+- Horizontalmente, las cajas con icono usan una retícula fija: `12 px` desde el borde izquierdo hasta el icono, icono de `20 px`, `8 px` entre icono y contenido y `12 px` desde el contenido hasta el borde derecho. El contenido comienza a `40 px` del borde izquierdo; esa diferencia respecto del lado derecho es funcional y no un padding arbitrario.
+- No centrar el contenido para compensar el icono ni igualar el padding textual izquierdo y derecho: la simetría se valida sobre borde–icono y contenido–borde, manteniendo constante el canal reservado al indicador semántico.
+- La igualdad del `padding` declarado no alcanza como validación: comprobar la distancia renderizada desde el borde superior al primer elemento y desde el último elemento al borde inferior, tanto en escritorio como en móvil.
 - No usar una alerta grande para información secundaria.
 - No repetir el mismo mensaje en una alerta y en el párrafo siguiente.
 
@@ -319,6 +360,18 @@ Los acordeones equivalentes comienzan cerrados salvo que exista una razón edito
 - Ubicar cada atajo junto al campo que modifica; no mezclar presets de batería y potencia en un único grupo genérico.
 - Mantener el resultado oculto hasta que todos los campos obligatorios sean válidos.
 - Si el resultado ya aparece en una región `aria-live`, no agregar además un mensaje visible de “resultado actualizado”; reservar el estado auxiliar para errores, cambios pendientes o restablecimientos.
+- En resultados complejos, la región visible debe usar `role="region"` y `aria-labelledby`; el anuncio dinámico debe quedar en un `aria-live` separado, breve y exclusivamente textual. No convertir tablas, tarjetas, enlaces ni bloques completos en regiones vivas.
+- Los resultados deben comenzar con un título visible y un resumen semántico de los datos usados. Evitar mostrar la operación matemática completa cuando alcanza con indicar rango solicitado, porcentaje y energía estimada.
+- Diferenciar explícitamente la potencia publicada por el cargador de la potencia efectiva estimada que usa el cálculo.
+- Si el tipo de carga ya fue seleccionado y aparece en el resumen del resultado, no repetir una columna o insignia AC/DC en la comparación. Usar ese espacio para datos que expliquen el cálculo.
+- En comparaciones de carga, presentar la potencia como `Potencia considerada`: distinguir `Disponible` de `Usada en el cálculo`. La segunda refleja los límites combinados del punto, el operador y el vehículo.
+- No asumir que la persona conoce las siglas AC y DC. En el selector mostrar siempre la sigla, el conector y su significado en lenguaje común: `AC · Tipo 2 — Corriente alterna` y `DC · CCS2 — Corriente continua`. La diferencia de velocidad puede explicarse en el texto de ayuda.
+- Las etiquetas comparativas como `más económico` o `más rápido` solo se muestran cuando existe una comparación real. Si todas las opciones empatan, explicarlo una sola vez y no repetir la misma etiqueta en todas las filas.
+- No usar bordes, colores de advertencia ni etiquetas como `equilibrado` o `referencia rápida` sin una definición objetiva y visible.
+- En móvil, agrupar las variantes tarifarias de un mismo operador dentro de una sola tarjeta. No repetir el nombre, la fuente ni los datos comunes en una tarjeta por cada franja.
+- En tablas de escritorio, cuando varias filas consecutivas pertenecen al mismo operador y comparten tipo y potencia, agrupar visual y semánticamente esas celdas. Las franjas, costos y tiempos permanecen en filas independientes.
+- El color de énfasis del resumen no debe envolver también la tabla, los supuestos y las advertencias. Separar el resumen compacto, la comparación tabular y las notas posteriores para evitar bloques de color excesivamente grandes.
+- Las aclaraciones sobre carga por encima del 80% deben escribirse como una nota asociada al resultado. No usar asteriscos sin explicación inmediata.
 - Mostrar “Valores modificados” únicamente cuando exista un cálculo previo que haya quedado desactualizado; no mostrarlo durante la primera carga de datos.
 - El resultado resume el contexto que lo produjo —modelo y rango de batería— para evitar que el usuario deba reconstruirlo de memoria.
 - Para resultados inicialmente ocultos, usar una región viva separada y siempre disponible para anunciar el resumen calculado. No confiar en mostrar de golpe una región previamente excluida del árbol de accesibilidad.
@@ -668,7 +721,7 @@ Estados:
 
 ### Presentación
 
-- Alinear texto a la izquierda y números comparables a la derecha cuando mejore el escaneo.
+- Alinear texto a la izquierda, números comparables a la derecha y encabezados de columna al centro.
 - No centrar párrafos ni valores extensos.
 - Mantener padding consistente.
 - Evitar celdas con párrafos largos; mover contexto a detalle expandible o nota.
@@ -817,6 +870,13 @@ No usar rojo para información pendiente, cambios de versión o datos a confirma
 - No repetir una limitación en alerta, tabla y nota; elegir la ubicación de mayor utilidad.
 - No repetir el nombre de la sección en un subtítulo inmediato.
 - No repetir `datos para el cálculo` si el título de la calculadora y los labels ya lo explican.
+- La descripción del encabezado debe resumir el propósito de la página; no debe convertirse en una segunda navegación ni enumerar en otro párrafo lo que ya muestran los accesos internos.
+- En formularios, cada texto cumple una sola función: el `label` identifica el dato, la ayuda explica formato o restricciones, el contexto informa un estado dinámico y el estado vacío indica brevemente qué falta. No repetir la misma instrucción en los cuatro lugares.
+- Un placeholder no reemplaza al `label`, pero tampoco obliga a agregar una ayuda que solo diga que se abra o complete el control.
+- Los estados vacíos mencionan la acción general pendiente, sin volver a enumerar todos los campos visibles salvo que esa enumeración ayude a localizar un error.
+- Los supuestos desplegables contienen condiciones adicionales; no repiten que el resultado es estimado si el título, la tabla o una nota visible ya lo informan.
+- La duplicación de datos para escritorio y móvil solo se admite cuando ambas representaciones son mutuamente excluyentes mediante CSS, responden al mismo contenido y se mantienen sincronizadas.
+- Las repeticiones estructurales necesarias —por ejemplo, la etiqueta de navegación y el `h2` de destino, o una misma acción para distintos operadores— no se consideran redundancia editorial.
 
 ### Terminología, estados y fechas canónicas
 
@@ -896,10 +956,22 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 ### Carga pública — `carga-publica.html`
 
 - Contiene la calculadora pública, consumo del viaje, redes, conectores, tarifas de referencia y acceso a apps.
+- Ordenar el recorrido según la tarea principal: calculadora pública → operadores → capacidad y límites → herramientas complementarias → fuentes y actualización → enlaces relacionados.
+- Mantener `24 px` entre esos cuatro bloques principales. El título de cada bloque empieza en el borde superior de su sección y no suma un segundo margen.
+- La navegación interna debe seguir ese mismo orden. El destino de `Calculadora` incluye los datos de batería necesarios para obtener el resultado; no debe saltar directamente a un paso intermedio.
 - Operadores en orden alfabético.
 - Usar tablas o filas expandibles para evitar una página excesivamente larga.
+- En la tabla de operadores, usar una única columna `Conectores`. Tipo 2 ya identifica AC y CCS2 identifica DC: no mostrar además insignias AC/DC cuando el conector está confirmado.
+- Distribuir la tabla de operadores priorizando el nombre, la identificación de carga y las tarifas. La potencia puede usar una columna más compacta y la acción de detalle debe conservar una medida suficiente para no quebrarse.
+- Cuando el conector dependa del punto o no esté publicado, mostrar únicamente `Confirmar en app` en la tabla. La modalidad conocida puede conservarse dentro del detalle expandido, donde aporta contexto sin duplicar Tipo 2 o CCS2.
+- Por debajo de `820 px`, transformar el resumen de operadores en filas compactas con nombre, logo y control de expansión; trasladar modalidad, potencia, conector y tarifa al panel de detalle, en lugar de comprimir cinco columnas. Aplicar también este patrón entre `992 px` y `1100 px`, porque en ese intervalo el menú lateral todavía reduce el ancho útil de la tabla.
 - Mostrar únicamente Tipo 2 y CCS2; otros conectores no son relevantes para este sitio.
+- En el bloque `AC, DC y conectores`, presentar cada concepto como una fila de lista con dos columnas: icono MDI fijo y texto completo. No combinar viñeta, icono e `inline-flex`; las continuaciones de línea deben conservar el mismo eje que el inicio del texto. La caja del icono debe tener la altura de la primera línea y compartir con ella el centro vertical, no limitarse a igualar sus bordes superiores.
 - Tarifas finales, cargos adicionales y verificación en app cuando corresponda.
+- Consolidar las fechas y procedencias de datos al final de la página; no repetir metadatos encima de la tabla de operadores.
+- Presentar una sola descripción breve en el encabezado. Las instrucciones particulares permanecen junto al formulario o herramienta correspondiente.
+- Bajo `Otras herramientas`, no agregar una introducción que se limite a repetir los nombres de las dos calculadoras.
+- No mantener ocultos formularios, secciones ni lógica exclusiva de carga domiciliaria. Las herramientas compartidas deben presentarse bajo `Otras herramientas` y la planificación doméstica permanece en `carga-casa.html`.
 
 ### Aplicaciones — `aplicaciones.html`
 
@@ -911,11 +983,20 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 
 ### Calculadora pública — integrada en `carga-publica.html`
 
-- Flujo: modelo → batería inicial/final → potencia → cálculo.
+- Flujo: modelo → batería inicial/final → tipo de carga AC/DC → potencia → cálculo.
+- Exigir que la persona seleccione AC / Tipo 2 o DC / CCS2 y mostrar únicamente operadores y tarifas compatibles con esa elección.
+- Mostrar AC / Tipo 2 y DC / CCS2 como opciones visibles con su icono MDI correspondiente y texto completo; no ocultarlas dentro de un desplegable ni depender únicamente del icono para identificarlas.
+- Aplicar el límite AC de 6,6 kW para todas las versiones y el límite DC publicado para cada versión.
+- La potencia efectiva de cada fila es la menor entre la potencia ingresada, la potencia publicada para ese operador y el límite del vehículo. Nunca usar la potencia ingresada como sustituto de un límite del operador conocido.
+- Para UTE, usar como referencia pública máxima `120 kW` en DC hasta que una fuente oficial o UTE Mueve confirme otra potencia. Una entrada superior no debe presentar a UTE como si ofreciera esa capacidad.
+- Incluir el cálculo de potencia mediante amperes y volts como herramienta complementaria.
 - Los botones `Copiar resumen` usan `mdi-content-copy` en la interfaz. El resumen copiado usa emojis solo en el texto plano: `⚡` para carga o energía, `🔋` para batería, `⏱️` para duración, `💰` para costo, `📅` para vigencia tarifaria y `🔗` para el enlace directo a la herramienta.
 - Sin valores preseleccionados que produzcan resultados involuntarios.
 - Presets junto a potencia.
 - Resultado accesible, contextual y sin notas irrelevantes.
+- En el estado inicial, usar una indicación breve como `Completá los datos para ver la comparación`; no volver a enumerar versión, porcentajes, tipo y potencia cuando los campos ya están visibles y etiquetados.
+- La ayuda de AC/DC explica el significado de los tipos de carga; el contexto dinámico informa la potencia elegida o el límite aplicado. No duplicar esas funciones.
+- Los supuestos no repiten `El tiempo es aproximado` ni `Los costos son estimados` cuando el resultado y la nota orientativa ya comunican esas condiciones.
 - El límite del modelo se informa solo cuando el cargador lo supera.
 
 ### Calculadora domiciliaria — integrada en `carga-casa.html`
@@ -1174,6 +1255,13 @@ Una página queda aprobada solamente cuando se cumple todo lo siguiente:
 - [ ] No hay tablas o acordeones pegados.
 - [ ] Las esquinas de tarjetas y tablas se ven completas.
 - [ ] No existe desbordamiento horizontal inesperado.
+- [ ] Los textos breves de formularios, herramientas, tarjetas, estados y resultados aprovechan el ancho del componente y no parecen cortados por un límite editorial.
+- [ ] Los límites de longitud de línea se usan solamente en contenido de lectura continua y no como regla genérica para `.section-copy`.
+- [ ] Las cajas de información, nota, advertencia y llamada ajustan su ancho al contenido sin superar el contenedor; solo usan una medida editorial fija cuando llevan expresamente `.narrow-reading-width`.
+- [ ] Las cajas, avisos desplegables, tarjetas aisladas y tablas auxiliares no dejan grandes áreas vacías cuando podrían ajustar su ancho al contenido.
+- [ ] Las tarjetas en grillas y las tablas comparativas o de resultados conservan ancho completo únicamente cuando la alineación o la comparación lo requieren.
+- [ ] Todas las columnas de tablas fueron revisadas en busca de zigzags de alineación; las mezclas restantes aportan una ventaja comparativa real y las excepciones uniformes usan `data-column-align`.
+- [ ] Las tablas dinámicas fueron verificadas después de renderizar datos o resultados, no solamente mediante inspección del HTML inicial.
 - [ ] La experiencia móvil conserva acciones y contexto.
 - [ ] Los controles tienen labels, foco visible y operación por teclado.
 - [ ] Los resultados y errores son anunciables.
