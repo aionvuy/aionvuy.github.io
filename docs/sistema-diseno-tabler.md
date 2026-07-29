@@ -4,7 +4,7 @@ Esta guía es la referencia visual permanente del sitio. Su objetivo es mantener
 
 Referencia visual viva: `prototipo-tabler.html`.
 
-Última actualización de esta especificación: **25/07/2026**.
+Última actualización de esta especificación: **29/07/2026**.
 
 Estado: **consolidado con la implementación vigente del repositorio**. Las reglas globales se aplican a todas las páginas públicas, incluidas las páginas heredadas o de compatibilidad. Las excepciones documentadas bajo una página concreta no se trasladan automáticamente a otras secciones.
 
@@ -195,7 +195,10 @@ Reglas:
 
 - Interfaz, menús, títulos y botones: Material Design Icons (MDI) monocromáticos.
 - Botones: icono pequeño a la izquierda con separación consistente.
-- Enlaces externos: `mdi-open-in-new` cuando aporte claridad.
+- Los enlaces externos de contenido o referencia muestran un indicador visible: `↗` al final del texto o `mdi-open-in-new` cuando el componente utiliza ese icono como indicador explícito.
+- No duplicar el indicador externo: si el control ya usa `mdi-open-in-new`, no agregar también `↗`.
+- Un icono temático como `mdi-link-variant` o `mdi-youtube` no reemplaza el indicador externo; en esos casos conservar `↗`.
+- Los enlaces a YouTube usan exactamente un `mdi-youtube` monocromático. No sumar emojis, SVG, imágenes, pseudoelementos CSS ni un segundo icono de YouTube.
 - No colocar emojis dentro de botones.
 - Evitar mezclar emojis de colores con iconos monocromáticos en un mismo nivel visual.
 - Los emojis pueden usarse dentro del contenido editorial cuando comuniquen una advertencia o información y no exista ya un componente con icono.
@@ -216,6 +219,8 @@ Reglas:
 - En teléfonos angostos, los botones pueden apilarse; no deben desbordar la pantalla.
 - Cuando haya una acción principal y dos secundarias en el encabezado móvil, la principal ocupa una fila completa y las secundarias pueden compartir la fila siguiente; por debajo de `360px`, se apilan todas.
 - Los enlaces dentro de texto siguen siendo enlaces, no botones grandes.
+- Todo enlace que abra otra pestaña usa `target="_blank"`, `rel="noopener noreferrer"` y una aclaración accesible equivalente a `se abre en una pestaña nueva`.
+- La flecha `↗` es visible pero no sustituye la aclaración accesible. Las acciones de marca permanentes, como WhatsApp, pueden usar su icono reconocido sin flecha cuando su destino ya queda explícito en el texto y conservan la aclaración para lectores de pantalla.
 
 ## 9. Tarjetas y métricas
 
@@ -975,8 +980,8 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 
 - Agrupar por tema: pruebas, autonomía, reseñas, multimedia y colores.
 - Los videos de crash tests de ANCAP y Euro NCAP pertenecen exclusivamente a `seguridad.html`; no duplicarlos en esta página.
-- Los enlaces a videos de YouTube usan el icono MDI monocromático `mdi-youtube`.
-- Cada recurso usa una tarjeta liviana con título descriptivo y una única acción `Ver video en YouTube`.
+- Los enlaces a videos de YouTube usan exactamente un icono MDI monocromático `mdi-youtube`; no usar un logo adicional generado por CSS, SVG, imagen o emoji.
+- Cada recurso usa una tarjeta liviana con título descriptivo y una única acción externa `Ver video en YouTube ↗`, más la aclaración accesible de apertura en otra pestaña.
 - Los títulos de página y sección usan MDI monocromáticos; no usar emojis estructurales ni imágenes externas del logo de YouTube.
 - No agregar una caja general de alcance si repite la introducción o el aviso de versiones.
 - Como existen cuatro categorías, incluir navegación interna hacia pruebas y autonomía, reseñas, multimedia y colores. El estado activo debe actualizarse al navegar y al desplazarse.
