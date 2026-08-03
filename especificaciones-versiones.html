@@ -106,7 +106,7 @@
   <h2 class="section-title" id="comparison-detail-title">Especificaciones por modelo</h2>
   <p class="section-copy compact">Los valores idénticos se muestran una sola vez para las versiones correspondientes.</p>
   <form class="comparison-controls" aria-label="Opciones de comparación">
-    <fieldset><legend>Contenido visible</legend><label><input type="radio" name="spec-view" value="all" checked> Todas las especificaciones</label><label><input type="radio" name="spec-view" value="differences"> Solo diferencias</label></fieldset>
+    <fieldset class="comparison-view-toggle"><legend>Vista de especificaciones</legend><div class="comparison-segmented-control"><label><input type="radio" name="spec-view" value="all" checked><span><i class="mdi mdi-format-list-bulleted" aria-hidden="true"></i>Ver todas</span></label><label><input type="radio" name="spec-view" value="differences"><span><i class="mdi mdi-compare-horizontal" aria-hidden="true"></i>Ver solo diferencias</span></label></div></fieldset>
     <div class="comparison-model-selectors"><div class="field"><label for="compare-model-a">Primer modelo</label><select id="compare-model-a"><option value="0">AION V</option><option value="1" selected>AION V Max</option><option value="2">AION V Plus</option></select></div><div class="field"><label for="compare-model-b">Segundo modelo</label><select id="compare-model-b"><option value="0">AION V</option><option value="1">AION V Max</option><option value="2" selected>AION V Plus</option></select></div></div>
   </form>
   <nav class="section-jump-nav comparison-jump-nav" aria-label="Secciones de especificaciones y versiones">
@@ -257,7 +257,9 @@ const comparisonSections=[
 ['Programación de carga','Pendiente de confirmar funcionalidad actual','Pendiente de confirmar para próxima partida',P,P]
 ]}];
 const measuredMetric=/medido|medida|Insonorización|Consumo medido|Radio de giro/;
-comparisonSections.forEach(section=>{section.rows=section.rows.map(row=>{const [label,max,plus]=row;const aion=label==='Precio de lista (USD c/IVA)'?'$34.990 '+O:max;const maxReference=measuredMetric.test(label)?`<span class="cell-stack"><span>${max}</span><span class="cell-secondary">Medición disponible en AION V.</span></span>`:max;return [label,aion,maxReference,plus];});});
+const textForComparison=value=>{const template=document.createElement('template');template.innerHTML=value;return template.content.textContent.replace(/\s+/g,' ').trim();};
+const comparableByRow=new WeakMap();
+comparisonSections.forEach(section=>{section.rows=section.rows.map(row=>{const [label,max,plus]=row;const aion=label==='Precio de lista (USD c/IVA)'?'$34.990 '+O:max;const maxReference=measuredMetric.test(label)?`<span class="cell-stack"><span>${max}</span><span class="cell-secondary">Medición disponible en AION V.</span></span>`:max;const mapped=[label,aion,maxReference,plus];comparableByRow.set(mapped,[aion,max,plus].map(textForComparison));return mapped;});});
 const models=['GAC AION V','GAC AION V Max','GAC AION V Plus'];
 const originFor=label=>{
   if(measuredMetric.test(label))return {html:A,text:'Prueba Autoblog Uruguay'};
@@ -269,6 +271,7 @@ comparisonRoot.innerHTML=comparisonSections.map(section=>{
   const notice=section.notice?`<div class="info-box comparison-future-note"><strong>Configuración de futuras partidas AION V</strong><p>Wi-Fi, comandos de voz, navegación integrada y programación de carga pueden variar entre partidas y versiones de software. Confirmar estas funciones en la unidad ofrecida.</p><ul class="bullet-list"><li>Wi-Fi.</li><li>Comandos de voz.</li><li>Navegación integrada.</li><li>Programación de carga.</li></ul></div>`:'';
   const rowsHtml=section.rows.map(row=>{
     const origin=originFor(row[0]);
+    const comparisonValues=encodeURIComponent(JSON.stringify(comparableByRow.get(row)));
     const comparableValues=row.slice(1).map((value,index)=>{
       const clean=origin?value.replaceAll(origin.html,''):value;
       return {value:clean.trim(),models:[models[index]]};
@@ -283,7 +286,7 @@ comparisonRoot.innerHTML=comparisonSections.map(section=>{
       const modelIndexes=group.models.map(model=>models.indexOf(model)).join(',');
       return `<div class="comparison-value-group comparison-span-${group.models.length}" data-model-indexes="${modelIndexes}"><span class="comparison-model-label">${modelLabel}</span><span class="comparison-value">${group.value}</span></div>`;
     }).join('');
-    return `<article class="comparison-metric" data-shared="${groupedValues.length===1}"><h4>${row[0]}${origin?`<small>${origin.text}</small>`:''}</h4><div class="comparison-values">${values}</div></article>`;
+    return `<article class="comparison-metric" data-comparison-values="${comparisonValues}"><h4>${row[0]}${origin?`<small>${origin.text}</small>`:''}</h4><div class="comparison-values">${values}</div></article>`;
   }).join('');
   return `<section class="comparison-category" id="${section.id}" aria-labelledby="${section.id}-title"><h3 id="${section.id}-title">${section.title}</h3>${notice}<div class="comparison-model-header" aria-hidden="true"><span>Especificación</span>${models.map(model=>`<span>${model}</span>`).join('')}</div>${rowsHtml}${section.note?`<p class="comparison-category-note">${section.note}</p>`:''}</section>`;
 }).join('');
@@ -295,19 +298,31 @@ const modelSelectors=[document.getElementById('compare-model-a'),document.getEle
 function updateComparisonView(){
   const onlyDifferences=document.querySelector('input[name="spec-view"]:checked')?.value==='differences';
   const selected=[...new Set(modelSelectors.map(select=>Number(select.value)))];
+  document.querySelector('.comparison-detail-section')?.style.setProperty('--comparison-visible-models',String(selected.length));
   document.querySelectorAll('.comparison-model-header').forEach(header=>{
     [...header.children].slice(1).forEach((cell,index)=>{cell.hidden=!selected.includes(index);});
   });
   document.querySelectorAll('.comparison-metric').forEach(metric=>{
-    metric.hidden=onlyDifferences&&metric.dataset.shared==='true';
+    const comparableValues=JSON.parse(decodeURIComponent(metric.dataset.comparisonValues));
+    const selectedValues=selected.map(index=>comparableValues[index]);
+    metric.hidden=onlyDifferences&&new Set(selectedValues).size===1;
     metric.querySelectorAll('.comparison-value-group').forEach(group=>{
       const indexes=(group.dataset.modelIndexes||'').split(',').filter(Boolean).map(Number);
       const visible=indexes.filter(index=>selected.includes(index));
       group.hidden=visible.length===0;
+      group.style.gridColumn=visible.length>1?`span ${visible.length}`:'';
       const label=group.querySelector('.comparison-model-label');
       if(label)label.textContent=visible.length===selected.length&&selected.length>1?'Ambos modelos':visible.map(index=>models[index]).join(' y ');
     });
   });
+  document.querySelectorAll('.comparison-category').forEach(category=>{
+    const hasVisibleMetric=[...category.querySelectorAll('.comparison-metric')].some(metric=>!metric.hidden);
+    category.hidden=onlyDifferences&&!hasVisibleMetric;
+    const jumpLink=document.querySelector(`.comparison-jump-nav a[href="#${category.id}"]`);
+    if(jumpLink)jumpLink.hidden=category.hidden;
+  });
+  const activeHidden=document.querySelector('.comparison-jump-nav a.active[hidden]');
+  if(activeHidden){activeHidden.classList.remove('active');document.querySelector('.comparison-jump-nav a:not([hidden])')?.classList.add('active');}
 }
 document.querySelectorAll('input[name="spec-view"]').forEach(input=>input.addEventListener('change',updateComparisonView));
 modelSelectors.forEach(select=>select.addEventListener('change',()=>{if(modelSelectors[0].value===modelSelectors[1].value){const replacement=[0,1,2].find(value=>value!==Number(select.value));(select===modelSelectors[0]?modelSelectors[1]:modelSelectors[0]).value=String(replacement);}updateComparisonView();}));

@@ -949,6 +949,15 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 - No insinuar superioridad mediante color sin criterio explícito.
 - Evitar múltiples tablas pequeñas si una tabla única permite comparar mejor.
 
+### Modelos y datos — `especificaciones-versiones.html`
+
+- La comparación detallada permite elegir exactamente dos modelos.
+- El control de vista usa un selector segmentado claramente visible con las opciones `Ver todas` y `Ver solo diferencias`; conserva radios nativos accesibles, foco visible y estado seleccionado explícito.
+- `Ver solo diferencias` compara únicamente los dos modelos elegidos, no las tres versiones disponibles ni la cantidad de grupos visuales de una fila.
+- La igualdad se determina por el dato técnico canónico. Etiquetas de fuente, estados editoriales y aclaraciones como `Medición disponible en AION V` no convierten por sí solas un mismo valor en una diferencia.
+- Cuando los dos valores canónicos coinciden, la fila completa se oculta en la vista de diferencias, aunque cada modelo necesite una nota de procedencia distinta en la vista completa.
+- Al cambiar cualquiera de los modelos, recalcular de inmediato qué filas son realmente diferentes y mantener los encabezados sincronizados con la pareja visible.
+
 ### Seguridad — `seguridad.html`
 
 - Separar claramente ANCAP, Euro NCAP, ADAS y advertencias.
