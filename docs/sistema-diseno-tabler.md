@@ -217,6 +217,12 @@ Reglas:
 - Un icono temático como `mdi-link-variant` o `mdi-youtube` no reemplaza el indicador externo; en esos casos conservar `↗`.
 - Los enlaces a YouTube usan exactamente un `mdi-youtube` monocromático. No sumar emojis, SVG, imágenes, pseudoelementos CSS ni un segundo icono de YouTube.
 - Los resultados que identifican un tipo de conector muestran el MDI correspondiente junto al texto; el icono complementa y nunca reemplaza las etiquetas `Tipo 2`, `CCS2`, `AC` o `DC`.
+- Los resultados principales de una calculadora se presentan como una región identificada por un título explícito `Resultado de la carga`; no deben confundirse visualmente con la continuación del formulario.
+- El resumen del resultado usa una superficie lavanda muy clara (`--result-bg`), borde violeta tenue (`--result-border`), borde izquierdo de `4px` en `--result-accent` y sombra sutil. El violeta identifica una salida calculada sin reutilizar el lenguaje semántico de información, advertencia, error o éxito.
+- El título `Resultado de la carga` se ubica dentro de esa misma superficie, antes de las métricas o del resumen. No debe quedar flotando por fuera. La tabla o lista detallada aparece después, bajo un subtítulo que explique qué compara o distribuye.
+- Reservar fondos celestes para información contextual, amarillos para advertencias, rojos para errores o situaciones críticas y verdes para confirmaciones o éxito. Los resultados calculados usan la variante violeta y mantienen texto principal oscuro con contraste WCAG AA.
+- Cuando un resultado visible se recalcula automáticamente, mostrar junto al estado un enlace `Ver resultado actualizado` que lleve a la región correspondiente. No desplazar la página automáticamente en cada cambio ni ocultar el acceso antes de que la persona pueda usarlo.
+- En móvil, las comparaciones extensas se transforman en tarjetas accesibles o permanecen dentro de un contenedor desplazable expresamente identificado; nunca deben producir desbordamiento de la página.
 - No colocar emojis dentro de botones.
 - Evitar mezclar emojis de colores con iconos monocromáticos en un mismo nivel visual.
 - Los emojis pueden usarse dentro del contenido editorial cuando comuniquen una advertencia o información y no exista ya un componente con icono.
@@ -797,7 +803,7 @@ Estas reglas son específicas del dominio del sitio:
 ### Resultados
 
 - Permanecen ocultos hasta disponer de datos válidos.
-- El título es explícito: `Resultado estimado`, `Horario sugerido de menor costo`.
+- El título principal es explícito: `Resultado de la carga`. Los modos particulares pueden agregar un rótulo interno más específico, como `Horario sugerido de menor costo`.
 - Resumen de contexto: modelo, batería inicial/final y condiciones relevantes.
 - Pares de datos con `dl`, `dt`, `dd`.
 - Dos decimales para potencia efectiva cuando así esté definido.
@@ -999,6 +1005,8 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 - Flujo: modelo → batería inicial/final → tipo de carga AC/DC → potencia → cálculo.
 - Exigir que la persona seleccione AC / Tipo 2 o DC / CCS2 y mostrar únicamente operadores y tarifas compatibles con esa elección.
 - Mostrar AC / Tipo 2 y DC / CCS2 como opciones visibles con su icono MDI correspondiente y texto completo; no ocultarlas dentro de un desplegable ni depender únicamente del icono para identificarlas.
+- Presentarlas como un selector segmentado de dos botones conectado visualmente. El modo activo usa fondo azul y texto blanco, conserva el radio nativo accesible y mantiene visibles tanto el tipo de corriente como el conector.
+- En escritorio ambos botones comparten una fila y conservan la misma altura que el selector de potencia. Hasta `480 px` se apilan como un único grupo vertical, sin separar los botones en tarjetas independientes.
 - Aplicar el límite AC de 6,6 kW para todas las versiones y el límite DC publicado para cada versión.
 - La potencia efectiva de cada fila es la menor entre la potencia ingresada, la potencia publicada para ese operador y el límite del vehículo. Nunca usar la potencia ingresada como sustituto de un límite del operador conocido.
 - Para UTE, usar como referencia pública máxima `120 kW` en DC hasta que una fuente oficial o UTE Mueve confirme otra potencia. Una entrada superior no debe presentar a UTE como si ofreciera esa capacidad.
@@ -1023,6 +1031,11 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 - Franjas, energía y costo en una tabla legible.
 
 ### Carga en casa — `carga-casa.html`
+
+- `¿Qué querés calcular?` usa un selector segmentado de tres botones con radios nativos accesibles: `A qué hora termina`, `A qué hora empezar` y `Menor costo antes de una hora`.
+- El modo activo se identifica por fondo azul y texto blanco, además del estado nativo `checked`; hover y foco no dependen únicamente del color.
+- En escritorio los tres modos comparten una fila cuando el ancho lo permite. Hasta `640 px` se apilan como un único grupo vertical, con un área interactiva mínima de 44 px y sin desbordamiento.
+- Debajo del selector se explica una sola vez qué hace cada modo. No repetir esa explicación en un helper genérico adicional.
 
 - Integrar planificación domiciliaria, cálculo de potencia y consumo del viaje antes de la guía informativa.
 - Explicar instalación, tarifa, franjas y recomendaciones de seguridad después de las herramientas.

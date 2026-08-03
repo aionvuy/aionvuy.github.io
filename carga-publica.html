@@ -87,7 +87,10 @@
       <a href="#battery-input-title">Modificar datos</a>
     </div>
     <p class="calc-auto-note">Los resultados se actualizan automáticamente al completar los datos.</p>
-    <p class="calc-update-status" id="calc-update-status" aria-live="polite"></p>
+    <div class="calc-update-feedback" id="calc-update-feedback" hidden>
+      <span class="calc-update-status" id="calc-update-status" aria-live="polite"></span>
+      <a class="calc-result-jump" id="calc-result-jump" href="#calc-result"><i class="mdi mdi-arrow-down-circle-outline" aria-hidden="true"></i>Ver resultado actualizado</a>
+    </div>
   </section>
 
   <section class="calc-subsection" id="carga-publica" aria-labelledby="public-calc-title">
@@ -103,7 +106,7 @@
     <p class="error-msg" id="error-msg" role="alert"></p>
     <div class="calc-result" id="calc-result" role="region" aria-labelledby="public-result-title">
       <div class="public-result-header">
-        <h3 class="public-result-title" id="public-result-title">Resultado estimado</h3>
+        <h3 class="public-result-title" id="public-result-title"><i class="mdi mdi-chart-box-outline" aria-hidden="true"></i>Resultado de la carga</h3>
         <dl class="public-result-overview" id="result-summary"></dl>
         <div class="public-result-notes">
           <p class="calc-context-line" id="ute-result-note"></p>
@@ -113,6 +116,7 @@
         <p class="sr-only" id="public-result-announcement" aria-live="polite" aria-atomic="true"></p>
         <div class="result-actions"><button type="button" class="calc-secondary-btn" data-copy="public"><i class="mdi mdi-content-copy" aria-hidden="true"></i> Copiar resumen</button><span class="copy-feedback" id="copy-public-feedback" aria-live="polite"></span></div>
       </div>
+      <h4 class="result-table-title"><i class="mdi mdi-table" aria-hidden="true"></i>Comparación por operador</h4>
       <div class="result-table-wrap result-table-public">
         <table class="result-table">
 <caption class="sr-only" id="public-result-caption">Comparación de costos y tiempos para carga pública</caption>
@@ -370,7 +374,16 @@ function setFieldError(inputId,message=''){const input=$(inputId),field=input?.c
 function clearFieldErrors(){['pct-start','pct-end','charger-power','avg-consumption','trip-km','amps-now','volts-now'].forEach(id=>setFieldError(id,''));['error-msg','trip-error-msg','power-error-msg'].forEach(id=>{$(id).textContent='';$(id).classList.remove('visible');});}
 function validateBattery({show=false}={}){const {s,e,version}=batteryRange();let ok=Boolean(version);if(Number.isFinite(s)&&(s<0||s>99)){setFieldError('pct-start','Ingresá un porcentaje entre 0% y 99%.');ok=false;}else setFieldError('pct-start','');if(Number.isFinite(e)&&(e<1||e>100)){setFieldError('pct-end','Ingresá un porcentaje entre 1% y 100%.');ok=false;}else if(Number.isFinite(s)&&Number.isFinite(e)&&e<=s){setFieldError('pct-end','El porcentaje final debe ser mayor que el inicial.');ok=false;}else setFieldError('pct-end','');if(show&&(!Number.isFinite(s)||!Number.isFinite(e)))ok=false;return ok&&Number.isFinite(s)&&Number.isFinite(e)&&e>s;}
 function updateContext(){const data=batteryRange(),ready=validateBattery(),compact=document.querySelectorAll('[data-context-compact]');if(ready){const text=`AION V ${getVersionLabel(data.version)} · ${data.s}% → ${data.e}% · ${fmtKwh(data.kwh)} kWh`;$('calc-context-value').textContent=text;$('calc-context-value').previousElementSibling.textContent='Datos usados en este cálculo';compact.forEach(el=>el.textContent=text);}else{$('calc-context-value').textContent='Elegí versión, porcentaje inicial y porcentaje final.';$('calc-context-value').previousElementSibling.textContent='Datos de batería pendientes';compact.forEach(el=>el.textContent='Elegí los datos de batería arriba.');}if(data.version){$('trip-context-value').textContent=`AION V ${getVersionLabel(data.version)} · batería de ${fmtKwh(data.battery)} kWh`;}else{$('trip-context-value').textContent='Elegí la versión del AION V para calcular el porcentaje equivalente de batería.';}}
-function showUpdated(){const el=$('calc-update-status');el.textContent='Resultado actualizado';clearTimeout(statusTimer);statusTimer=setTimeout(()=>{el.textContent='';},1800);}
+function showUpdated(targetId='calc-result'){
+  const feedback=$('calc-update-feedback'),status=$('calc-update-status'),link=$('calc-result-jump');
+  status.textContent='Resultado actualizado.';
+  link.href=`#${targetId}`;
+  link.textContent='';
+  link.insertAdjacentHTML('beforeend','<i class="mdi mdi-arrow-down-circle-outline" aria-hidden="true"></i>Ver resultado actualizado');
+  feedback.hidden=false;
+  clearTimeout(statusTimer);
+  statusTimer=setTimeout(()=>{status.textContent='';},3000);
+}
 function getChargerPower(){const preset=$('charger-power-preset').value;return preset==='custom'?parseFloat($('charger-power').value):parseFloat(preset);}
 function updatePublicPowerPresets({reset=false}={}){
   const type=selectedChargeType(),select=$('charger-power-preset'),current=reset?'':select.value,presets=PUBLIC_POWER_PRESETS[type]||[];
@@ -456,30 +469,30 @@ function calcular({silent=false}={}){
   groups.forEach(group=>{
     const card=document.createElement('article');
     card.className='mobile-result-card';
-    card.innerHTML=`<div class="mobile-result-card-header"><h3>${group.name}</h3></div><div class="mobile-result-options">${group.rows.map(r=>{const tags=getTags(r);return `<section class="mobile-result-option"><div class="mobile-result-option-title"><h4>${r.franja}</h4><div class="mobile-result-tags">${tags.html}</div></div><dl><div><dt>Costo estimado</dt><dd class="${tags.isCheapest?'cost-best':''}">${fmtPublicCost(r.cost)}</dd></div><div><dt>Tiempo aproximado</dt><dd>${timeEst(data.kwh,r)}</dd></div><div><dt>Potencia disponible</dt><dd>${fmtKw(r.publishedPower)} kW</dd></div><div><dt>Usada en el cálculo</dt><dd>${fmtEffectiveKw(r.effectivePower)} kW</dd></div></dl></section>`;}).join('')}</div>`;
+    card.innerHTML=`<div class="mobile-result-card-header"><h5>${group.name}</h5></div><div class="mobile-result-options">${group.rows.map(r=>{const tags=getTags(r);return `<section class="mobile-result-option"><div class="mobile-result-option-title"><h6>${r.franja}</h6><div class="mobile-result-tags">${tags.html}</div></div><dl><div><dt>Costo estimado</dt><dd class="${tags.isCheapest?'cost-best':''}">${fmtPublicCost(r.cost)}</dd></div><div><dt>Tiempo aproximado</dt><dd>${timeEst(data.kwh,r)}</dd></div><div><dt>Potencia disponible</dt><dd>${fmtKw(r.publishedPower)} kW</dd></div><div><dt>Usada en el cálculo</dt><dd>${fmtEffectiveKw(r.effectivePower)} kW</dd></div></dl></section>`;}).join('')}</div>`;
     $('public-mobile-cards').appendChild(card);
   });
-  $('public-result-announcement').textContent=`Resultado estimado. ${versionName}. Carga ${chargeType}. ${fmtKwh(data.kwh)} kilovatios hora. ${rows.length} opciones comparadas.`;
+  $('public-result-announcement').textContent=`Resultado de la carga. ${versionName}. Carga ${chargeType}. ${fmtKwh(data.kwh)} kilovatios hora. ${rows.length} opciones comparadas.`;
   const costSummaryLabel=hasComparison?'Opción más económica':'Costo estimado';
   lastPublicSummary=`⚡ Carga pública ${chargeType} / ${connector}\n\n🔋 AION V ${getVersionLabel(data.version)} · ${data.s}% → ${data.e}%\n⚡ Energía estimada: ${fmtKwh(data.kwh)} kWh\n💰 ${costSummaryLabel}: ${cheapest.name} — ${fmtPublicCost(cheapest.cost)}\n⏱️ Tiempo aproximado: ${timeEst(data.kwh,cheapest)}\n📅 Tarifas de referencia vigentes\n\n🔗 Más información: https://aionvuy.github.io/carga-publica.html#carga-publica`;
-  setVisible('dc-empty',false);setVisible('calc-result',true);if(!silent)showUpdated();return rows;
+  setVisible('dc-empty',false);setVisible('calc-result',true);if(!silent)showUpdated('calc-result');return rows;
 }
 function calcularPotencia({silent=false}={}){
   setVisible('power-result',false);setVisible('power-empty',true);$('power-error-msg').classList.remove('visible');
   const amps=parseFloat($('amps-now').value),volts=parseFloat($('volts-now').value);if(!Number.isFinite(amps)&&!Number.isFinite(volts))return null;
   let ok=true;if(Number.isFinite(amps)&&amps<=0){setFieldError('amps-now','Ingresá un valor mayor que 0.');ok=false;}else setFieldError('amps-now','');if(Number.isFinite(volts)&&volts<=0){setFieldError('volts-now','Ingresá un valor mayor que 0.');ok=false;}else setFieldError('volts-now','');if(!ok||!Number.isFinite(amps)||!Number.isFinite(volts))return null;
-  const kw=amps*volts/1000;$('power-result').innerHTML=`Potencia estimada: <strong>${fmtEffectiveKw(kw)} kW</strong>`;setVisible('power-empty',false);setVisible('power-result',true);if(!silent)showUpdated();return kw;
+  const kw=amps*volts/1000;$('power-result').innerHTML=`Potencia estimada: <strong>${fmtEffectiveKw(kw)} kW</strong>`;setVisible('power-empty',false);setVisible('power-result',true);if(!silent)showUpdated('power-result');return kw;
 }
 function costRowsForEnergy(kwh){const publicRows=CHARGERS.map(c=>({label:c.name+' · '+c.franja,rate:c.rate,cost:c.fixed+c.rate*kwh})),homeRows=Object.values(HOME_RATES).map(r=>({label:'UTE hogar · '+r.name,rate:r.rate,cost:r.rate*kwh}));return [...homeRows,...publicRows];}
 function calcularConsumo({silent=false}={}){
   setVisible('trip-result',false);setVisible('trip-empty',true);$('trip-error-msg').classList.remove('visible');
   const avg=parseFloat($('avg-consumption').value),km=parseFloat($('trip-km').value),data=batteryRange();if(!data.version)return null;
   if(!Number.isFinite(avg)&&!Number.isFinite(km))return null;let ok=true;if(Number.isFinite(avg)&&avg<=0){setFieldError('avg-consumption','Ingresá un valor mayor que 0.');ok=false;}else setFieldError('avg-consumption','');if(Number.isFinite(km)&&km<=0){setFieldError('trip-km','Ingresá un valor mayor que 0.');ok=false;}else setFieldError('trip-km','');if(!ok||!Number.isFinite(avg)||!Number.isFinite(km))return null;
-  const kwh=avg*km/100,pct=kwh/data.battery*100;$('trip-summary').innerHTML=`AION V ${getVersionLabel(data.version)} · consumo estimado <strong>${fmtKwh(kwh)} kWh</strong> · equivalente a <strong>${pct.toFixed(1)}%</strong> de batería.`;const tbody=$('trip-cost-tbody');tbody.innerHTML='';costRowsForEnergy(kwh).forEach(row=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${row.label}</td><td class="right mono">${fmtP(row.rate)}</td><td class="cost">${fmtP(row.cost)}</td>`;tbody.appendChild(tr);});lastTripSummary=`📊 Consumo del viaje\n\n🚙 AION V ${getVersionLabel(data.version)}\n⚡ Consumo estimado: ${fmtKwh(kwh)} kWh\n🔋 Equivalente: ${pct.toFixed(1)}% de batería\n💰 Costo de referencia más bajo: ${fmtP(Math.min(...costRowsForEnergy(kwh).map(r=>r.cost)))}\n\n🔗 Más información: https://aionvuy.github.io/carga-publica.html#consumo-viaje`;setVisible('trip-empty',false);setVisible('trip-result',true);if(!silent)showUpdated();return {kwh,pct};
+  const kwh=avg*km/100,pct=kwh/data.battery*100;$('trip-summary').innerHTML=`AION V ${getVersionLabel(data.version)} · consumo estimado <strong>${fmtKwh(kwh)} kWh</strong> · equivalente a <strong>${pct.toFixed(1)}%</strong> de batería.`;const tbody=$('trip-cost-tbody');tbody.innerHTML='';costRowsForEnergy(kwh).forEach(row=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${row.label}</td><td class="right mono">${fmtP(row.rate)}</td><td class="cost">${fmtP(row.cost)}</td>`;tbody.appendChild(tr);});lastTripSummary=`📊 Consumo del viaje\n\n🚙 AION V ${getVersionLabel(data.version)}\n⚡ Consumo estimado: ${fmtKwh(kwh)} kWh\n🔋 Equivalente: ${pct.toFixed(1)}% de batería\n💰 Costo de referencia más bajo: ${fmtP(Math.min(...costRowsForEnergy(kwh).map(r=>r.cost)))}\n\n🔗 Más información: https://aionvuy.github.io/carga-publica.html#consumo-viaje`;setVisible('trip-empty',false);setVisible('trip-result',true);if(!silent)showUpdated('trip-result');return {kwh,pct};
 }
-function autoCalculate(){clearTimeout(autoTimer);autoTimer=setTimeout(()=>{const resultIds=['calc-result','trip-result','power-result'],visibleBefore=new Set(resultIds.filter(id=>$(id).classList.contains('visible')));updateContext();updateChargePowerContext();calcular({silent:true});calcularPotencia({silent:true});calcularConsumo({silent:true});const updatedVisible=resultIds.some(id=>visibleBefore.has(id)&&$(id).classList.contains('visible'));const hasInvalid=document.querySelector('[aria-invalid="true"]');if(calcDirty&&updatedVisible&&!hasInvalid)showUpdated();},300);}
+function autoCalculate(){clearTimeout(autoTimer);autoTimer=setTimeout(()=>{const resultIds=['calc-result','trip-result','power-result'];updateContext();updateChargePowerContext();calcular({silent:true});calcularPotencia({silent:true});calcularConsumo({silent:true});const updatedTarget=resultIds.find(id=>$(id).classList.contains('visible'));const hasInvalid=document.querySelector('[aria-invalid="true"]');if(calcDirty&&updatedTarget&&!hasInvalid)showUpdated(updatedTarget);},300);}
 function setDirty(){calcDirty=true;autoCalculate();}
-function resetCalc(){const hasResults=['calc-result','trip-result','power-result'].some(id=>$(id).classList.contains('visible'));if(calcDirty&&hasResults&&!confirm('¿Restablecer todos los valores de la calculadora?'))return;['version','pct-start','pct-end','charger-power-preset','charger-power','avg-consumption','trip-km','amps-now','volts-now'].forEach(id=>{$(id).value='';});document.querySelectorAll('input[name="charge-type"]').forEach(input=>{input.checked=false;});updatePublicPowerPresets({reset:true});clearFieldErrors();['calc-result','trip-result','power-result'].forEach(id=>setVisible(id,false));['dc-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));$('dc-empty').textContent='Completá los datos para ver la comparación.';lastPublicSummary='';lastTripSummary='';$('calc-update-status').textContent='';calcDirty=false;updateContext();updateChargePowerContext();}
+function resetCalc(){const hasResults=['calc-result','trip-result','power-result'].some(id=>$(id).classList.contains('visible'));if(calcDirty&&hasResults&&!confirm('¿Restablecer todos los valores de la calculadora?'))return;['version','pct-start','pct-end','charger-power-preset','charger-power','avg-consumption','trip-km','amps-now','volts-now'].forEach(id=>{$(id).value='';});document.querySelectorAll('input[name="charge-type"]').forEach(input=>{input.checked=false;});updatePublicPowerPresets({reset:true});clearFieldErrors();['calc-result','trip-result','power-result'].forEach(id=>setVisible(id,false));['dc-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));$('dc-empty').textContent='Completá los datos para ver la comparación.';lastPublicSummary='';lastTripSummary='';$('calc-update-status').textContent='';$('calc-update-feedback').hidden=true;calcDirty=false;updateContext();updateChargePowerContext();}
 async function copyText(text,feedbackId){if(!text)return;const feedback=$(feedbackId);try{await window.AionCopy.copyText(text);feedback.textContent='Resumen copiado';}catch{feedback.textContent='No se pudo copiar el resumen';}setTimeout(()=>{feedback.textContent='';},2500);}
 document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',()=>{const type=btn.dataset.copy;if(type==='public')copyText(lastPublicSummary,'copy-public-feedback');if(type==='trip')copyText(lastTripSummary,'copy-trip-feedback');}));
 $('reset-calc').addEventListener('click',resetCalc);
