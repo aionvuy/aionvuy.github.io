@@ -1503,7 +1503,7 @@ code {
 .home-charge-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
+  gap: 0;
   padding-top: var(--space-3);
   border-top: 1px solid var(--border);
   font-family: var(--font-main);
@@ -1514,8 +1514,12 @@ code {
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+  padding: 0 var(--space-3);
   text-align: center;
   min-width: 0;
+}
+.home-charge-item + .home-charge-item {
+  border-left: 1px solid var(--border);
 }
 .home-charge-item .mdi {
   flex: 0 0 auto;
@@ -1524,27 +1528,35 @@ code {
   line-height: 1;
 }
 .home-charge-name {
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  font-size: var(--type-base);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.home-charge-current,
+.home-charge-connector {
+  color: var(--text-muted);
   font-size: var(--type-sm);
   line-height: 1.35;
 }
-.home-charge-name strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
 .home-charge-limit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  margin: 0.35rem 0 0.2rem;
+  line-height: 1.25;
+}
+.home-charge-limit strong {
   color: var(--accent);
   font-family: var(--mono);
-  font-size: var(--type-base);
+  font-size: var(--type-lg);
   font-weight: 600;
-  line-height: 1.3;
 }
-.home-charge-item small {
-  display: block;
-  color: var(--muted);
+.home-charge-limit small {
+  color: var(--text-muted);
   font-size: var(--type-xs);
   font-weight: 400;
-  line-height: 1.3;
 }
 .stat-label { font-size: 0.74rem; color: var(--muted); letter-spacing: 0; margin-top: 0.25rem; }
 
