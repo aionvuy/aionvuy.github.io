@@ -1,0 +1,14 @@
+{
+  "name": "GAC AION V Uruguay — Guía comunitaria",
+  "short_name": "AION V Uruguay",
+  "description": "Guía comunitaria no oficial para elegir, cargar y mantener el GAC AION V.",
+  "lang": "es-UY",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#0770d1",
+  "icons": [
+    {"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}

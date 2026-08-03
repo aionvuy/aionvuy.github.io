@@ -4885,3 +4885,77 @@ table tbody td.table-cell-center {
     justify-content: flex-start;
   }
 }
+.result-connector-icon {
+  margin-right: .4rem;
+  color: var(--primary);
+  font-size: 1.15em;
+  vertical-align: -.08em;
+}
+
+.calc-mode-explanations {
+  margin: .65rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+  font-size: .8125rem;
+  line-height: 1.5;
+}
+
+.calc-mode-explanations li + li {
+  margin-top: .25rem;
+}
+
+.planner-alternatives {
+  margin-top: .75rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--border);
+}
+
+.planner-alternatives p + p {
+  margin-top: .5rem;
+}
+
+.contracted-power-note {
+  margin-top: 1rem;
+}
+
+.comparison-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: end;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.comparison-controls fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.comparison-controls legend {
+  width: 100%;
+  margin-bottom: .35rem;
+  font-weight: 600;
+}
+
+.comparison-model-selectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(12rem, 1fr));
+  gap: .75rem;
+}
+
+@media (max-width: 640px) {
+  .comparison-controls,
+  .comparison-model-selectors {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}

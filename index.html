@@ -6,13 +6,14 @@
 <meta name="theme-color" content="#0770d1"/>
 <meta name="description" content="Guía comunitaria no oficial para elegir, cargar y mantener el GAC AION V en Uruguay."/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="canonical" href="https://aionvuy.github.io/index.html"/>
+<link rel="canonical" href="https://aionvuy.github.io/"/>
+<link rel="manifest" href="manifest.webmanifest"/>
 <meta property="og:locale" content="es_UY"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="GAC AION V Uruguay"/>
 <meta property="og:title" content="GAC AION V Uruguay · Guía comunitaria"/>
 <meta property="og:description" content="Información comunitaria para elegir, cargar y mantener el GAC AION V."/>
-<meta property="og:url" content="https://aionvuy.github.io/index.html"/>
+<meta property="og:url" content="https://aionvuy.github.io/"/>
 <meta property="og:image" content="https://aionvuy.github.io/social-preview.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
@@ -32,7 +33,7 @@
 <nav class="sidebar-nav" id="sidebar-nav" aria-label="Navegación principal">
 <a href="index.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-home-outline"></i></span> Inicio</a>
 <div class="nav-group-label">Vehículo</div>
-<a href="especificaciones-versiones.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-file-table-outline"></i></span> Versiones</a>
+<a href="especificaciones-versiones.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-file-table-outline"></i></span> Modelos y datos</a>
 <a href="seguridad.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-shield-check-outline"></i></span> Seguridad</a>
 <a href="comandos.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-microphone-outline"></i></span> Comandos de voz</a>
 <div class="nav-group-label">Carga</div>
@@ -84,24 +85,16 @@
 </details>
 
 <section aria-labelledby="versions-title">
-<h2 class="section-title" id="versions-title">Versiones actuales y referencia anterior</h2>
+<h2 class="section-title" id="versions-title">Modelos actuales y referencia anterior</h2>
 <div class="version-grid">
-<article class="version-card">
-<h3>AION V</h3>
-<p class="version-price version-price-inline"><span>USD 34.990</span><span class="historical-version-note">Precio histórico · ya no se comercializa</span></p>
-<div class="hero-stats">
-<div class="stat-item"><span class="stat-val">75,26 kWh</span><span class="stat-label">Batería LFP CATL</span></div>
-<div class="stat-item"><span class="stat-val">602 km NEDC</span><span class="stat-label">Autonomía declarada</span></div>
-<div class="stat-item"><span class="stat-val">Hasta 180 kW</span><span class="stat-label">Carga rápida DC</span></div>
-</div>
-</article>
 <article class="version-card">
 <h3>AION V Max</h3>
 <p class="version-price">USD 31.990</p>
 <div class="hero-stats">
 <div class="stat-item"><span class="stat-val">75,26 kWh</span><span class="stat-label">Batería LFP CATL</span></div>
-<div class="stat-item"><span class="stat-val">602 km NEDC</span><span class="stat-label">Autonomía declarada</span></div>
+<div class="stat-item"><span class="stat-val">6,6 kW</span><span class="stat-label">Carga máxima AC</span></div>
 <div class="stat-item"><span class="stat-val">Hasta 180 kW</span><span class="stat-label">Carga rápida DC</span></div>
+<div class="stat-item"><span class="stat-val">Tipo 2 · CCS2</span><span class="stat-label">Conectores AC y DC</span></div>
 </div>
 </article>
 <article class="version-card">
@@ -109,21 +102,32 @@
 <p class="version-price">USD 28.990</p>
 <div class="hero-stats">
 <div class="stat-item"><span class="stat-val">64,5 kWh</span><span class="stat-label">Batería LFP CATL</span></div>
-<div class="stat-item"><span class="stat-val">505 km NEDC</span><span class="stat-label">Autonomía declarada</span></div>
+<div class="stat-item"><span class="stat-val">6,6 kW</span><span class="stat-label">Carga máxima AC</span></div>
 <div class="stat-item"><span class="stat-val">Hasta 150 kW</span><span class="stat-label">Carga rápida DC</span></div>
+<div class="stat-item"><span class="stat-val">Tipo 2 · CCS2</span><span class="stat-label">Conectores AC y DC</span></div>
+</div>
+</article>
+<article class="version-card">
+<h3>AION V</h3>
+<p class="version-price version-price-inline"><span>USD 34.990</span><span class="historical-version-note">Precio histórico · ya no se comercializa</span></p>
+<div class="hero-stats">
+<div class="stat-item"><span class="stat-val">75,26 kWh</span><span class="stat-label">Batería LFP CATL</span></div>
+<div class="stat-item"><span class="stat-val">6,6 kW</span><span class="stat-label">Carga máxima AC</span></div>
+<div class="stat-item"><span class="stat-val">Hasta 180 kW</span><span class="stat-label">Carga rápida DC</span></div>
+<div class="stat-item"><span class="stat-val">Tipo 2 · CCS2</span><span class="stat-label">Conectores AC y DC</span></div>
 </div>
 </article>
 </div>
 <div class="home-version-actions">
-<a class="primary" href="especificaciones-versiones.html#comparison-detail-title"><i class="mdi mdi-scale-balance" aria-hidden="true"></i>Comparar versiones</a>
-<a class="secondary" href="https://www.gacmotor.uy/modelos/aionV" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-link-variant" aria-hidden="true"></i>Ver página oficial de GAC Uruguay <span class="sr-only">(se abre en una pestaña nueva)</span></a>
+<a class="primary" href="especificaciones-versiones.html#comparison-detail-title"><i class="mdi mdi-scale-balance" aria-hidden="true"></i>Comparar modelos</a>
+<a class="secondary" href="https://www.gacmotor.uy/modelos/aionV" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-open-in-new" aria-hidden="true"></i>Ver página oficial de GAC Uruguay <span class="sr-only">(se abre en una pestaña nueva)</span></a>
 </div>
 </section>
 
 <section aria-labelledby="help-title">
 <h2 class="section-title" id="help-title">¿En qué te podemos ayudar?</h2>
 <div class="home-path-grid">
-<article class="home-path-card"><h3>Estoy evaluando el AION V</h3><p>Versiones, diferencias y seguridad.</p><ul class="home-path-links"><li><a href="especificaciones-versiones.html">Versiones y especificaciones</a></li><li><a href="seguridad.html">Seguridad</a></li></ul></article>
+<article class="home-path-card"><h3>Estoy evaluando el AION V</h3><p>Modelos, diferencias y seguridad.</p><ul class="home-path-links"><li><a href="especificaciones-versiones.html">Modelos y datos</a></li><li><a href="seguridad.html">Seguridad</a></li></ul></article>
 <article class="home-path-card"><h3>Necesito planificar una carga</h3><p>Carga pública, carga en casa y aplicaciones.</p><ul class="home-path-links"><li><a href="carga-publica.html">Carga pública</a></li><li><a href="carga-casa.html">Carga en casa</a></li><li><a href="aplicaciones.html">Aplicaciones</a></li></ul></article>
 <article class="home-path-card"><h3>Ya tengo el vehículo</h3><p>Mantenimiento, costos y problemas reportados.</p><ul class="home-path-links"><li><a href="mantenimiento-postventa.html">Mantenimiento y postventa</a></li><li><a href="costos.html">Costos</a></li><li><a href="problemas.html">Problemas reportados</a></li></ul></article>
 </div>
@@ -131,7 +135,8 @@
 
 <footer class="home-community-note">
 <p>Antes de tomar decisiones de compra, seguridad, carga o costos, verificá la información con las fuentes enlazadas, las automotoras y los proveedores correspondientes.</p>
-<p class="last-updated"><i class="mdi mdi-calendar-outline inline-icon" aria-hidden="true"></i>Última actualización: <time datetime="2026-07-29">29/07/2026</time>.</p>
+<div class="action-links"><a class="action-link whatsapp-link" href="https://chat.whatsapp.com/LQk7ipOKHnLAIgkIAOv9Qv" target="_blank" rel="noopener noreferrer"><i class="mdi mdi-whatsapp" aria-hidden="true"></i>Sumate al grupo de WhatsApp <span class="sr-only">(se abre en una pestaña nueva)</span></a></div>
+<p class="last-updated"><i class="mdi mdi-calendar-outline inline-icon" aria-hidden="true"></i>Última actualización: <time datetime="2026-08-03">03/08/2026</time>.</p>
 </footer>
 </div></main>
 

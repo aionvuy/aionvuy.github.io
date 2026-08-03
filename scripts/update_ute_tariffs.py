@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 
 SOURCE = "https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5"
 HOME_SOURCE = "https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/opciones-tarifarias-para-hogares#collapse-accordion-2071-2"
+PLAN_SOURCE = "https://www.ute.com.uy/clientes/soluciones-para-el-hogar/planes-hogar/plan-inteligente-hogares#tab-323-8"
 OUTPUT = Path(__file__).resolve().parents[1] / "data" / "ute-tarifas.json"
 VAT_RATE = 0.22
 FETCH_TIMEOUT_SECONDS = 45
@@ -111,6 +112,30 @@ def fetch(source: str) -> str:
     raise RuntimeError(f"UTE fetch failed for {source}")
 
 
+def holiday_dates(text: str, year: int) -> list[str]:
+    months = {
+        "enero": 1, "febrero": 2, "marzo": 3, "abril": 4,
+        "mayo": 5, "junio": 6, "julio": 7, "agosto": 8,
+        "setiembre": 9, "septiembre": 9, "octubre": 10,
+        "noviembre": 11, "diciembre": 12,
+    }
+    marker = f"feriados {year}"
+    start = text.rfind(marker)
+    if start < 0:
+        raise ValueError(f"UTE holiday section not found for {year}")
+    section = text[start:start + 4000]
+    dates: set[str] = set()
+    pattern = r"(\d{1,2})(?:\s+y\s+(\d{1,2}))?\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|setiembre|septiembre|octubre|noviembre|diciembre)"
+    for match in re.finditer(pattern, section):
+        month = months[match.group(3)]
+        for raw_day in (match.group(1), match.group(2)):
+            if raw_day:
+                dates.add(f"{year:04d}-{month:02d}-{int(raw_day):02d}")
+    if len(dates) < 10:
+        raise ValueError(f"UTE holiday list looks incomplete for {year}: {len(dates)} dates")
+    return sorted(dates)
+
+
 def home_tariff(html: str, previous: dict) -> dict[str, object]:
     parser = TextParser()
     parser.feed(html)
@@ -139,6 +164,11 @@ def home_tariff(html: str, previous: dict) -> dict[str, object]:
         "punta": rate("punta"),
         "valle": rate("valle"),
         "llano": rate("llano"),
+        "power_rate": 101.50,
+        "power_rate_source": "https://portal.ute.com.uy/sites/default/files/docs/Pliego%20Tarifario%20Enero%202026.pdf",
+        "holidays_source": PLAN_SOURCE,
+        "holidays_year": int(year_match.group(1)),
+        "holidays": holiday_dates(text, int(year_match.group(1))),
     }
     comparable = {key: previous.get(key) for key in values}
     values["updated_at"] = previous.get("updated_at", str(date.today())) if comparable == values else str(date.today())
@@ -148,11 +178,11 @@ def home_tariff(html: str, previous: dict) -> dict[str, object]:
 
 def main() -> None:
     html = fetch(SOURCE)
-    home_html = fetch(HOME_SOURCE)
+    home_html = fetch(PLAN_SOURCE)
 
     parser = TableParser()
     parser.feed(html)
-    year_match = re.search(r"Precios con IVA incluido para el año\s+(20\d{2})", html)
+    year_match = re.search(r"Precios con IVA incluido(?:\s+para el año|\s+vigentes desde enero)\s+(20\d{2})", html, re.IGNORECASE)
     if not year_match:
         raise ValueError("UTE tariff year not found")
 

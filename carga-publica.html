@@ -26,7 +26,7 @@
 <nav class="sidebar-nav" id="sidebar-nav" aria-label="Navegación principal">
 <a href="index.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-home-outline"></i></span> Inicio</a>
 <div class="nav-group-label">Vehículo</div>
-<a href="especificaciones-versiones.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-file-table-outline"></i></span> Versiones</a>
+<a href="especificaciones-versiones.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-file-table-outline"></i></span> Modelos y datos</a>
 <a href="seguridad.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-shield-check-outline"></i></span> Seguridad</a>
 <a href="comandos.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-microphone-outline"></i></span> Comandos de voz</a>
 <div class="nav-group-label">Carga</div>
@@ -116,7 +116,7 @@
       <div class="result-table-wrap result-table-public">
         <table class="result-table">
 <caption class="sr-only" id="public-result-caption">Comparación de costos y tiempos para carga pública</caption>
-          <thead><tr><th scope="col">Operador</th><th scope="col"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i> Potencia considerada</th><th scope="col" class="right"><i class="mdi mdi-clock-outline" aria-hidden="true"></i> Franja</th><th scope="col" class="right"><i class="mdi mdi-cash" aria-hidden="true"></i> Costo total</th><th scope="col" class="right"><i class="mdi mdi-timer-outline" aria-hidden="true"></i> Tiempo aprox.</th></tr></thead>
+          <thead><tr><th scope="col">Operador</th><th scope="col"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i> Potencia considerada</th><th scope="col" data-column-align="left"><i class="mdi mdi-clock-outline" aria-hidden="true"></i> Franja</th><th scope="col" data-column-align="right"><i class="mdi mdi-cash" aria-hidden="true"></i> Costo total</th><th scope="col" data-column-align="right"><i class="mdi mdi-timer-outline" aria-hidden="true"></i> Tiempo aprox.</th></tr></thead>
           <tbody id="result-tbody"></tbody>
         </table>
       </div>
@@ -242,7 +242,7 @@
             <strong>AC, DC y conectores</strong>
             <ul class="connector-list">
               <li><i class="mdi mdi-ev-plug-type2" aria-hidden="true"></i><p><strong>AC / Tipo 2:</strong> carga alterna, normalmente más lenta. En el AION V está limitada a 6,6 kW.</p></li>
-              <li><i class="mdi mdi-ev-plug-ccs2" aria-hidden="true"></i><p><strong>DC / CCS2:</strong> carga rápida en corriente continua. La potencia real depende del cargador, del vehículo, del estado de batería, la temperatura y las condiciones de carga.</p></li>
+              <li><i class="mdi mdi-ev-plug-ccs2" aria-hidden="true"></i><p><strong>DC / CCS2:</strong> carga rápida en corriente continua. El límite publicado es de 180 kW para AION V y AION V Max, y de 150 kW para AION V Plus. La potencia real depende del cargador, del estado de batería, la temperatura y las condiciones de carga.</p></li>
               <li><i class="mdi mdi-speedometer" aria-hidden="true"></i><p>Aunque un cargador publique más potencia, el AION V limita la carga según la versión y las condiciones de la batería.</p></li>
             </ul>
           </div>
@@ -290,7 +290,7 @@
         </section>
 
     <footer class="source-footer public-data-footer">
-      <p><strong>Última actualización de la página:</strong> <time datetime="2026-07-29">29/07/2026</time>.</p>
+      <p><strong>Última actualización de la página:</strong> <time datetime="2026-08-03">03/08/2026</time>.</p>
       <p><strong>UTE:</strong> datos actualizados <span data-ute-updated>cargando…</span>. Última verificación automática: <span data-ute-verified>cargando…</span>.</p>
       <p><strong>eOne:</strong> datos actualizados <span data-eone-updated>cargando…</span>. Última verificación automática: <span data-eone-checked>cargando…</span>.</p>
     </footer>
@@ -445,7 +445,8 @@ function calcular({silent=false}={}){
   const connector=chargeType==='AC'?'Tipo 2':'CCS2';
   const versionName=`AION V ${getVersionLabel(data.version)}`;
   const requestedPercent=(data.e-data.s).toFixed(0);
-  $('result-summary').innerHTML=`<div><dt>Modelo y batería</dt><dd>${versionName} · ${fmtKwh(data.battery)} kWh</dd></div><div><dt>Tipo de carga</dt><dd>${chargeType} · ${connector}</dd></div><div><dt>Rango de batería</dt><dd>${data.s}% → ${data.e}% · ${requestedPercent}% solicitado</dd></div><div><dt>Energía estimada</dt><dd>${fmtKwh(data.kwh)} kWh</dd></div>`;
+  const connectorIcon=chargeType==='AC'?'mdi-ev-plug-type2':'mdi-ev-plug-ccs2';
+  $('result-summary').innerHTML=`<div><dt>Modelo y batería</dt><dd>${versionName} · ${fmtKwh(data.battery)} kWh</dd></div><div><dt>Tipo de carga</dt><dd><i class="mdi ${connectorIcon} result-connector-icon" aria-hidden="true"></i>${chargeType} · ${connector}</dd></div><div><dt>Rango de batería</dt><dd>${data.s}% → ${data.e}% · ${requestedPercent}% solicitado</dd></div><div><dt>Energía estimada</dt><dd>${fmtKwh(data.kwh)} kWh</dd></div>`;
   $('ute-result-note').textContent='Cálculo realizado con las tarifas de referencia publicadas para cada operador.';
   $('public-comparison-note').hidden=!allSameSpeed;
   $('public-comparison-note').textContent=allSameSpeed?'Todas las opciones tienen la misma duración estimada con la potencia seleccionada.':'';

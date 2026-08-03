@@ -10,7 +10,7 @@
 
   const NAV_LABELS = {
     'index.html': 'Inicio',
-    'especificaciones-versiones.html': 'Versiones',
+    'especificaciones-versiones.html': 'Modelos y datos',
     'especificaciones.html': 'Especificaciones',
     'comparativa.html': 'Comparativa',
     'seguridad.html': 'Seguridad',
@@ -230,6 +230,56 @@
     }
   };
 
+  const addStructuredData = () => {
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const manifest = document.createElement('link');
+      manifest.rel = 'manifest';
+      manifest.href = 'manifest.webmanifest';
+      document.head.append(manifest);
+    }
+    const file = pageName();
+    const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.href;
+    const graph = [];
+    if (file === 'index.html') {
+      graph.push({
+        '@type': 'WebSite',
+        '@id': 'https://aionvuy.github.io/#website',
+        url: 'https://aionvuy.github.io/',
+        name: 'GAC AION V Uruguay — Guía comunitaria',
+        inLanguage: 'es-UY'
+      });
+      graph.push({
+        '@type': 'Organization',
+        '@id': 'https://aionvuy.github.io/#community',
+        name: 'GAC AION V Uruguay — guía comunitaria no oficial',
+        url: 'https://aionvuy.github.io/',
+        description: 'Proyecto comunitario no oficial sobre el GAC AION V en Uruguay.'
+      });
+    }
+    if (file !== 'index.html') {
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {'@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://aionvuy.github.io/'},
+          {'@type': 'ListItem', position: 2, name: document.querySelector('h1')?.textContent.trim() || document.title, item: canonical}
+        ]
+      });
+    }
+    if (file === 'preguntas.html') {
+      const mainEntity = [...document.querySelectorAll('details.faq-card')].map(card => ({
+        '@type': 'Question',
+        name: card.querySelector('.faq-question')?.textContent.trim(),
+        acceptedAnswer: {'@type': 'Answer', text: card.querySelector('.faq-body')?.textContent.replace(/\s+/g, ' ').trim()}
+      })).filter(item => item.name && item.acceptedAnswer.text);
+      if (mainEntity.length) graph.push({'@type': 'FAQPage', mainEntity});
+    }
+    if (!graph.length) return;
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({'@context': 'https://schema.org', '@graph': graph});
+    document.head.append(script);
+  };
+
   const addAppInformation = () => {
     const technologyGrid = document.querySelector('#tecnologia-conectividad .cost-grid');
     if (technologyGrid && !document.getElementById('app-aion-internacional')) {
@@ -252,6 +302,7 @@
   };
 
   ready(() => {
+    addStructuredData();
     addAppInformation();
     enhanceNavigation();
     enhanceHeadings();

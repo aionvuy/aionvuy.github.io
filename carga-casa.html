@@ -26,7 +26,7 @@
 <nav class="sidebar-nav" id="sidebar-nav" aria-label="Navegación principal">
 <a href="index.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-home-outline"></i></span> Inicio</a>
 <div class="nav-group-label">Vehículo</div>
-<a href="especificaciones-versiones.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-file-table-outline"></i></span> Versiones</a>
+<a href="especificaciones-versiones.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-file-table-outline"></i></span> Modelos y datos</a>
 <a href="seguridad.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-shield-check-outline"></i></span> Seguridad</a>
 <a href="comandos.html"><span class="nav-icon" aria-hidden="true"><i class="mdi mdi-microphone-outline"></i></span> Comandos de voz</a>
 <div class="nav-group-label">Carga</div>
@@ -142,6 +142,11 @@
         <label><input type="radio" name="home-mode" value="best"> <span>Menor costo antes de una hora</span></label>
       </div>
       <p class="form-help" id="home-mode-help">Elegí el tipo de planificación para la carga en casa.</p>
+      <ul class="calc-mode-explanations">
+        <li><strong>A qué hora termina:</strong> parte de la hora de comienzo que indiques.</li>
+        <li><strong>A qué hora empezar:</strong> calcula el inicio necesario para llegar a la hora límite.</li>
+        <li><strong>Menor costo antes de una hora:</strong> busca el horario más económico que complete la carga a tiempo.</li>
+      </ul>
     </fieldset>
     <div class="calc-inputs home-inputs">
       <div class="field field-current"><label for="home-current">Amperaje de carga</label><select id="home-current" aria-describedby="home-current-help home-current-error"><option value="" selected>Seleccioná el amperaje de carga</option><option value="6">6 A</option><option value="8">8 A</option><option value="10">10 A</option><option value="13">13 A</option><option value="16">16 A</option><option value="20">20 A</option><option value="24">24 A</option><option value="32">32 A</option></select><p class="form-help" id="home-current-help">El cálculo toma 230 V como referencia.</p><p class="field-error" id="home-current-error" role="alert"></p></div>
@@ -159,7 +164,7 @@
       <div class="result-table-wrap">
         <table class="result-table">
 <caption class="sr-only">Distribución estimada de la carga domiciliaria por franja horaria</caption>
-          <thead><tr><th scope="col">Franja</th><th scope="col"><i class="mdi mdi-clock-outline" aria-hidden="true"></i> Horario</th><th scope="col" class="right"><i class="mdi mdi-timer-outline" aria-hidden="true"></i> Tiempo</th><th scope="col" class="right"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i> Energía</th><th scope="col" class="right"><i class="mdi mdi-currency-usd" aria-hidden="true"></i> Precio/kWh</th><th scope="col" class="right"><i class="mdi mdi-cash" aria-hidden="true"></i> Subtotal</th></tr></thead>
+          <thead><tr><th scope="col" data-column-align="left">Franja</th><th scope="col" data-column-align="left"><i class="mdi mdi-clock-outline" aria-hidden="true"></i> Horario</th><th scope="col" data-column-align="right"><i class="mdi mdi-timer-outline" aria-hidden="true"></i> Tiempo</th><th scope="col" data-column-align="right"><i class="mdi mdi-lightning-bolt-outline" aria-hidden="true"></i> Energía</th><th scope="col" data-column-align="right"><i class="mdi mdi-currency-usd" aria-hidden="true"></i> Precio/kWh</th><th scope="col" data-column-align="right"><i class="mdi mdi-cash" aria-hidden="true"></i> Subtotal</th></tr></thead>
           <tbody id="home-result-tbody"></tbody>
         </table>
       </div>
@@ -296,13 +301,18 @@
   <div class="responsive-table">
     <table class="simple-table compact-table ute-home-charging-table">
       <caption class="sr-only">Franjas de UTE Triple Horario para carga domiciliaria</caption>
-      <thead><tr><th scope="col">Franja</th><th scope="col" data-column-align="left">Horario</th><th scope="col">Uso orientativo</th></tr></thead>
+      <thead><tr><th scope="col">Franja</th><th scope="col" data-column-align="left">Horario</th><th scope="col" data-column-align="right">Precio/kWh</th><th scope="col">Uso orientativo</th></tr></thead>
       <tbody>
-        <tr><td><strong>Valle</strong></td><td class="mono">00:00 a 07:00</td><td>Es la franja más conveniente para cargar al menor costo.</td></tr>
-        <tr><td><strong>Llano</strong></td><td>Resto del día fuera de Punta</td><td>Puede completar la carga cuando Valle no alcanza.</td></tr>
-        <tr><td><strong>Punta</strong></td><td>4 horas consecutivas en días hábiles</td><td>Es la franja más cara; conviene evitarla cuando sea posible.</td></tr>
+        <tr><td><strong>Valle</strong></td><td class="mono">00:00 a 07:00</td><td class="numeric-cell mono" data-home-rate="valle">$2,98</td><td>Es la franja más conveniente para cargar al menor costo.</td></tr>
+        <tr><td><strong>Llano</strong></td><td>Resto del día fuera de Punta</td><td class="numeric-cell mono" data-home-rate="llano">$6,31</td><td>Puede completar la carga cuando Valle no alcanza.</td></tr>
+        <tr><td><strong>Punta</strong></td><td>4 horas consecutivas en días hábiles</td><td class="numeric-cell mono" data-home-rate="punta">$14,68</td><td>Es la franja más cara; conviene evitarla cuando sea posible.</td></tr>
       </tbody>
     </table>
+  </div>
+  <div class="info-box contracted-power-note">
+    <strong>Potencia contratada</strong>
+    <p>La tarifa también incluye un cargo mensual por la potencia contratada. Con la referencia vigente de <strong data-home-power-rate>$101,50</strong> por kW, contratar 7 kW representa aproximadamente <strong data-home-power-example>$710,50</strong> al mes.</p>
+    <p>Los 7 kW son la referencia máxima indicada para un suministro monofásico. Como el AION V admite hasta 6,6 kW en AC, no se obtiene mayor potencia de carga contratando más para el vehículo. El resto de los consumos del hogar también debe considerarse.</p>
   </div>
   <div class="info-box">
     <strong>Fines de semana y feriados</strong>
@@ -327,7 +337,7 @@
 <section aria-labelledby="related-home-title">
   <h2 class="section-heading" id="related-home-title"><i class="mdi mdi-link-variant" aria-hidden="true"></i>También te puede servir</h2>
   <div class="action-links">
-    <a class="action-link secondary" href="gestiones-ute.html"><i class="mdi mdi-receipt-text-outline" aria-hidden="true"></i>Gestiones y trámites con UTE</a>
+    <a class="action-link secondary" href="gestiones-ute.html"><i class="mdi mdi-receipt-text-outline" aria-hidden="true"></i>Gestiones y trámites con UTE <i class="mdi mdi-arrow-right" aria-hidden="true"></i></a>
     <a class="action-link secondary" href="carga-publica.html"><i class="mdi mdi-ev-station" aria-hidden="true"></i>Carga pública</a>
   </div>
 </section>
@@ -441,7 +451,7 @@ function calcular({silent=false}={}){
   lastPublicSummary=`⚡ Carga pública\n\n🔋 AION V ${getVersionLabel(data.version)} · ${data.s}% → ${data.e}%\n⚡ Energía estimada: ${fmtKwh(data.kwh)} kWh\n💰 Opción más barata: ${cheapest.name} — ${fmtP(cheapest.cost)}\n⏱️ Tiempo aproximado: ${timeEst(data.kwh,cheapest)}\n📅 Tarifas consultadas: UTE ${document.querySelector('[data-ute-year]')?.textContent||'2026'}\n\n🔗 Más información: https://aionvuy.github.io/carga-casa.html#carga-publica`;
   setVisible('dc-empty',false);setVisible('calc-result',true);if(!silent)showUpdated();return rows;
 }
-const HOME_HOLIDAYS = [
+let HOME_HOLIDAYS = [
   '2026-01-01','2026-01-06','2026-02-16','2026-02-17','2026-04-02','2026-04-03',
   '2026-04-19','2026-05-01','2026-05-18','2026-06-19','2026-07-18','2026-08-25',
   '2026-10-12','2026-11-02','2026-12-25'
@@ -503,7 +513,8 @@ function calcularCasa({silent=false}={}){
         copyLabel=`Carga parcial hasta hora límite: ${Math.round(h.estimatedPct)}%\nCosto estimado: ${fmtP(h.totalCost)}`;
       } else {
         h=bestResult.best;const save=base&&h?base.totalCost-h.totalCost:0;
-        summary=`<p><strong>Horario sugerido de menor costo:</strong> ${homeDateTimeLabel(h.startAbsMinutes)} a ${homeDateTimeLabel(h.finishAbsMinutes)}</p><p><strong>Energía estimada:</strong> ${fmtKwh(h.data.kwh)} kWh</p><p><strong>Tiempo estimado:</strong> ${formatHomeDuration(h.elapsedHours)}</p><p><strong>Costo estimado:</strong> ${fmtP(h.totalCost)}</p><p><strong>Hora límite:</strong> ${homeDateTimeLabel(deadline)}</p><p><strong>Si empezás ahora:</strong> ${fmtP(base.totalCost)} · finaliza ${homeDateTimeLabel(base.finishAbsMinutes)}</p>${save>1?`<p><strong>Ahorro estimado:</strong> ${fmtP(save)}</p>`:''}`;
+        const alternatives=(h.order.length>1||base.order.length>1)?`<div class="planner-alternatives"><p><strong>Con la finalización como referencia:</strong> empezá ${homeDateTimeLabel(h.startAbsMinutes)} y terminá ${homeDateTimeLabel(h.finishAbsMinutes)} · ${fmtP(h.totalCost)}.</p><p><strong>Con el inicio actual como referencia:</strong> empezá ${homeDateTimeLabel(base.startAbsMinutes)} y terminá ${homeDateTimeLabel(base.finishAbsMinutes)} · ${fmtP(base.totalCost)}.</p></div>`:'';
+        summary=`<p><strong>Horario sugerido de menor costo:</strong> ${homeDateTimeLabel(h.startAbsMinutes)} a ${homeDateTimeLabel(h.finishAbsMinutes)}</p><p><strong>Energía estimada:</strong> ${fmtKwh(h.data.kwh)} kWh</p><p><strong>Tiempo estimado:</strong> ${formatHomeDuration(h.elapsedHours)}</p><p><strong>Costo estimado:</strong> ${fmtP(h.totalCost)}</p><p><strong>Hora límite:</strong> ${homeDateTimeLabel(deadline)}</p>${alternatives}${save>1?`<p><strong>Ahorro estimado:</strong> ${fmtP(save)}</p>`:''}`;
         copyLabel=`Horario sugerido: ${homeDateTimeLabel(h.startAbsMinutes)} a ${homeDateTimeLabel(h.finishAbsMinutes)}\nCosto estimado: ${fmtP(h.totalCost)}`;
       }
     }
@@ -543,7 +554,7 @@ function setActiveJump(id){if(!id||id===activeSectionId)return;activeSectionId=i
 jumpLinks.forEach(link=>link.addEventListener('click',()=>setActiveJump(link.getAttribute('href').slice(1))));
 const sectionObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>sectionVisibility.set(entry.target.id,entry.isIntersecting?entry.intersectionRect.height:0));const ranked=[...sectionVisibility.entries()].sort((a,b)=>b[1]-a[1]);if(!ranked.length||ranked[0][1]===0)return;const currentVisible=sectionVisibility.get(activeSectionId)||0;if(ranked[0][0]!==activeSectionId&&ranked[0][1]>=currentVisible+32)setActiveJump(ranked[0][0]);},{threshold:[0,0.15,0.3,0.45,0.6,0.75,0.9],rootMargin:'-12% 0px -35% 0px'});
 ['calculadora-casa','triple-horario','instalacion-segura','otras-herramientas'].forEach(id=>sectionObserver.observe($(id)));
-function applyTariffs(data){CHARGERS=CHARGERS.map(c=>{if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};if(c.id==='ute-dc')return {...c,fixed:data.dc.base,rate:data.dc.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};return c;});applyHomeTariffs(data.home);renderUteTariffs(data);renderPublicTariffSources();autoCalculate();}
+function applyTariffs(data){CHARGERS=CHARGERS.map(c=>{if(c.id==='ute-ac')return {...c,fixed:data.ac.base,rate:data.ac.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};if(c.id==='ute-dc')return {...c,fixed:data.dc.base,rate:data.dc.energy,sourceUrl:data.source||c.sourceUrl,sourceUpdated:data.updated_at||c.sourceUpdated,sourceAutomaticUpdated:data.updated_at||c.sourceAutomaticUpdated};return c;});applyHomeTariffs(data.home);if(Array.isArray(data.home?.holidays))HOME_HOLIDAYS=data.home.holidays;document.querySelectorAll('[data-home-rate]').forEach(cell=>{const band=cell.dataset.homeRate;if(HOME_RATES[band])cell.textContent=fmtP(HOME_RATES[band].rate);});if(Number.isFinite(Number(data.home?.power_rate))){const rate=Number(data.home.power_rate);document.querySelectorAll('[data-home-power-rate]').forEach(el=>el.textContent=fmtP(rate));document.querySelectorAll('[data-home-power-example]').forEach(el=>el.textContent=fmtP(rate*7));}renderUteTariffs(data);renderPublicTariffSources();autoCalculate();}
 ['dc-empty','home-empty','trip-empty','power-empty'].forEach(id=>setVisible(id,true));
 renderPublicTariffSources();
 initHomeStartTime();

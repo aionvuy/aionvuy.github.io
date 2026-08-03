@@ -4,7 +4,7 @@ Esta guía es la referencia visual permanente del sitio. Su objetivo es mantener
 
 Referencia visual viva: `prototipo-tabler.html`.
 
-Última actualización de esta especificación: **29/07/2026**.
+Última actualización de esta especificación: **03/08/2026**.
 
 Estado: **consolidado con la implementación vigente del repositorio**. Las reglas globales se aplican a todas las páginas públicas, incluidas las páginas heredadas o de compatibilidad. Las excepciones documentadas bajo una página concreta no se trasladan automáticamente a otras secciones.
 
@@ -216,6 +216,7 @@ Reglas:
 - No duplicar el indicador externo: si el control ya usa `mdi-open-in-new`, no agregar también `↗`.
 - Un icono temático como `mdi-link-variant` o `mdi-youtube` no reemplaza el indicador externo; en esos casos conservar `↗`.
 - Los enlaces a YouTube usan exactamente un `mdi-youtube` monocromático. No sumar emojis, SVG, imágenes, pseudoelementos CSS ni un segundo icono de YouTube.
+- Los resultados que identifican un tipo de conector muestran el MDI correspondiente junto al texto; el icono complementa y nunca reemplaza las etiquetas `Tipo 2`, `CCS2`, `AC` o `DC`.
 - No colocar emojis dentro de botones.
 - Evitar mezclar emojis de colores con iconos monocromáticos en un mismo nivel visual.
 - Los emojis pueden usarse dentro del contenido editorial cuando comuniquen una advertencia o información y no exista ya un componente con icono.
@@ -269,6 +270,7 @@ Reglas:
 - Una tabla de consulta o directorio puede justificar una excepción por columna cuando reúne identificadores visuales breves o mezcla valores cortos con estados y la alineación individual produce un zigzag que dificulta el escaneo. En ese caso, declarar `data-column-align="left"`, `data-column-align="center"` o `data-column-align="right"` en el `<th>` correspondiente para alinear semánticamente toda la columna.
 - No usar `data-column-align` en tablas analíticas cuando la alineación a la derecha ayuda a comparar magnitudes. En la tabla de operadores de carga, `Conectores` y `Potencia` se centran porque funcionan como referencias breves y la segunda combina valores publicados con estados como `Según punto`.
 - En tablas de horarios, alinear a la izquierda una columna que combine horas exactas con descripciones como `Resto del día fuera de Punta`; las horas no son magnitudes en ese contexto.
+- En la tabla de resultados de carga domiciliaria, `Franja` y `Horario` se alinean a la izquierda para mantener un eje de lectura estable entre horas exactas y textos como `Resto del día`. `Tiempo`, `Energía`, `Precio/kWh` y `Subtotal` se alinean a la derecha porque contienen magnitudes comparables. Declarar estas decisiones mediante `data-column-align` en sus encabezados para que también alcancen a las filas generadas dinámicamente.
 - En tablas de procedencia y actualización, centrar las columnas breves de fecha o estado (`18/6/2026`, `No automatizada`) porque funcionan como metadatos y no como cantidades comparables.
 - En matrices por proveedor o taller, centrar las columnas que combinen importes puntuales con estados breves (`Sin costo`, `Incluido`, `A confirmar`) cuando la lectura principal sea identificar la condición aplicable en cada intersección. Conservar a la derecha los importes de tablas estrictamente analíticas.
 - Se considera **zigzag de alineación** cuando las celdas de una misma columna alternan entre izquierda, centro y derecha sin que esa diferencia ayude a comparar o comprender los datos. No se considera un error cuando una tabla analítica alterna texto y números por fila y la alineación numérica facilita comparar magnitudes equivalentes entre columnas.
@@ -602,7 +604,7 @@ Estructura canónica:
 Inicio
 
 Vehículo
-  Versiones
+  Modelos y datos
   Seguridad
   Comandos de voz
 
@@ -623,8 +625,10 @@ Comunidad
   Preguntas
 ```
 
-- `especificaciones.html` y `comparativa.html` son páginas heredadas: mientras sigan disponibles, deben marcar `Versiones` como opción activa y no reaparecer como destinos principales.
+- `especificaciones.html` y `comparativa.html` son páginas heredadas: mientras sigan disponibles, deben redirigir a `Modelos y datos` y no reaparecer como destinos principales.
 - `calculadora-publica.html` y la calculadora heredada marcan `Pública`; `calculadora-casa.html` marca `En casa`.
+
+Los divisores horizontales no sustituyen títulos ni espaciado. Usarlos solamente para separar bloques extensos y semánticamente distintos dentro de una misma herramienta o sección compleja. Omitirlos entre secciones consecutivas cuando la jerarquía de títulos y el espacio vertical ya expresan la separación.
 
 ### Navegación interna
 
@@ -1067,7 +1071,7 @@ Las correspondencias exactas de emojis, el orden de campos y los textos propios 
 - No agregar una caja general de alcance si repite la introducción o el aviso de versiones.
 - Como existen cuatro categorías, incluir navegación interna hacia pruebas y autonomía, reseñas, multimedia y colores. El estado activo debe actualizarse al navegar y al desplazarse.
 - Al final del listado, identificar el origen general de los enlaces y mostrar `Última actualización` en la línea siguiente.
-- Después de los metadatos, usar un único bloque `También te puede servir` para enlazar Seguridad —donde permanecen los crash tests— y Versiones.
+- Después de los metadatos, usar un único bloque `También te puede servir` para enlazar Seguridad —donde permanecen los crash tests— y Modelos y datos.
 - Títulos descriptivos y neutrales.
 - No introducir nombres de versiones que el contenido no respalde.
 
