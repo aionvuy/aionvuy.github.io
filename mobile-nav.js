@@ -192,6 +192,7 @@
   const enhanceActions = () => {
     document.querySelectorAll('a.action-link, a.primary, a.secondary, button.calc-btn, button.calc-secondary-btn, button.faq-copy-button, .section-jump-nav a, .calc-jump-nav a, .specs-jump-nav a, .comparison-jump-nav a, .home-version-actions a').forEach((control) => {
       if (control.classList.contains('whatsapp-link')) return;
+      if (control.querySelector('[role="img"][aria-label]')) return;
       const href = control.getAttribute('href') || '';
       if (control.classList.contains('youtube-link') || /play\.google\.com|apps\.apple\.com/.test(href)) return;
       const text = control.textContent.replace(/\s+/g, ' ').trim();

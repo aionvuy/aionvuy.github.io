@@ -598,7 +598,10 @@ a { text-underline-offset: 0.18em; }
 }
 
 .home-page .hero-stats {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: 0;
 }
 
 .home-page .stat-val {
@@ -1497,6 +1500,52 @@ code {
 .hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
 .stat-item { display: flex; flex-direction: column; }
 .stat-val { font-family: var(--mono); font-size: 1.6rem; font-weight: 600; color: var(--accent); line-height: 1; }
+.home-charge-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-main);
+  line-height: 1.35;
+}
+.home-charge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+  min-width: 0;
+}
+.home-charge-item .mdi {
+  flex: 0 0 auto;
+  color: var(--accent2);
+  font-size: 2rem;
+  line-height: 1;
+}
+.home-charge-name {
+  color: var(--text-secondary);
+  font-size: var(--type-sm);
+  line-height: 1.35;
+}
+.home-charge-name strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.home-charge-limit {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--type-base);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.home-charge-item small {
+  display: block;
+  color: var(--muted);
+  font-size: var(--type-xs);
+  font-weight: 400;
+  line-height: 1.3;
+}
 .stat-label { font-size: 0.74rem; color: var(--muted); letter-spacing: 0; margin-top: 0.25rem; }
 
 /* WA BANNER */
