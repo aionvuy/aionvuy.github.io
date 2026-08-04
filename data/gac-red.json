@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-07-29",
-  "checked_at": "2026-08-03",
+  "updated_at": "2026-08-04",
+  "checked_at": "2026-08-04",
   "sales_updated_at": "2026-06-18",
-  "post_sales_updated_at": "2026-07-29",
+  "post_sales_updated_at": "2026-08-04",
   "sales_source": "https://www.gacmotor.uy/ventas",
   "post_sales_source": "https://www.gacmotor.uy/postventas",
   "sales": [
@@ -128,6 +128,14 @@
     }
   ],
   "post_sales": [
+    {
+      "name": "Asian Trade",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "8 de Octubre 2767 - Montevideo Tel.: 24870304 Cel.: 099719994 www.wernerbernheim.com.uy 8:00 a 12:30 - 14:00 a 19:00 hs. Lunes a viernes"
+      ]
+    },
     {
       "name": "El Parque",
       "department": "Montevideo",
