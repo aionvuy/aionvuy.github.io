@@ -170,7 +170,7 @@ Reglas:
 - El borde de lectura de todas las páginas usa exactamente el mismo padding horizontal: `32 px` por encima de `1024 px`, `24 px` entre `721 px` y `1024 px`, y `16 px` hasta `720 px`. Ninguna página o clase temática puede agregar margen o padding izquierdo propio al contenedor `.page`.
 - Mientras el menú lateral está visible, el contenedor principal comienza inmediatamente después de sus `17rem` y el `h1` queda separado por el padding canónico anterior. Al pasar a navegación móvil, se elimina el desplazamiento del menú, pero se conserva el padding correspondiente al ancho de pantalla.
 - Fondo general gris muy claro y superficies blancas.
-- En móvil, el menú pasa a encabezado colapsable y el contenido ocupa todo el ancho disponible.
+- En móvil, el menú pasa a un encabezado colapsable que permanece visible durante todo el desplazamiento; el contenido reserva su altura real para no quedar oculto debajo y ocupa todo el ancho disponible.
 - Entre `992px` y `1200px`, mantener el menú lateral de escritorio pero apilar las acciones del encabezado debajo del título para evitar columnas de texto demasiado angostas.
 - Evitar scroll horizontal, salvo contenedores deliberadamente desplazables como tablas y navegación interna.
 
@@ -296,7 +296,7 @@ Reglas:
 - Cuando un resumen y su detalle repitan los mismos datos, usar una única tabla con filas expandibles en lugar de dos bloques separados.
 - El contenido expandido debe aportar contexto, fuentes o acciones nuevas; no debe repetir los valores que ya se ven en la fila principal.
 - Si los datos pueden cambiar, mostrar de forma discreta su procedencia y la fecha de revisión sin competir con el título de sección.
-- Las tablas con desbordamiento horizontal deben tener una indicación visible en móvil y un contenedor enfocable con nombre accesible.
+- Las tablas con desbordamiento horizontal deben tener una indicación visible en móvil y un contenedor enfocable con nombre accesible. El aviso de desplazamiento usa una superficie neutra compacta, texto oscuro semibold, icono MDI en color de acento y borde gris discontinuo; no reutiliza los colores semánticos de información, advertencia o error.
 - La indicación y el `tabindex` dependen del desbordamiento real, no solo del ancho de pantalla; deben activarse también con zoom o ampliación de texto.
 
 ## 11. Acordeones y contenido expandible
