@@ -222,6 +222,7 @@ Reglas:
 - Los resultados principales de una calculadora se presentan como una región identificada por un título explícito `Resultado de la carga`; no deben confundirse visualmente con la continuación del formulario.
 - El resumen del resultado usa una superficie lavanda muy clara (`--result-bg`), borde violeta tenue (`--result-border`), borde izquierdo de `4px` en `--result-accent` y sombra sutil. El violeta identifica una salida calculada sin reutilizar el lenguaje semántico de información, advertencia, error o éxito.
 - El título `Resultado de la carga` se ubica dentro de esa misma superficie, antes de las métricas o del resumen. No debe quedar flotando por fuera. La tabla o lista detallada aparece después, bajo un subtítulo que explique qué compara o distribuye.
+- Todas las herramientas de cálculo, incluidas las auxiliares agrupadas bajo `Otras herramientas`, usan el mismo lenguaje visual de resultado calculado. El resumen comienza dentro de `.calculation-result-surface`, con fondo lavanda `--result-bg`, borde `--result-border`, borde izquierdo de `4px` en `--result-accent`, sombra sutil y un título explícito dentro de la superficie. Si existe una tabla detallada, se presenta inmediatamente después como superficie blanca y no se colorea como una alerta. No dejar resultados auxiliares en cajas grises genéricas ni sin un título accesible.
 - Reservar fondos celestes para información contextual, amarillos para advertencias, rojos para errores o situaciones críticas y verdes para confirmaciones o éxito. Los resultados calculados usan la variante violeta y mantienen texto principal oscuro con contraste WCAG AA.
 - Cuando un resultado visible se recalcula automáticamente, mostrar junto al estado un enlace `Ver resultado actualizado` que lleve a la región correspondiente. No desplazar la página automáticamente en cada cambio ni ocultar el acceso antes de que la persona pueda usarlo.
 - En móvil, las comparaciones extensas se transforman en tarjetas accesibles o permanecen dentro de un contenedor desplazable expresamente identificado; nunca deben producir desbordamiento de la página.
@@ -296,7 +297,7 @@ Reglas:
 - Cuando un resumen y su detalle repitan los mismos datos, usar una única tabla con filas expandibles en lugar de dos bloques separados.
 - El contenido expandido debe aportar contexto, fuentes o acciones nuevas; no debe repetir los valores que ya se ven en la fila principal.
 - Si los datos pueden cambiar, mostrar de forma discreta su procedencia y la fecha de revisión sin competir con el título de sección.
-- Las tablas con desbordamiento horizontal deben tener una indicación visible en móvil y un contenedor enfocable con nombre accesible. El aviso de desplazamiento usa una superficie neutra compacta, texto oscuro semibold, icono MDI en color de acento y borde gris discontinuo; no reutiliza los colores semánticos de información, advertencia o error.
+- Todas las tablas dentro de `.responsive-table` o `.table-responsive` se comprueban según su desbordamiento real. Cuando una tabla desborda, el contenedor recibe foco por teclado y se muestra un aviso asociado mediante `aria-describedby`; si el HTML no lo incluye, `mobile-nav.js` lo crea automáticamente antes de la tabla o de su tarjeta. Esto aplica también a ADAS, tarifas, fuentes y tablas auxiliares angostas. Cuando deja de desbordar, el aviso y el `tabindex` se retiran. La presentación canónica y única usa exactamente el texto `Deslizá horizontalmente para ver todas las columnas.` y el icono de mano con gesto horizontal `mdi-gesture-swipe-horizontal`, marcado como decorativo mediante `aria-hidden="true"`. No usar `mdi-arrow-left-right`, emojis, otras frases ni excepciones por página. El aviso usa una superficie neutra compacta, texto oscuro semibold, icono MDI en color de acento y borde gris discontinuo; no reutiliza los colores semánticos de información, advertencia o error.
 - La indicación y el `tabindex` dependen del desbordamiento real, no solo del ancho de pantalla; deben activarse también con zoom o ampliación de texto.
 
 ## 11. Acordeones y contenido expandible
@@ -814,6 +815,13 @@ Estas reglas son específicas del dominio del sitio:
 - Las advertencias condicionales aparecen únicamente cuando se cumple la condición.
 - Una región viva anuncia el resultado sin duplicarlo visualmente.
 - `Restablecer valores` restaura el estado inicial y limpia resultados, errores y presets.
+- Las calculadoras guardan en `localStorage`, bajo una única clave versionada, las selecciones estables que reducen trabajo repetitivo: modelo, porcentajes de batería y preferencias propias de carga pública o domiciliaria. Los datos permanecen solamente en el navegador y dispositivo de la persona; no se envían al sitio ni a terceros.
+- Las preferencias comunes de modelo y batería se comparten entre Carga pública y Carga en casa. Cada página conserva por separado sus controles específicos: tipo y potencia pública; amperaje, modo de planificación y horario Punta domiciliarios.
+- No guardar fechas, horas de comienzo, horas límite ni entradas transitorias de las herramientas auxiliares. Esos valores pueden quedar vencidos o no representar una preferencia estable.
+- La restauración valida cada valor contra las opciones y rangos vigentes antes de aplicarlo. Un dato antiguo, inválido o ya no disponible se ignora sin bloquear la calculadora.
+- Si el navegador bloquea o no admite almacenamiento local, todas las calculadoras deben seguir funcionando normalmente.
+- `Restablecer valores` también elimina las preferencias persistidas correspondientes a esa calculadora y los campos comunes; no debe borrar las preferencias específicas de la otra página.
+- Informar junto a la nota de actualización automática qué preferencias se conservan en ese navegador, con texto secundario breve y sin presentarlo como advertencia.
 
 ## 28. Alertas, notas y mensajes
 

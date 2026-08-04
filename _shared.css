@@ -495,6 +495,17 @@ a { text-underline-offset: 0.18em; }
 .calc-context a { flex: 0 0 auto; color: var(--text-link); font-size: 0.8125rem; font-weight: 600; }
 .calc-auto-note, .calc-update-status, .calc-context-line { color: var(--text-muted); font-size: var(--type-sm); line-height: 1.5; margin: 0.55rem 0 0.8rem; }
 .calc-auto-note { margin: 0.45rem 0 0; }
+.calc-preference-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin: 0.35rem 0 0;
+}
+.calc-preference-note .mdi {
+  flex: 0 0 auto;
+  margin-top: 0.08rem;
+  color: var(--text-muted);
+}
 .calc-update-status { display: none; margin: 0.4rem 0 0; min-height: 0; color: var(--ok); font-weight: 600; }
 .calc-update-status:not(:empty) { display: block; min-height: 1.1rem; }
 .calc-update-feedback {
@@ -995,6 +1006,22 @@ a { text-underline-offset: 0.18em; }
 .home-total { margin-top: 1rem; padding: 0.9rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; font-size: 0.88rem; }
 .inline-result { display: none; margin-top: 1rem; padding: 0.9rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; font-size: 0.88rem; }
 .inline-result.visible { display: block; }
+.calculation-result-surface {
+  width: 100%;
+  padding: var(--space-4);
+  border: 1px solid var(--result-border);
+  border-left: 4px solid var(--result-accent);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  background: var(--result-bg);
+  box-shadow: 0 1px 3px rgba(24, 36, 51, 0.08);
+}
+.calculation-result-surface .calculation-result-title {
+  margin: 0 0 var(--space-3);
+}
+.calculation-result-surface > :last-child {
+  margin-bottom: 0;
+}
 .mini-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
 .copy-stack { display: grid; gap: 0.65rem; }
 .copy-stack p { margin: 0; }
@@ -4546,24 +4573,18 @@ body.redirect-page {
   overflow-wrap: anywhere;
 }
 
+.table-scroll-hint[hidden] {
+  display: none !important;
+}
+
 .table-scroll-hint .mdi {
   flex: 0 0 auto;
   color: var(--accent);
   font-size: 1.1rem;
 }
 
-.table-scroll-hint.safety-table-hint {
-  display: none;
-}
-
 .safety-summary-grid .heading-icon {
   margin-right: 0.4rem;
-}
-
-@media (max-width: 560px) {
-  .table-scroll-hint.safety-table-hint {
-    display: flex;
-  }
 }
 
 .operator-section-meta {

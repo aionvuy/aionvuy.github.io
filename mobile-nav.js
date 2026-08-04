@@ -231,6 +231,78 @@
     }
   };
 
+  const enhanceScrollableTables = () => {
+    const regions = [...document.querySelectorAll('.responsive-table, .table-responsive')]
+      .filter((region) => region.querySelector('table'));
+
+    if (!regions.length) return;
+
+    const uniqueHintId = (index) => {
+      let id = `table-scroll-hint-${index + 1}`;
+      let suffix = 1;
+      while (document.getElementById(id)) {
+        id = `table-scroll-hint-${index + 1}-${suffix}`;
+        suffix += 1;
+      }
+      return id;
+    };
+
+    const findHint = (region) => {
+      const describedIds = (region.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+      const describedHint = describedIds
+        .map((id) => document.getElementById(id))
+        .find((element) => element?.classList.contains('table-scroll-hint'));
+      if (describedHint) return describedHint;
+
+      const dataHint = document.getElementById(region.dataset.scrollHint || '');
+      if (dataHint?.classList.contains('table-scroll-hint')) return dataHint;
+
+      return [
+        region.previousElementSibling,
+        region.nextElementSibling,
+        region.parentElement?.previousElementSibling,
+        region.parentElement?.nextElementSibling,
+      ].find((element) => element?.classList?.contains('table-scroll-hint')) || null;
+    };
+
+    const entries = regions.map((region, index) => {
+      let hint = findHint(region);
+      if (!hint) {
+        hint = document.createElement('p');
+        hint.className = 'table-scroll-hint';
+        hint.hidden = true;
+        hint.innerHTML = '<i class="mdi mdi-gesture-swipe-horizontal" aria-hidden="true"></i>Deslizá horizontalmente para ver todas las columnas.';
+        const anchor = region.closest('.table-card') || region;
+        anchor.insertAdjacentElement('beforebegin', hint);
+      }
+
+      if (!hint.id) hint.id = uniqueHintId(index);
+      region.dataset.scrollHint = hint.id;
+
+      const describedIds = new Set((region.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
+      describedIds.add(hint.id);
+      region.setAttribute('aria-describedby', [...describedIds].join(' '));
+
+      return { region, hint };
+    });
+
+    const sync = () => {
+      entries.forEach(({ region, hint }) => {
+        const canScroll = region.scrollWidth > region.clientWidth + 1;
+        hint.hidden = !canScroll;
+        if (canScroll) region.setAttribute('tabindex', '0');
+        else region.removeAttribute('tabindex');
+      });
+    };
+
+    window.addEventListener('resize', sync);
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(sync);
+      entries.forEach(({ region }) => observer.observe(region));
+    }
+    window.requestAnimationFrame(sync);
+  };
+
   const addStructuredData = () => {
     if (!document.querySelector('link[rel="manifest"]')) {
       const manifest = document.createElement('link');
@@ -308,6 +380,7 @@
     enhanceNavigation();
     enhanceHeadings();
     enhanceActions();
+    enhanceScrollableTables();
 
     const sidebar = document.querySelector('.sidebar');
     const desktopNav = document.getElementById('sidebar-nav');
