@@ -110,10 +110,6 @@
   background: var(--surface);
 }
 
-.google-form-fallback {
-  margin-top: var(--space-4);
-}
-
 @media (max-width: 1100px) {
   .sticker-layout {
     grid-template-columns: 1fr;
