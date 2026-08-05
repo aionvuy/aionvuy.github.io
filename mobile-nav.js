@@ -5,7 +5,7 @@
     { label: 'Vehículo', links: ['especificaciones-versiones.html', 'seguridad.html', 'comandos.html'] },
     { label: 'Carga', links: ['carga-publica.html', 'carga-casa.html', 'aplicaciones.html', 'gestiones-ute.html'] },
     { label: 'Propiedad', links: ['red.html', 'mantenimiento-postventa.html', 'costos.html'] },
-    { label: 'Comunidad', links: ['videos.html', 'problemas.html', 'preguntas.html'] },
+    { label: 'Comunidad', links: ['calcomanias.html', 'videos.html', 'problemas.html', 'preguntas.html'] },
   ];
 
   const NAV_LABELS = {
@@ -22,6 +22,7 @@
     'red.html': 'Red GAC',
     'mantenimiento-postventa.html': 'Mantenimiento',
     'costos.html': 'Costos',
+    'calcomanias.html': 'Calcomanías',
     'videos.html': 'Videos y experiencias',
     'problemas.html': 'Problemas',
     'preguntas.html': 'Preguntas',
@@ -46,6 +47,7 @@
     'mantenimiento-postventa.html': 'mdi-tools',
     'costos.html': 'mdi-credit-card-outline',
     'comandos.html': 'mdi-microphone-outline',
+    'calcomanias.html': 'mdi-label-outline',
     'videos.html': 'mdi-video-outline',
     'problemas.html': 'mdi-alert-outline',
     'preguntas.html': 'mdi-help-circle-outline',
@@ -62,6 +64,7 @@
     'comparativa.html': 'mdi-scale-balance',
     'especificaciones-versiones.html': 'mdi-file-table-outline',
     'costos.html': 'mdi-credit-card-outline',
+    'calcomanias.html': 'mdi-label-outline',
     'preguntas.html': 'mdi-help-circle-outline',
     'mantenimiento-postventa.html': 'mdi-tools',
     'problemas.html': 'mdi-alert-outline',

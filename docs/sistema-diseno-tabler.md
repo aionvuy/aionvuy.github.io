@@ -629,6 +629,7 @@ Propiedad
   Costos
 
 Comunidad
+  Calcomanías
   Videos y experiencias
   Problemas
   Preguntas
@@ -1363,6 +1364,7 @@ gestiones-ute.html
 red.html
 mantenimiento-postventa.html
 costos.html
+calcomanias.html
 videos.html
 problemas.html
 preguntas.html
