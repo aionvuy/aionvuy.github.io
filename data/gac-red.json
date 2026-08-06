@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-08-04",
-  "checked_at": "2026-08-05",
-  "sales_updated_at": "2026-06-18",
+  "updated_at": "2026-08-06",
+  "checked_at": "2026-08-06",
+  "sales_updated_at": "2026-08-06",
   "post_sales_updated_at": "2026-08-04",
   "sales_source": "https://www.gacmotor.uy/ventas",
   "post_sales_source": "https://www.gacmotor.uy/postventas",
@@ -12,6 +12,14 @@
       "area": "montevideo",
       "details": [
         "Acevedo Díaz 1615, Montevideo Tel.: 24096415 Cel.: 099732633 Correo: ventas@automovilesconcorde.com.uy"
+      ]
+    },
+    {
+      "name": "Dourado Motors",
+      "department": "Montevideo",
+      "area": "montevideo",
+      "details": [
+        "Av. Burgues 3134, Montevideo."
       ]
     },
     {
@@ -71,11 +79,27 @@
       ]
     },
     {
+      "name": "Roda Automóviles",
+      "department": "Cerro Largo",
+      "area": "interior",
+      "details": [
+        "Av. de las Américas 879, Melo, Cerro Largo. Cel.: 091808749"
+      ]
+    },
+    {
       "name": "Delgado Automóviles",
       "department": "Flores",
       "area": "interior",
       "details": [
         "Pancho Lopez (Ruta 3) esq. Florencio Sanchez, Trinidad, Flores Cel.: 099001740 Correo: info@delgadoautomoviles.com"
+      ]
+    },
+    {
+      "name": "Autoplaza Florida",
+      "department": "Florida",
+      "area": "interior",
+      "details": [
+        "Pocho Fernandez 3342, Florida, Florida. Tel.: 4352 0275"
       ]
     },
     {
@@ -108,6 +132,22 @@
       "area": "interior",
       "details": [
         "Treinta y Tres 2079, Rocha Tel.: 44736864 Correo: puntamotors@puntamotors.com"
+      ]
+    },
+    {
+      "name": "Parentini Automotores",
+      "department": "Salto",
+      "area": "interior",
+      "details": [
+        "Av Armando I. Barbieri 2098, Salto. Tel.: 4733 4513"
+      ]
+    },
+    {
+      "name": "Edison Fernández Automóviles",
+      "department": "San José",
+      "area": "interior",
+      "details": [
+        "Ruta 3 Nº 396, San José de Mayo , San José. Tel.: 4342 9794"
       ]
     },
     {
