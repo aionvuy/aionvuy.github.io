@@ -129,6 +129,20 @@ def department_from(title: str, text: str, area: str) -> str:
     return next((name for name in DEPARTMENTS if name.lower() in text.lower()), "Interior")
 
 
+def normalize_post_sales_item(item: dict[str, object]) -> dict[str, object]:
+    if item.get("name") != "Asian Trade":
+        return item
+    normalized = dict(item)
+    normalized["name"] = "Asian Trade (Werner Bernheim)"
+    schedule_pattern = re.compile(
+        r"(?<!Horario: )(\b\d{1,2}:\d{2}\s+a\s+\d{1,2}:\d{2}\s*-\s*"
+        r"\d{1,2}:\d{2}\s+a\s+\d{1,2}:\d{2}\s+hs?\.?\s+Lunes\s+a\s+viernes\b)",
+        re.IGNORECASE,
+    )
+    normalized["details"] = [schedule_pattern.sub(r"Horario: \1", str(value)) for value in item.get("details", [])]
+    return normalized
+
+
 def extract_post_sales(root: Node) -> list[dict[str, object]]:
     locations: list[dict[str, object]] = []
     for card in root.find_all("div", "grid-item"):
@@ -150,7 +164,7 @@ def extract_post_sales(root: Node) -> list[dict[str, object]]:
         links = map_links(card)
         if links:
             item["map"] = links[0]
-        locations.append(item)
+        locations.append(normalize_post_sales_item(item))
     locations = sorted(locations, key=lambda item: (item["area"] != "montevideo", str(item["department"]), str(item["name"])))
     if not locations:
         raise ValueError("No post-sales workshops found in official GAC page")

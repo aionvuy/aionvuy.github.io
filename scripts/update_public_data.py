@@ -123,6 +123,20 @@ def gac_locations(root: Node) -> list[dict[str, object]]:
     return sorted(locations, key=lambda item: (item["area"] != "montevideo", str(item["department"]), str(item["name"])))
 
 
+def normalize_post_sales_item(item: dict[str, object]) -> dict[str, object]:
+    if item.get("name") != "Asian Trade":
+        return item
+    normalized = dict(item)
+    normalized["name"] = "Asian Trade (Werner Bernheim)"
+    schedule_pattern = re.compile(
+        r"(?<!Horario: )(\b\d{1,2}:\d{2}\s+a\s+\d{1,2}:\d{2}\s*-\s*"
+        r"\d{1,2}:\d{2}\s+a\s+\d{1,2}:\d{2}\s+hs?\.?\s+Lunes\s+a\s+viernes\b)",
+        re.IGNORECASE,
+    )
+    normalized["details"] = [schedule_pattern.sub(r"Horario: \1", str(value)) for value in item.get("details", [])]
+    return normalized
+
+
 def eone_points(root: Node) -> list[dict[str, str]]:
     texts: list[str] = []
     for module in root.find_all("div", "et_clickable"):
@@ -165,7 +179,7 @@ def main() -> None:
     gac_path = ROOT / "data" / "gac-red.json"
     previous_gac = json.loads(gac_path.read_text(encoding="utf-8")) if gac_path.exists() else {}
     sales = gac_locations(fetch(SOURCES["sales"]))
-    post_sales = gac_locations(fetch(SOURCES["post_sales"]))
+    post_sales = [normalize_post_sales_item(item) for item in gac_locations(fetch(SOURCES["post_sales"]))]
     today = str(date.today())
     gac = {
         "sales_updated_at": previous_gac.get("sales_updated_at", previous_gac.get("updated_at", today))

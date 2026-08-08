@@ -78,6 +78,7 @@ function standardHours(item, value) {
     'GAC Motor|Montevideo': '09:00–13:00 y 14:00–18:00.',
     'Vladimir|Montevideo': 'Lunes a viernes: 09:00–18:00. Sábados: 10:00–13:00.',
     'El Parque|Montevideo': 'Lunes a viernes: 08:30–18:00.',
+    'Asian Trade (Werner Bernheim)|Montevideo': 'Lunes a viernes: 08:00–12:30 y 14:00–19:00.',
     'Vladimir Automóviles|Montevideo': 'Lunes y martes: 08:30–12:30 y 14:00–18:30. Miércoles a viernes: 08:30–12:30 y 13:30–18:30.',
     'Punta Motors|Maldonado': 'Lunes a viernes: 09:00–13:00 y 14:00–18:30. Sábados: 09:00–13:00.'
   };
