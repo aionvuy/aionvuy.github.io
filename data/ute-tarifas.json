@@ -1,7 +1,7 @@
 {
   "year": 2026,
   "updated_at": "2026-06-18",
-  "checked_at": "2026-08-11",
+  "checked_at": "2026-08-12",
   "source": "https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5",
   "ac": {
     "base": 54.8,
@@ -43,6 +43,6 @@
       "2026-12-25"
     ],
     "updated_at": "2026-08-03",
-    "checked_at": "2026-08-11"
+    "checked_at": "2026-08-12"
   }
 }
