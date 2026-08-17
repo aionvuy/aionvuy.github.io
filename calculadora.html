@@ -149,6 +149,7 @@
       <div class="mobile-result-cards" id="public-mobile-cards"></div>
       <p class="calc-context-line">Estimación orientativa: el tiempo real depende del estado de carga, temperatura, curva de carga, disponibilidad y potencia efectiva del cargador.</p>
       <details class="calc-assumptions"><summary>Ver supuestos del cálculo</summary><ul class="bullet-list"><li>La potencia se limita por versión.</li><li>El tiempo es aproximado.</li><li>El tramo de 80% a 100% suele ser más lento.</li><li>Los costos son estimados según las tarifas listadas.</li><li>No se garantiza disponibilidad ni funcionamiento de la estación.</li></ul></details>
+      <div class="warning-box"><strong>Cargo por permanecer conectado en DMC Mobility</strong><ul class="bullet-list"><li>Después de finalizar la carga hay 10 minutos de tolerancia.</li><li>Luego se cobran $15 por minuto.</li><li>Este cargo no está incluido en el cálculo.</li></ul></div>
       <div class="warning-box"><strong>Espacio privado en UTE</strong><ul class="bullet-list"><li>Algunos puntos de carga UTE pueden cobrar además un costo fijo variable identificado como “Espacio privado”.</li><li>Ese importe no está incluido en este cálculo.</li><li>Verificá el valor en <a href="aplicaciones.html#aplicaciones-carga">UTE Mueve</a> antes de cargar.</li></ul></div>
     </div>
   </section>
@@ -333,10 +334,8 @@ let CHARGERS = [
   {name:'Red pública UTE · DC',op:'UTE',type:'DC',powerLabel:'según estación',franja:'tarifa DC',fixed:132.9,rate:11.8,timeKw:null,id:'ute-dc',sourceName:'UTE',sourceUrl:'https://portal.ute.com.uy/movilidad-sostenible-carga?tab=5',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'2026-06-18',sourceType:'Página oficial de UTE'},
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'00:00–18:00 y 22:00–24:00',fixed:0,rate:18.3,timeKw:180,id:'eone-off',sourceName:'eOne',sourceUrl:'https://eone.eco/puntos-de-carga/',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'',sourceType:'Página oficial de eOne'},
   {name:'eOne (todas las ubicaciones)',op:'eOne',type:'DC',powerLabel:'180 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:23.85,timeKw:180,isPeak:true,id:'eone-peak',sourceName:'eOne',sourceUrl:'https://eone.eco/puntos-de-carga/',sourceUpdated:'2026-06-18',sourceAutomaticUpdated:'',sourceType:'Página oficial de eOne'},
-  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'00:00–07:00',fixed:0,rate:15,timeKw:120,id:'dmc-valle',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
-  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'07:00–18:00',fixed:0,rate:16,timeKw:120,id:'dmc-dia',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
-  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'18:00–22:00 · PICO',fixed:0,rate:18,timeKw:120,isPeak:true,id:'dmc-peak',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
-  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'22:00–24:00',fixed:0,rate:16,timeKw:120,id:'dmc-noche',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-06-30',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'}
+  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'00:00–06:00',fixed:0,rate:9,timeKw:120,id:'dmc-madrugada',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-08-17',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'},
+  {name:'DMC Mobility',op:'DMC',type:'DC',powerLabel:'120 kW',franja:'06:00–00:00',fixed:0,rate:19.5,timeKw:120,id:'dmc-dia',sourceName:'DMC Mobility',sourceUrl:'',sourceUpdated:'2026-08-17',sourceAutomaticUpdated:'',sourceType:'App dmcmobility / aporte comunitario'}
 ];
 let lastPublicSummary='',lastHomeSummary='',lastTripSummary='',calcDirty=false,autoTimer=null,statusTimer=null;
 function $(id){return document.getElementById(id);}
